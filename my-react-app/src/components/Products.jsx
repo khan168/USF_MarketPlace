@@ -36,7 +36,12 @@ const pop_data = [
   {
     id: 7,
     title: "Room Fan",
-    src: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQtsG_MjOoougsnONH9fAkgpVcMmP3Uc31uEA&usqp=CAU",
+    src: "./images.jpeg",
+  },
+  {
+    id: 8,
+    title: "Room Fan",
+    src: "./images.jpeg",
   },
 ];
 

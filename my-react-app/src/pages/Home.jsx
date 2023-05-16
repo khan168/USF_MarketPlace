@@ -14,7 +14,6 @@ const Home = () => {
     
       <Announcement></Announcement>
       <Navbar/>
-      <br />
       <Slider></Slider>
       <Categories></Categories>
       <Products></Products>

@@ -13,14 +13,14 @@ const Title = styled.h1`
 
 const Container = styled.div`
   flex: 1;
-  margin: 3px;
+  margin: 10px;
   height: 70vh;
   position: relative;
 `;
 
 const Info = styled.div`
   position: absolute;
-  top: 0;
+  top: 160px;
   left: 0;
   width: 100%;
   height: 100%;

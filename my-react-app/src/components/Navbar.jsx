@@ -3,6 +3,7 @@ import styled from "styled-components"
 import SearchIcon from "@mui/icons-material/Search";
 import Badge from '@mui/material/Badge';
 import ShoppingCartIcon from '@mui/icons-material/ShoppingCart';
+import { Link } from 'react-router-dom';
 
 const  SimpleBadge=()=> {
   return (
@@ -68,27 +69,37 @@ const Navbar = () => {
     margin-left: 25px;
    `
 
-  return (
-    <Container>
-      <Wrapper>
-        <Left>
-          <Language>EN</Language>
-          <SearchContainer>
-            <Input></Input>
-            <SearchIcon></SearchIcon>
-          </SearchContainer>
-        </Left>
-        <Center>
-          <Logo>Bulls Buy</Logo>
-        </Center>
-        <Right>
-          <MenuItem><SimpleBadge></SimpleBadge></MenuItem>
-          <MenuItem>REGISTER</MenuItem>
-          <MenuItem>LOGIN</MenuItem>
-        </Right>
-      </Wrapper>
-    </Container>
-  );
+    return (
+      <Container>
+        <Wrapper>
+          <Left>
+            <Language>EN</Language>
+            <SearchContainer>
+              <Input></Input>
+              <SearchIcon></SearchIcon>
+            </SearchContainer>
+          </Left>
+          <Center>
+            <Logo>Bulls Buy</Logo>
+          </Center>
+          <Right>
+            <MenuItem>
+              <SimpleBadge></SimpleBadge>
+            </MenuItem>
+            <MenuItem>
+              <Link to="/register" style={{ textDecoration: "none" }}>
+                REGISTER
+              </Link>
+            </MenuItem>
+            <MenuItem>
+              <Link to="/login" style={{ textDecoration: "none" }}>
+                LOGIN
+              </Link>
+            </MenuItem>
+          </Right>
+        </Wrapper>
+      </Container>
+    );
 }
 
 export default Navbar

@@ -3,7 +3,7 @@ import ProductList from './pages/ProductList'
 import { createBrowserRouter, RouterProvider } from "react-router-dom";
 import Home from "./pages/Home";
 import Register from "./pages/Register";
-import Login from "./pages/Login";
+import Login from "./pages/login";
 import SingleProduct from "./pages/SingleProduct";
 
 

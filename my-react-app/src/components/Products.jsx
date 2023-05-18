@@ -43,6 +43,26 @@ const pop_data = [
     title: "Room Fan",
     src: "./images.jpeg",
   },
+  {
+    id: 9,
+    title: "Room Fan",
+    src: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQtsG_MjOoougsnONH9fAkgpVcMmP3Uc31uEA&usqp=CAU",
+  },
+  {
+    id: 10,
+    title: "Room Fan",
+    src: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQtsG_MjOoougsnONH9fAkgpVcMmP3Uc31uEA&usqp=CAU",
+  },
+  {
+    id: 11,
+    title: "Room Fan",
+    src: "./images.jpeg",
+  },
+  {
+    id: 12,
+    title: "Room Fan",
+    src: "./images.jpeg",
+  },
 ];
 
 

@@ -2,13 +2,13 @@ import React from 'react'
 import styled from "styled-components"
 import SearchIcon from "@mui/icons-material/Search";
 import Badge from '@mui/material/Badge';
-import ShoppingCartIcon from '@mui/icons-material/ShoppingCart';
+import FavoriteIcon from "@mui/icons-material/Favorite";
 import { Link } from 'react-router-dom';
 
 const  SimpleBadge=()=> {
   return (
     <Badge badgeContent={4} color="primary">
-      <ShoppingCartIcon color="action" />
+      <FavoriteIcon color="action" />
     </Badge>
   );
 }
@@ -17,6 +17,7 @@ const  SimpleBadge=()=> {
 const Navbar = () => {
   const Container = styled.div`
     height:60px;
+    background-color: white;
   `
   const Wrapper=styled.div`
     padding: 10px 20px;

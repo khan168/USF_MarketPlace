@@ -6,7 +6,6 @@ import Register from "./pages/Register";
 import Login from "./pages/login";
 import SingleProduct from "./pages/SingleProduct";
 
-
 const router = createBrowserRouter([
   {
     path: "/",
@@ -27,7 +26,7 @@ const router = createBrowserRouter([
   {
     path: "/single",
     element: <SingleProduct />,
-  },
+  }
 ]);
 
 export const App = () => {

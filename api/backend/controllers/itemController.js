@@ -5,11 +5,48 @@ const Item = require('../models/itemModel')
 // @desc Get item
 // @route GET /api/items
 // @access Private
+//find by post id
 const getItem = asyncHandler(async (req, res) => {
+    const items = await Item.findById(req.body.id)
+
+    if (items) {
+        res.status(200).json(item)
+    } else {
+        res.status(404).json({ message: 'Item not found' })
+    }
+})
+
+// @desc Get all Items
+// @route GET /api/items
+// @access Private
+
+const getAllItems = asyncHandler(async (req, res) => {
     const items = await Item.find({})
 
-    res.status(200).json(items)
+    if(items && items.length !== 0){
+        res.status(200).json(items)
+    } else {
+        res.status(404)
+        throw new Error('No items found')
+    }
 })
+
+// @desc Get All Items by Category
+// @route GET /api/items
+// @access Private
+
+const getAllItemsByCategory = asyncHandler(async (req, res) => {
+    const category = req.body.category; // assuming category is sent in the request body
+    const items = await Item.find({ category: category })
+
+    if(items && items.length !== 0){
+        res.status(200).json(items)
+    } else {
+        res.status(404)
+        throw new Error(`No items found in category: ${category}`)
+    }
+})
+
 
 
 // @desc Set item
@@ -22,10 +59,12 @@ const addItem = asyncHandler(async (req, res) => {
     }
 
     const item = await Item.create({
+        user: req.body.user,
         title: req.body.title,
         description: req.body.description,
         price: req.body.price,
         category: req.body.category,
+        images: req.body.images
     })
 
     res.status(200).json(item)
@@ -71,4 +110,6 @@ module.exports = {
     addItem,
     updateItem,
     deleteItem,
+    getAllItems,
+    getAllItemsByCategory,
 }

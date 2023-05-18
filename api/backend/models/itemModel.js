@@ -7,7 +7,6 @@ const itemSchema = mongoose.Schema(
       required: true,
       ref: 'User'
     },
-    
     title: {
       type: String,
       required: true
@@ -18,11 +17,7 @@ const itemSchema = mongoose.Schema(
     },
     price: {
       type: Number,
-      required: true
-    },
-    quantity: {
-      type: Number,
-      default: 1
+      required: false
     },
     category: {
       type: String,

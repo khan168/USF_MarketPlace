@@ -5,7 +5,7 @@ const User = require('../models/userModel')
 
 
 // @desc Register user
-// @route POST /api/users
+// @route POST /api/users/register
 // @access Public
 const registerUser = asyncHandler(async (req, res) => {
 
@@ -39,6 +39,7 @@ const registerUser = asyncHandler(async (req, res) => {
             _id: user._id,
             name: user.name,
             email: user.email,
+            token: generateToken(user._id)
         })
     } else {
         res.status(400)
@@ -60,25 +61,67 @@ const loginUser = asyncHandler(async (req, res) => {
             _id: user._id,
             name: user.name,
             email: user.email,
+            token: generateToken(user._id)
         })
     } else {
         res.status(401)
         throw new Error('Invalid email or password')
     }
-
-
-    res.json({message: 'Login User'})
 })
+
+// @desc Logout user
+// @route GET /api/users/logout
+// @access Private
+const logoutUser = asyncHandler(async (req, res) => {
+    // Replace the JWT with a blank string that expires in 1 second
+    const blankToken = jwt.sign({ id: '' }, process.env.JWT_SECRET, {
+      expiresIn: '1s',
+    });
+  
+    // Set the new token as the authorization header
+    req.headers.authorization = `Bearer ${blankToken}`;
+  
+    res.json({ message: 'User logged out successfully' });
+  });
+  
 
 // @desc Get user data
-// @route Get /api/users/me
-// @access Public
-const getMe = asyncHandler(async (req, res) => {
-    res.json({message: 'User data received'})
+// @route GET /api/users/
+// @access Private
+const getUser = asyncHandler(async (req, res) => {
+    const {_id, name, email} = await User.findById(req.user.id)
+
+    res.status(200).json({
+        id: _id,
+        name,
+        email,
+    })
 })
+
+// @desc Delete user data
+// @route DELETE /api/users/
+// @access Private
+const deleteUser = asyncHandler(async (req, res) => {
+    await User.findByIdAndRemove(req.user.id)
+
+    .then(() => res.json( {message: 'User deleted successfully'}))
+    .catch(err => res.status(400).json('Error: ' + err))
+
+})
+
+
+// Generate a token
+const generateToken = (id) => {
+    return jwt.sign({ id }, process.env.JWT_SECRET, {
+        expiresIn: '30d',
+    })
+}
+
 
 module.exports = {
     registerUser,
     loginUser,
-    getMe
+    getUser,
+    deleteUser,
+    logoutUser
 }

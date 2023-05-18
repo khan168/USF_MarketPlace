@@ -7,6 +7,7 @@ import FavoriteBorderIcon from "@mui/icons-material/FavoriteBorder";
 
 
 const Info = styled.div`
+  border-radius: 10%;
   opacity: 0;
   width: 100%;
   height: 100%;
@@ -37,26 +38,37 @@ const Icon = styled.div`
   }
 `;
 const Image = styled.img`
-  height: 75%;
+  height: 65%;
   z-index: 2;
   width:100%;
   margin-top:30px
 `;
 
 const Container = styled.div`
+  border-radius: 10%;
   padding: 20px;
   flex: 1;
   margin: 5px;
-  height: 350px;
-  min-width: 280px;
-  display: flex;
+  height: 300px;
+  min-width: 200px;
+  /* display: flex; */
   background-color: #f5fbfd;
   position: relative;
-  display: flex;
+  /* display: flex; */
 
   &:hover ${Info} {
     opacity: 1;
   }
+`;
+
+const Title = styled.h3`
+/* margin-bottom:5px ; */
+  padding:10px;
+`
+
+const Cost = styled.h3`
+  /* margin-bottom:5px ; */
+  padding: 10px;
 `;
 
 
@@ -66,18 +78,20 @@ const Container = styled.div`
 const Product = ({ item }) => {
   return (
     <Container>
-      <Image src={item.src} />
-      <Info>
-        <Icon>
-          <ShoppingCartIcon />
-        </Icon>
-        <Icon>
-          <SearchIcon />
-        </Icon>
-        <Icon>
-          <FavoriteBorderIcon />
-        </Icon>
-      </Info>
+    <Title>{item.title}</Title>
+    <Image src={item.src} />
+    <Info className='info'>
+      <Icon>
+        <ShoppingCartIcon />
+      </Icon>
+      <Icon>
+        <SearchIcon />
+      </Icon>
+      <Icon>
+        <FavoriteBorderIcon />
+      </Icon>
+    </Info>
+    <Cost>$30</Cost>
     </Container>
   );
 };

@@ -5,6 +5,10 @@ const connectDB = require('./config/db.js')
 const {errorHandler} = require('./middleware/errorMiddleware.js')
 const port = process.env.PORT
 
+// connecting the backend with frontend
+const cors =require("cors")
+
+
 
 connectDB()
 
@@ -13,6 +17,8 @@ const app = express()
 // middleware
 app.use(express.json())
 app.use(express.urlencoded({extended: false}))
+app.use(cors());
+
 
 // routes
 app.use('/api/items', require('./routes/bullRoutes'))

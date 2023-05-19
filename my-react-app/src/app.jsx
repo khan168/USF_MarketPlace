@@ -8,6 +8,10 @@ import SingleProduct from "./pages/SingleProduct";
 import SingleChat from './pages/SingleChat';
 import Chats from './pages/Chats';
 
+//upload
+//temp
+import AddImage from './components/AddImage';
+
 const router = createBrowserRouter([
   {
     path: "/",
@@ -37,6 +41,10 @@ const router = createBrowserRouter([
     path: "/chats/:id",
     element: <SingleChat />,
   },
+  {
+    path: "/upload",
+    element: <AddImage/>
+  }
 ]);
 
 export const App = () => {

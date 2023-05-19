@@ -82,7 +82,6 @@ const Home = () => {
           <Products></Products>
         </Right>
       </Wrapper>
-      <Newsletter></Newsletter>
       <Footer></Footer>
     </div>
   );

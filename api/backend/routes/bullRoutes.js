@@ -8,8 +8,10 @@ const { getItem,
     getAllItemsByCategory
 } = require('../controllers/itemController.js')
 
-router.route('/').get(getItem).post(addItem)
-router.route('/:id').put(updateItem).delete(deleteItem)
+const protect = require("../middleware/authMiddleware")
+
+router.route('/').get(getItem).post(protect, addItem)
+router.route('/:id').put(protect, updateItem).delete(protect, deleteItem)
 router.route('/getAllItems').get(getAllItems)
 router.route('/getAllItemsByCategory').get(getAllItemsByCategory)
 

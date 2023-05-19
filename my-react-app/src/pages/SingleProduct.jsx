@@ -1,10 +1,25 @@
-import AddIcon from "@mui/icons-material/Add";
-import RemoveIcon from "@mui/icons-material/Remove";
+import EmailIcon from "@mui/icons-material/Email";
 import styled from "styled-components";
 import Announcement from "../components/Annoucements";
 import Footer from "../components/Footer";
 import Navbar from "../components/Navbar";
 import Newsletter from "../components/NewsLetter";
+import Slider from "../components/Slider";
+import { Link, useNavigate } from "react-router-dom";
+
+
+const FetchedProduct = [
+  {
+    id: 1,
+    imgs: [
+      "https://i.ibb.co/S6qMxwr/jean.jpg",
+      "https://i.ibb.co/S6qMxwr/jean.jpg",
+      "./denim.jpg",
+    ],
+    price: "30",
+    userId: 123,
+  },
+];
 
 const Container = styled.div``;
 
@@ -15,12 +30,6 @@ const Wrapper = styled.div`
 
 const ImgContainer = styled.div`
   flex: 1;
-`;
-
-const Image = styled.img`
-  width: 100%;
-  height: 90vh;
-  object-fit: cover;
 `;
 
 const InfoContainer = styled.div`
@@ -81,43 +90,32 @@ const AddContainer = styled.div`
   justify-content: space-between;
 `;
 
-const AmountContainer = styled.div`
-  display: flex;
-  align-items: center;
-  font-weight: 700;
-`;
 
-const Amount = styled.span`
-  width: 30px;
-  height: 30px;
-  border-radius: 10px;
-  border: 1px solid teal;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  margin: 0px 5px;
-`;
+
+
 
 const Button = styled.button`
   padding: 15px;
   border: 2px solid teal;
-  background-color: white;
+  background-color: lightblue;
   cursor: pointer;
   font-weight: 500;
-
+  display: flex;
+  align-items: center;
   &:hover {
     background-color: #f8f4f4;
   }
 `;
 
 const Product = () => {
+
   return (
     <Container>
       <Navbar />
       <Announcement />
       <Wrapper>
         <ImgContainer>
-          <Image src="https://i.ibb.co/S6qMxwr/jean.jpg" />
+          <Slider sliderItem={FetchedProduct}></Slider>
         </ImgContainer>
         <InfoContainer>
           <Title>Denim Jumpsuit</Title>
@@ -128,7 +126,7 @@ const Product = () => {
             tristique tortor pretium ut. Curabitur elit justo, consequat id
             condimentum ac, volutpat ornare.
           </Desc>
-          <Price>$ 20</Price>
+          <Price>$ {FetchedProduct[0].price}</Price>
           <FilterContainer>
             <Filter>
               <FilterTitle>Color</FilterTitle>
@@ -148,12 +146,14 @@ const Product = () => {
             </Filter>
           </FilterContainer>
           <AddContainer>
-            <AmountContainer>
-              <RemoveIcon />
-              <Amount>1</Amount>
-              <AddIcon />
-            </AmountContainer>
-            <Button>ADD TO CART</Button>
+            <Button>
+              <Link
+                to={`/chats/${FetchedProduct.userId}`}
+                style={{ textDecoration: "none" ,display:"flex", alignItems:"center", justifyContent:"space-between"}}
+              >
+                Message Seller <EmailIcon></EmailIcon>
+              </Link>
+            </Button>
           </AddContainer>
         </InfoContainer>
       </Wrapper>

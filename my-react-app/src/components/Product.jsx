@@ -1,9 +1,8 @@
 import React from 'react'
-
 import styled  from 'styled-components';
-import ShoppingCartIcon from "@mui/icons-material/ShoppingCart";
 import SearchIcon from "@mui/icons-material/Search";
 import FavoriteBorderIcon from "@mui/icons-material/FavoriteBorder";
+import { useNavigate } from 'react-router-dom';
 
 
 const Info = styled.div`
@@ -76,22 +75,23 @@ const Cost = styled.h3`
 
 
 const Product = ({ item }) => {
+  const Navigate = useNavigate();
+  const HandleClick = ()=>{
+    Navigate(`/product/${item.id}`)
+  }
   return (
     <Container>
-    <Title>{item.title}</Title>
-    <Image src={item.src} />
-    <Info className='info'>
-      <Icon>
-        <ShoppingCartIcon />
-      </Icon>
-      <Icon>
-        <SearchIcon />
-      </Icon>
-      <Icon>
-        <FavoriteBorderIcon />
-      </Icon>
-    </Info>
-    <Cost>$30</Cost>
+      <Title>{item.title}</Title>
+      <Image src={item.src} />
+      <Info className="info">
+        <Icon onClick={HandleClick}>
+          <SearchIcon />
+        </Icon>
+        <Icon>
+          <FavoriteBorderIcon />
+        </Icon>
+      </Info>
+      <Cost>$30</Cost>
     </Container>
   );
 };

@@ -8,6 +8,7 @@ import Footer from "../components/Footer";
 import CheckroomIcon from "@mui/icons-material/Checkroom";
 import ChairIcon from "@mui/icons-material/Chair";
 import SpeakerIcon from "@mui/icons-material/Speaker";
+import { useNavigate } from "react-router-dom";
 
 
 const Wrapper = styled.div`
@@ -40,6 +41,19 @@ const Right = styled.div`
   background-color: grey;
 `;
 const Home = () => {
+  const Navigate = useNavigate();
+  const HandleClickClothes= (e) => {
+    Navigate(`/products/clothes`);
+  };
+
+  const HandleClickFur = (e) => {
+    Navigate(`/products/Furniture`);
+  };
+
+  const HandleClickE = (e) => {
+    Navigate(`/products/Electronics`);
+  };
+
   return (
     <div>
       <Announcement></Announcement>
@@ -47,9 +61,21 @@ const Home = () => {
       <Wrapper>
         <Left>
           <IconsPanel>
-            <CheckroomIcon fontSize="large"></CheckroomIcon>
-            <ChairIcon fontSize="large"></ChairIcon>
-            <SpeakerIcon fontSize="large"></SpeakerIcon>
+            <CheckroomIcon
+              fontSize="large"
+              category="Clothes"
+              onClick={HandleClickClothes}
+            ></CheckroomIcon>
+            <ChairIcon
+              fontSize="large"
+              category="Furniture"
+              onClick={HandleClickFur}
+            ></ChairIcon>
+            <SpeakerIcon
+              fontSize="large"
+              category="Electronics"
+              onClick={HandleClickE}
+            ></SpeakerIcon>
           </IconsPanel>
         </Left>
         <Right>
@@ -60,7 +86,6 @@ const Home = () => {
       <Footer></Footer>
     </div>
   );
-  
 };
 
 export default Home;

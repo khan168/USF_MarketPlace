@@ -8,10 +8,7 @@ import Footer from "../components/Footer";
 import CheckroomIcon from "@mui/icons-material/Checkroom";
 import ChairIcon from "@mui/icons-material/Chair";
 import SpeakerIcon from "@mui/icons-material/Speaker";
-import PostAddIcon from '@mui/icons-material/PostAdd';
 import { useNavigate } from "react-router-dom";
-
-import Popup from "../components/Popup";
 
 
 const Wrapper = styled.div`
@@ -81,13 +78,6 @@ const Home = () => {
               category="Electronics"
               onClick={HandleClickE}
             ></SpeakerIcon>
-            <PostAddIcon
-              fontSize="large"
-              onClick={() => {
-                setOpenPopup(true);
-              }} />
-
-              {openPopup && <Popup setOpenPopup={setOpenPopup} />}
           </IconsPanel>
         </Left>
         <Right>

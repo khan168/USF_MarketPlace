@@ -23,6 +23,8 @@ app.use(cors());
 // routes
 app.use('/api/items', require('./routes/bullRoutes'))
 app.use('/api/user', require('./routes/userRoutes'))
+app.use("/api/chat", require("./routes/ChatRoutes"));
+app.use("/api/message", require("./routes/messageRoutes"));
 
 // custom error handler
 app.use(errorHandler)

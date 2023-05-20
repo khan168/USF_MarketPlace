@@ -99,7 +99,7 @@ const Login = () => {
           <Form style={{ flex: 2 }}>
             <Title>Sign In</Title>
             <Input placeholder="Email"></Input>
-            <Input placeholder="Password"></Input>
+            <Input type="password" placeholder="Password"></Input>
             <Button>Sign In</Button>
           </Form>
           <p style={{ flex: 1 }}>OR</p>

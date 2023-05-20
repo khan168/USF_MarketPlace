@@ -100,7 +100,7 @@ const Login = () => {
             <Title>Sign In</Title>
             <Input placeholder="Email"></Input>
             <Input placeholder="Password"></Input>
-            <Button>CREATE</Button>
+            <Button>Sign In</Button>
           </Form>
           <p style={{ flex: 1 }}>OR</p>
           <Right style={{ flex: 2 }}>

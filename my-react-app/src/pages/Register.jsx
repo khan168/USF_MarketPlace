@@ -67,8 +67,8 @@ const Register = () => {
             <Input placeholder="Name"></Input>
             <Input placeholder="Email"></Input>
             <Input placeholder="Username"></Input>
-            <Input placeholder="Password"></Input>
-            <Input placeholder="Confirm Password"></Input>
+            <Input type="password" placeholder="Password"></Input>
+            <Input type="password" placeholder="Confirm Password"></Input>
             <Agreement>
               By creating an account, I consent to the processing of my personal
               data in accordance with the <b>PRIVACY POLICY</b>

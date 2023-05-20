@@ -8,16 +8,15 @@ import Slider from "../components/Slider";
 import { Link, useNavigate } from "react-router-dom";
 
 
-const FetchedProduct = [
+const FetchedProduct = [    //array make sure you put [0] before accessing property
   {
-    id: 1,
+    user: "1234",
     imgs: [
       "https://i.ibb.co/S6qMxwr/jean.jpg",
       "https://i.ibb.co/S6qMxwr/jean.jpg",
       "./denim.jpg",
     ],
     price: "30",
-    userId: 123,
   },
 ];
 
@@ -108,7 +107,7 @@ const Button = styled.button`
 `;
 
 const Product = () => {
-
+  const currUser = "456"
   return (
     <Container>
       <Navbar />
@@ -148,7 +147,7 @@ const Product = () => {
           <AddContainer>
             <Button>
               <Link
-                to={`/chats/${FetchedProduct.userId}`}
+                to={`/chats/${FetchedProduct[0].user+currUser}`}
                 style={{ textDecoration: "none" ,display:"flex", alignItems:"center", justifyContent:"space-between"}}
               >
                 Message Seller <EmailIcon></EmailIcon>

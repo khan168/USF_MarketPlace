@@ -9,17 +9,17 @@ const User = require('../models/userModel')
 // @access Public
 const registerUser = asyncHandler(async (req, res) => {
 
-    const { name, email, password } = req.body
+    const { name, email, password, username } = req.body
 
-    if (!name || !email || !password) {
-        res.status(400)
+    if (!name || !email || !password || !username)  {
+        res.status(400).json({ message: 'Please enter all fields' });
         throw new Error('Please enter all fields')
     }
 
     // check if user exists
     const userExists = await User.findOne({email})
     if (userExists) {
-        res.status(400)
+        res.status(400).json({ message: "User already exists "});
         throw new Error('User already exists')
     }
 
@@ -31,6 +31,7 @@ const registerUser = asyncHandler(async (req, res) => {
     const user = await User.create({
         name,
         email,
+        username,
         password: hashedPassword
     })
 
@@ -39,10 +40,11 @@ const registerUser = asyncHandler(async (req, res) => {
             _id: user._id,
             name: user.name,
             email: user.email,
+            username: user.username,
             token: generateToken(user._id)
         })
     } else {
-        res.status(400)
+        res.status(400).json({ message:'Invalid user data'});
         throw new Error('Invalid user data')
     }
 })
@@ -61,6 +63,7 @@ const loginUser = asyncHandler(async (req, res) => {
             _id: user._id,
             name: user.name,
             email: user.email,
+            username: user.username,
             token: generateToken(user._id)
         })
     } else {
@@ -74,8 +77,8 @@ const loginUser = asyncHandler(async (req, res) => {
 // @access Private
 const logoutUser = asyncHandler(async (req, res) => {
     // Replace the JWT with a blank string that expires in 1 second
-    const blankToken = jwt.sign({ id: '' }, process.env.JWT_SECRET, {
-      expiresIn: '1s',
+    const blankToken = jwt.sign({ id: "" }, "abc@123", {
+      expiresIn: "1s",
     });
   
     // Set the new token as the authorization header
@@ -112,9 +115,9 @@ const deleteUser = asyncHandler(async (req, res) => {
 
 // Generate a token
 const generateToken = (id) => {
-    return jwt.sign({ id }, process.env.JWT_SECRET, {
-        expiresIn: '30d',
-    })
+    return jwt.sign({ id }, "abc@123", {
+      expiresIn: "30d",
+    });
 }
 
 

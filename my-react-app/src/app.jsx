@@ -11,6 +11,7 @@ import Chats from './pages/Chats';
 //upload
 //temp
 import AddImage from './components/AddImage';
+import Profile from './pages/Profile';
 
 const router = createBrowserRouter([
   {
@@ -26,16 +27,16 @@ const router = createBrowserRouter([
     element: <Register />,
   },
   {
-    path:"/products/:category",
-    element : <ProductList/>
+    path: "/products/:category",
+    element: <ProductList />,
   },
   {
     path: "/product/:id",
     element: <SingleProduct />,
   },
   {
-    path:"/chats",
-    element:<Chats/>,
+    path: "/chats",
+    element: <Chats />,
   },
   {
     path: "/chats/:id",
@@ -43,8 +44,12 @@ const router = createBrowserRouter([
   },
   {
     path: "/upload",
-    element: <AddImage/>
-  }
+    element: <AddImage />,
+  },
+  {
+    path: "/profile",
+    element: <Profile></Profile>,
+  },
 ]);
 
 export const App = () => {

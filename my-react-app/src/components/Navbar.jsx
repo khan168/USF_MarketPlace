@@ -4,6 +4,7 @@ import SearchIcon from "@mui/icons-material/Search";
 import Badge from '@mui/material/Badge';
 import FavoriteIcon from "@mui/icons-material/Favorite";
 import { Link } from 'react-router-dom';
+import { useNavigate } from 'react-router-dom';
 
 const  SimpleBadge=()=> {
   return (
@@ -59,16 +60,21 @@ const Navbar = () => {
     border: none;
    `
 
-   const Logo=styled.h1`
-    font-weight: bold;
-    text-align: center;
-   `
+   const Logo = styled.h1`
+     font-weight: bold;
+     text-align: center;
+     cursor: pointer;
+   `;
 
    const MenuItem = styled.div`
     font-size: 14px;
     cursor: pointer;
     margin-left: 25px;
    `
+   const Navigate = useNavigate();
+   const HandleClick = ()=>{
+    Navigate("/")
+   }
 
     return (
       <Container>
@@ -81,7 +87,7 @@ const Navbar = () => {
             </SearchContainer>
           </Left>
           <Center>
-            <Logo>Bulls Buy</Logo>
+            <Logo onClick={HandleClick}>Bulls Buy</Logo>
           </Center>
           <Right>
             <MenuItem>

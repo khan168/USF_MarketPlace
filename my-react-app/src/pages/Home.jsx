@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import Navbar from "../components/Navbar"
 import styled from "styled-components";
 import Announcement from "../components/Annoucements";
@@ -8,7 +8,10 @@ import Footer from "../components/Footer";
 import CheckroomIcon from "@mui/icons-material/Checkroom";
 import ChairIcon from "@mui/icons-material/Chair";
 import SpeakerIcon from "@mui/icons-material/Speaker";
+import PostAddIcon from '@mui/icons-material/PostAdd';
 import { useNavigate } from "react-router-dom";
+
+import Popup from "../components/Popup";
 
 
 const Wrapper = styled.div`
@@ -54,6 +57,8 @@ const Home = () => {
     Navigate(`/products/Electronics`);
   };
 
+  const [openPopup, setOpenPopup] = useState(false);
+
   return (
     <div>
       <Announcement></Announcement>
@@ -76,6 +81,13 @@ const Home = () => {
               category="Electronics"
               onClick={HandleClickE}
             ></SpeakerIcon>
+            <PostAddIcon
+              fontSize="large"
+              onClick={() => {
+                setOpenPopup(true);
+              }} />
+
+              {openPopup && <Popup setOpenPopup={setOpenPopup} />}
           </IconsPanel>
         </Left>
         <Right>

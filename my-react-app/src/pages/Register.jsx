@@ -1,6 +1,8 @@
-import React from "react";
+import React, { useState } from "react";
 import styled from "styled-components";
 import Navbar from "../components/Navbar";
+import axios from 'axios';
+import { useNavigate } from "react-router-dom";
 
 const Container = styled.div`
   width: 100vw;
@@ -56,24 +58,60 @@ const Button = styled.button`
 `;
 
 const Register = () => {
+  const Navigate = useNavigate();
   const user = false;
+  const [formData, setFormData] = useState({
+    name: '',
+    username: '',
+    email: '',
+    password: ''
+  });
+
+  const handleInputChange = (e) => {
+    setFormData({
+      ...formData,
+      [e.target.name]: e.target.value
+    });
+  };
+
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+    try {
+      const response = await axios.post('http://localhost:5001/api/user/register', formData);
+      console.log(response.data);
+      localStorage.setItem("token",response.data.token);
+      Navigate(`/products/clothes`);
+      
+    } catch (error) {
+      if (error.response) {
+        alert(error.response.data.message)
+        console.error(`Error: ${error.response.data.message}`);
+      } else {
+        alert(error.message)
+        console.error(`Error: ${error.message}`);
+      }
+    }
+  };
+
+
   return (
     <>
+    
       <Navbar props={user}></Navbar>
       <Container>
         <Wrapper>
-          <Form>
+          <Form onSubmit={handleSubmit}>
             <Title>Create your account</Title>
-            <Input placeholder="Name"></Input>
-            <Input placeholder="Email"></Input>
-            <Input placeholder="Username"></Input>
-            <Input type="password" placeholder="Password"></Input>
+            <Input name="name" placeholder="Name" onChange={handleInputChange}></Input>
+            <Input name="email" placeholder="Email" onChange={handleInputChange}></Input>
+            <Input name="username" placeholder="Username" onChange={handleInputChange}></Input>
+            <Input name="password" type="password" placeholder="Password" onChange={handleInputChange}></Input>
             <Input type="password" placeholder="Confirm Password"></Input>
             <Agreement>
               By creating an account, I consent to the processing of my personal
               data in accordance with the <b>PRIVACY POLICY</b>
             </Agreement>
-            <Button>CREATE</Button>
+            <Button type="submit">CREATE</Button>
           </Form>
         </Wrapper>
       </Container>

@@ -1,6 +1,8 @@
-import React from "react";
+import React, { useState } from "react";
+import axios from 'axios';
 import styled from "styled-components";
 import Navbar from "../components/Navbar";
+import { useNavigate } from "react-router-dom";
 
 const Container = styled.div`
   width: 100vw;
@@ -78,7 +80,33 @@ const Icon = styled.img`
   margin-right: 10px;
 `;
 
+
+
+
+
 const Login = () => {
+  const navigate = useNavigate();
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+    const formData = { email, password };
+    try {
+      const response = await axios.post('http://localhost:5001/api/user/login', formData);
+      localStorage.setItem("token",response.data.token);
+      navigate(`/`);
+      
+    }catch (error) {
+      if (error.response) {
+        alert(error.response.data.message)
+        console.error(`Error: ${error.response.data.message}`);
+      } else {
+        alert(error.message)
+        console.error(`Error: ${error.message}`);
+      }
+    }
+  };
+  
+
+
   const google = () => {
     window.open("http://localhost:4000/auth/google", "_self");
   };
@@ -91,16 +119,19 @@ const Login = () => {
     window.open("http://localhost:4000/auth/facebook", "_self");
   };
 
+  const [email, setEmail] = useState("");
+  const [password, setPassword] = useState("");
+
   return (
     <>
       <Navbar></Navbar>
       <Container>
         <Left>
-          <Form style={{ flex: 2 }}>
+          <Form onSubmit={handleSubmit} style={{ flex: 2 }}>
             <Title>Sign In</Title>
-            <Input placeholder="Email"></Input>
-            <Input type="password" placeholder="Password"></Input>
-            <Button>Sign In</Button>
+            <Input placeholder="Email" value={email} onChange={(e) => setEmail(e.target.value)}></Input>
+            <Input type="password" placeholder="Password" value={password} onChange={(e) => setPassword(e.target.value)}></Input>
+            <Button type="submit">Sign In</Button>
           </Form>
           <p style={{ flex: 1 }}>OR</p>
           <Right style={{ flex: 2 }}>

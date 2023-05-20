@@ -80,7 +80,7 @@ const Register = () => {
       const response = await axios.post('http://localhost:5001/api/user/register', formData);
       console.log(response.data);
       localStorage.setItem("token",response.data.token);
-      Navigate(`/products/clothes`);
+      Navigate(`/`);
       
     } catch (error) {
       if (error.response) {

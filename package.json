@@ -1,0 +1,17 @@
+{
+  "name": "ecommerce",
+  "version": "1.0.0",
+  "description": "A market place for USF students by USF students with no charges of any sort. It is a peer to peer platform for students to buy and sell products.Our website \r works by connecting buyers to sellers and help both parties get what they want done in the most seamless way.",
+  "main": "index.js",
+  "scripts": {
+    "server": "nodemon api/backend/server.js",
+    "client": "npm start --prefix my-react-app",
+    "dev": "concurrently \"npm run server\" \"npm run client\""
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "devDependencies": {
+    "concurrently": "^8.0.1"
+  }
+}

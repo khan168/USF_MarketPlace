@@ -3,7 +3,7 @@ const dotenv = require('dotenv').config()
 const colors = require('colors')
 const connectDB = require('./config/db.js')
 const {errorHandler} = require('./middleware/errorMiddleware.js')
-const port = process.env.PORT
+const port = process.env.PORT || 5001
 
 // connecting the backend with frontend
 const cors =require("cors")

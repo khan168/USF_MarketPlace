@@ -6,8 +6,8 @@ import FavoriteIcon from "@mui/icons-material/Favorite";
 import { Link } from 'react-router-dom';
 import { useNavigate } from 'react-router-dom';
 import { useEffect } from 'react'; 
-import Profile from '../pages/Profile';
-
+import axios from "axios"
+import { Button } from '@mui/material';
 
 //const jwt = require('jsonwebtoken');
 
@@ -93,6 +93,10 @@ const Navbar = () => {
       setIsTokenValid(false)
     }
 
+    console.log(
+      isTokenValid
+    );
+
    },[])
    /*
 
@@ -121,7 +125,10 @@ const Navbar = () => {
   //   }
   // }, []);
 
-
+   const HandleLogout= async (e) => {
+     localStorage.removeItem("token");
+     Navigate(`/login`);
+   };
 
 
   return (
@@ -144,13 +151,32 @@ const Navbar = () => {
           {isTokenValid ? (
             <>
               <MenuItem>
-                <Link to="/createpost" style={{ textDecoration: "none" }}>
+                <Button style={{ textDecoration: "none", color: "black" }}>
                   CREATE POST
+                </Button>
+              </MenuItem>
+              <MenuItem>
+                <Link
+                  to="/profile"
+                  style={{ textDecoration: "none", color: "black" }}
+                >
+                  PROFILE
                 </Link>
               </MenuItem>
               <MenuItem>
-                <Link to="/profile" style={{ textDecoration: "none" }}>
-                  PROFILE
+                <Link
+                  onClick={HandleLogout}
+                  style={{ textDecoration: "none", color: "black" }}
+                >
+                  LOGOUT
+                </Link>
+              </MenuItem>
+              <MenuItem>
+                <Link
+                  to="/chats"
+                  style={{ textDecoration: "none", color: "black" }}
+                >
+                  CHATS
                 </Link>
               </MenuItem>
             </>

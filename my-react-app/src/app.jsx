@@ -11,6 +11,7 @@ import Chats from './pages/Chats';
 //upload
 //temp
 import AddImage from './components/AddImage';
+import Profile from './pages/Profile';
 
 const router = createBrowserRouter([
   {
@@ -44,6 +45,10 @@ const router = createBrowserRouter([
   {
     path: "/upload",
     element: <AddImage/>
+  },
+  {
+    path: "/profile",
+    element: <Profile></Profile>
   }
 ]);
 

@@ -9,7 +9,7 @@ const User = require('../models/userModel')
 // @access Public
 const registerUser = asyncHandler(async (req, res) => {
 
-    const { name, email, password } = req.body
+    const { name, email, password, username } = req.body
 
     if (!name || !email || !password) {
         res.status(400)
@@ -31,6 +31,7 @@ const registerUser = asyncHandler(async (req, res) => {
     const user = await User.create({
         name,
         email,
+        username,
         password: hashedPassword
     })
 
@@ -39,6 +40,7 @@ const registerUser = asyncHandler(async (req, res) => {
             _id: user._id,
             name: user.name,
             email: user.email,
+            username: user.username,
             token: generateToken(user._id)
         })
     } else {
@@ -61,6 +63,7 @@ const loginUser = asyncHandler(async (req, res) => {
             _id: user._id,
             name: user.name,
             email: user.email,
+            username: user.username,
             token: generateToken(user._id)
         })
     } else {

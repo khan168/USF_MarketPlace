@@ -77,8 +77,8 @@ const loginUser = asyncHandler(async (req, res) => {
 // @access Private
 const logoutUser = asyncHandler(async (req, res) => {
     // Replace the JWT with a blank string that expires in 1 second
-    const blankToken = jwt.sign({ id: '' }, process.env.JWT_SECRET, {
-      expiresIn: '1s',
+    const blankToken = jwt.sign({ id: "" }, "abc@123", {
+      expiresIn: "1s",
     });
   
     // Set the new token as the authorization header
@@ -115,7 +115,7 @@ const deleteUser = asyncHandler(async (req, res) => {
 
 // Generate a token
 const generateToken = (id) => {
-    return jwt.sign({ id }, process.env.JWT_SECRET, {
+    return jwt.sign({ id }, "abc@123", {
       expiresIn: "30d",
     });
 }

@@ -94,7 +94,7 @@ const AddContainer = styled.div`
 
 
 const Button = styled.button`
-  padding: 15px;
+  /* padding: 15px; */
   border: 2px solid teal;
   background-color: lightblue;
   cursor: pointer;
@@ -107,7 +107,8 @@ const Button = styled.button`
 `;
 
 const Product = () => {
-  const currUser = "456"
+  const userid = "456"
+  const token = localStorage.getItem("token")
   return (
     <Container>
       <Navbar />
@@ -145,14 +146,14 @@ const Product = () => {
             </Filter>
           </FilterContainer>
           <AddContainer>
-            <Button>
+            { token && <Button>
               <Link
-                to={`/chats/${FetchedProduct[0].user+currUser}`}
+                to={`/chats/${FetchedProduct[0].user+userid}`}
                 style={{ textDecoration: "none" ,display:"flex", alignItems:"center", justifyContent:"space-between"}}
               >
                 Message Seller <EmailIcon></EmailIcon>
               </Link>
-            </Button>
+            </Button>}
           </AddContainer>
         </InfoContainer>
       </Wrapper>

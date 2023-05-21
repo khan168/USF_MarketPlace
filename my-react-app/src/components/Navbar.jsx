@@ -173,7 +173,7 @@ const Navbar = () => {
               </MenuItem>
               <MenuItem>
                 <Link
-                  to="/chats"
+                  to="/chats/123"
                   style={{ textDecoration: "none", color: "black" }}
                 >
                   CHATS

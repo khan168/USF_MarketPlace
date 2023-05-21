@@ -16,7 +16,7 @@ const Container = styled.div`
 const Products = ({list}) => {
   return (
     <Container>
-      {list.map((item) => (
+      {list?.map((item) => (
         <Product item={item} key={item._id} />
       ))}
     </Container>

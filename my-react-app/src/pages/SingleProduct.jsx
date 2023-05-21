@@ -10,17 +10,6 @@ import { useEffect, useState } from "react";
 import axios from "axios";
 
 
-const FetchedProduct = [    //array make sure you put [0] before accessing property
-  {
-    user: "1234",
-    imgs: [
-      "https://i.ibb.co/S6qMxwr/jean.jpg",
-      "https://i.ibb.co/S6qMxwr/jean.jpg",
-      "./denim.jpg",
-    ],
-    price: "30",
-  },
-];
 
 const Container = styled.div``;
 
@@ -91,10 +80,6 @@ const AddContainer = styled.div`
   justify-content: space-between;
 `;
 
-
-
-
-
 const Button = styled.button`
   /* padding: 15px; */
   border: 2px solid teal;
@@ -109,18 +94,31 @@ const Button = styled.button`
 `;
 
 const Product = () => {
-  const userid = "456"
-  const token = localStorage.getItem("token")
+  const [curr_user, setcurr_user] = useState("");
+  const token = localStorage.getItem("token");
   const SERVER = "http://localhost:5001/";
-  const [item, setItem] = useState([]);
+  const [item, setItem] = useState("");
   const { id } = useParams();
-  
-  useEffect(() => {
-    fetchdata();
-  }, []);
 
-  const fetchdata = () => {
-    axios
+  useEffect(() => {
+    const fetchuser = async () => {
+      await axios
+        .get(`${SERVER}api/user/`, {
+          headers: {
+            Authorization: `Bearer ${token}`,
+          },
+        })
+        .then((response) => setcurr_user(response.data))
+        .catch((error) => console.log(error));
+    };
+    
+    fetchuser();
+  }, [token]);
+
+
+  useEffect(() => {
+  const fetchdata = async () => {
+    await axios
       .get(`${SERVER}api/items/${id}`, {
         headers: {
           Authorization: `Bearer ${token}`,
@@ -129,6 +127,13 @@ const Product = () => {
       .then((response) => setItem(response.data))
       .catch((error) => console.log(error));
   };
+
+    fetchdata();
+  }, [id,token]);
+  
+
+
+
   return (
     <Container>
       <Navbar />
@@ -163,7 +168,11 @@ const Product = () => {
             {token && (
               <Button>
                 <Link
-                  to={`/chats/${FetchedProduct[0].user + userid}`}
+                  to={`/chats/${
+                    curr_user.id < item.user
+                      ? curr_user.id + item.user
+                      : item.user + curr_user.id
+                  }`}
                   style={{
                     textDecoration: "none",
                     display: "flex",

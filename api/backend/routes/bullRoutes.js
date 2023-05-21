@@ -11,7 +11,8 @@ const { getItem,
 const {protect} = require("../middleware/authMiddleware")
 
 router.route("/getAllItems").get(getAllItems);
-router.route('/:id').get(getItem).post(protect, addItem)
+router.route('/:id').get(getItem)
+router.post("/",protect, addItem)
 router.route('/:id').put(protect, updateItem).delete(protect, deleteItem)
 router.route('/getAllItemsByCategory').get(getAllItemsByCategory)
 

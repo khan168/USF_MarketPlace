@@ -3,6 +3,7 @@ import styled from "styled-components";
 import Navbar from "../components/Navbar";
 import axios from 'axios';
 import { useNavigate } from "react-router-dom";
+import upload from "../utilities/Upload";
 
 const Container = styled.div`
   width: 100vw;
@@ -66,7 +67,10 @@ const Register = () => {
     email: '',
     password: ''
   });
-
+  const [file, setFile] = useState(null);
+  const [loading, setLoading] = useState(false);
+  const [link, setLink] = useState(null)
+ 
   const handleInputChange = (e) => {
     setFormData({
       ...formData,
@@ -76,8 +80,15 @@ const Register = () => {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
+
+    
+    const dataToSubmit = {
+      ...formData,
+      profileImage: link
+    };
+    console.log(dataToSubmit)
     try {
-      const response = await axios.post('http://localhost:5001/api/user/register', formData);
+      const response = await axios.post('http://localhost:5001/api/user/register', dataToSubmit);
       console.log(response.data);
       localStorage.setItem("token",response.data.token);
       Navigate(`/`);
@@ -93,7 +104,19 @@ const Register = () => {
     }
   };
 
-
+  const handleFileChange = async (e) => {
+    const file = e.target.files[0]; // Use file directly from event target
+    setFile(file); // Set the state
+    setLoading(true); // begin loading
+  
+    const url = await upload(file); // Use the local file variable here
+    if (url) {
+      setLink(url); // add the new link to the array
+    }
+  
+    setLoading(false); // finish loading
+    console.log(url)
+  }
   return (
     <>
     
@@ -107,6 +130,8 @@ const Register = () => {
             <Input name="username" placeholder="Username" onChange={handleInputChange}></Input>
             <Input name="password" type="password" placeholder="Password" onChange={handleInputChange}></Input>
             <Input type="password" placeholder="Confirm Password"></Input>
+            <Input name="Profile pic upload" type="file" onChange={handleFileChange} ></Input>
+            {loading ? <div>Loading...</div> : null}
             <Agreement>
               By creating an account, I consent to the processing of my personal
               data in accordance with the <b>PRIVACY POLICY</b>

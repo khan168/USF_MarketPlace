@@ -82,7 +82,7 @@ const Product = ({ item }) => {
   return (
     <Container>
       <Title>{item.title}</Title>
-      <Image src={item.src} />
+      <Image src={item.images[0]} />
       <Info className="info">
         <Icon onClick={HandleClick}>
           <SearchIcon />
@@ -91,7 +91,7 @@ const Product = ({ item }) => {
           <FavoriteBorderIcon />
         </Icon>
       </Info>
-      <Cost>$30</Cost>
+      <Cost>${item.price}</Cost>
     </Container>
   );
 };

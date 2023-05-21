@@ -75,11 +75,11 @@ const Container = styled.div`
   justify-content: space-between;
 `;
 
-const Products = () => {
+const Products = ({list}) => {
   return (
     <Container>
-      {pop_data.map((item) => (
-        <Product item={item} key={item.id} />
+      {list.map((item) => (
+        <Product item={item} key={item._id} />
       ))}
     </Container>
   );

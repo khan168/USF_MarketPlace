@@ -51,9 +51,9 @@ const Home = () => {
   const fetchdata = () => {
     axios
       .get(`${SERVER}api/items/getAllItems`, {
-        headers: {
-          Authorization: `Bearer ${user}`,
-        },
+        // headers: {
+        //   Authorization: `Bearer ${user}`,
+        // },
       })
       .then((response) => setList(response.data))
       .catch((error) => console.log(error));

@@ -77,7 +77,7 @@ const Cost = styled.h3`
 const Product = ({ item }) => {
   const Navigate = useNavigate();
   const HandleClick = ()=>{
-    Navigate(`/product/${item.id}`)
+    Navigate(`/product/${item._id}`)
   }
   return (
     <Container>

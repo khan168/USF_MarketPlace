@@ -5,7 +5,9 @@ import Footer from "../components/Footer";
 import Navbar from "../components/Navbar";
 import Newsletter from "../components/NewsLetter";
 import Slider from "../components/Slider";
-import { Link, useNavigate } from "react-router-dom";
+import { Link, useParams } from "react-router-dom";
+import { useEffect, useState } from "react";
+import axios from "axios";
 
 
 const FetchedProduct = [    //array make sure you put [0] before accessing property
@@ -109,24 +111,36 @@ const Button = styled.button`
 const Product = () => {
   const userid = "456"
   const token = localStorage.getItem("token")
+  const SERVER = "http://localhost:5001/";
+  const [item, setItem] = useState([]);
+  const { id } = useParams();
+  
+  useEffect(() => {
+    fetchdata();
+  }, []);
+
+  const fetchdata = () => {
+    axios
+      .get(`${SERVER}api/items/${id}`, {
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
+      })
+      .then((response) => setItem(response.data))
+      .catch((error) => console.log(error));
+  };
   return (
     <Container>
       <Navbar />
       <Announcement />
       <Wrapper>
         <ImgContainer>
-          <Slider sliderItem={FetchedProduct}></Slider>
+          <Slider sliderItem={item}></Slider>
         </ImgContainer>
         <InfoContainer>
-          <Title>Denim Jumpsuit</Title>
-          <Desc>
-            Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec
-            venenatis, dolor in finibus malesuada, lectus ipsum porta nunc, at
-            iaculis arcu nisi sed mauris. Nulla fermentum vestibulum ex, eget
-            tristique tortor pretium ut. Curabitur elit justo, consequat id
-            condimentum ac, volutpat ornare.
-          </Desc>
-          <Price>$ {FetchedProduct[0].price}</Price>
+          <Title>{item.title}</Title>
+          <Desc>{item.description}</Desc>
+          <Price>$ {item.price}</Price>
           <FilterContainer>
             <Filter>
               <FilterTitle>Color</FilterTitle>
@@ -146,14 +160,21 @@ const Product = () => {
             </Filter>
           </FilterContainer>
           <AddContainer>
-            { token && <Button>
-              <Link
-                to={`/chats/${FetchedProduct[0].user+userid}`}
-                style={{ textDecoration: "none" ,display:"flex", alignItems:"center", justifyContent:"space-between"}}
-              >
-                Message Seller <EmailIcon></EmailIcon>
-              </Link>
-            </Button>}
+            {token && (
+              <Button>
+                <Link
+                  to={`/chats/${FetchedProduct[0].user + userid}`}
+                  style={{
+                    textDecoration: "none",
+                    display: "flex",
+                    alignItems: "center",
+                    justifyContent: "space-between",
+                  }}
+                >
+                  Message Seller <EmailIcon></EmailIcon>
+                </Link>
+              </Button>
+            )}
           </AddContainer>
         </InfoContainer>
       </Wrapper>

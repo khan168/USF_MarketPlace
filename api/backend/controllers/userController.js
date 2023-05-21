@@ -94,12 +94,15 @@ const logoutUser = asyncHandler(async (req, res) => {
 // @route GET /api/users/
 // @access Private
 const getUser = asyncHandler(async (req, res) => {
-    const {_id, name, email} = await User.findById(req.user.id)
+    const {_id, name, email, profileImage, username} = await User.findById(req.user.id)
 
     res.status(200).json({
         id: _id,
         name,
         email,
+        profileImage,
+        username,
+
     })
 })
 

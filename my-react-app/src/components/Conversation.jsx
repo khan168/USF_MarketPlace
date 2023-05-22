@@ -28,21 +28,21 @@ font-weight: 500;
   
   
 
-const Conversation = ({user}) => {
+const Conversation = ({ conversationDetail,curr_user }) => {
+
+  // find the other user 
+  // conversationDetail.to
+  const user=conversationDetail.to._id === curr_user ? conversationDetail.from : conversationDetail.to;
+
   return (
     <Conversationdiv>
       <ConversationImg
-        src={
-          user?.profilePicture
-            ? user.profilePicture
-            : noAvatarsrc
-        }
+        src={user?.profilePicture ? user?.profilePicture : noAvatarsrc}
         alt=""
       />
-      {/* <ConversationName>{user?.username}</ConversationName> */}
-      <ConversationName>{"John"}</ConversationName>
+      <ConversationName >{user?.name}</ConversationName>
     </Conversationdiv>
   );
-}
+};
 
 export default Conversation

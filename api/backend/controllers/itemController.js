@@ -7,9 +7,9 @@ const Item = require('../models/itemModel')
 // @access Private
 //find by post id
 const getItem = asyncHandler(async (req, res) => {
-    const items = await Item.findById(req.body.id)
+    const item = await Item.findById(req.params.id)
 
-    if (items) {
+    if (item) {
         res.status(200).json(item)
     } else {
         res.status(404).json({ message: 'Item not found' })

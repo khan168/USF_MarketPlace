@@ -77,12 +77,12 @@ const Cost = styled.h3`
 const Product = ({ item }) => {
   const Navigate = useNavigate();
   const HandleClick = ()=>{
-    Navigate(`/product/${item.id}`)
+    Navigate(`/product/${item._id}`)
   }
   return (
     <Container>
       <Title>{item.title}</Title>
-      <Image src={item.src} />
+      <Image src={item.images[0]} />
       <Info className="info">
         <Icon onClick={HandleClick}>
           <SearchIcon />
@@ -91,7 +91,7 @@ const Product = ({ item }) => {
           <FavoriteBorderIcon />
         </Icon>
       </Info>
-      <Cost>$30</Cost>
+      <Cost>${item.price}</Cost>
     </Container>
   );
 };

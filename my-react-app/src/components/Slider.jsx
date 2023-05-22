@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect } from "react";
 import { styled } from "styled-components";
 import ArrowBackIosIcon from "@mui/icons-material/ArrowBackIos";
 import ArrowForwardIosIcon from "@mui/icons-material/ArrowForwardIos";
@@ -65,12 +65,18 @@ const Image = styled.img`
 `;
 
 const Slider = (props) => {
-  const [slideIndex, setSlideIndex] = React.useState(-1);
+  const [array,setarray] = React.useState([])
+  useEffect(() => {
+    console.log(props.sliderItem.images || "here");
+    // setarray(props.sliderItem.images)
+  }, []);
+
+  const [slideIndex, setSlideIndex] = React.useState(0);
   const handleClick = (direction) => {
     if (direction === "left") {
-      setSlideIndex(slideIndex > -1 ? slideIndex - 1 : 1);
+      setSlideIndex(slideIndex > 0 ? slideIndex - 1 : 0);
     } else {
-      setSlideIndex(slideIndex < 1 ? slideIndex + 1 : -1);
+      setSlideIndex(slideIndex < 1 ? slideIndex + 1 : 0);
     }
   };
   return (
@@ -80,7 +86,7 @@ const Slider = (props) => {
           <ArrowBackIosIcon fontSize="large"></ArrowBackIosIcon>
         </Arrow>
         <Wrapper slideindex={slideIndex}>
-          {props.sliderItem[0].imgs.map((item,index) => (
+          {array.map((item,index) => (
             <Slide key={index}>
               <ImageContainer>
                 <Image src={item} />

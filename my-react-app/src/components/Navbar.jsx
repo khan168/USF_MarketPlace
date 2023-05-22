@@ -21,7 +21,7 @@ const  SimpleBadge=()=> {
 }
 
 
-const Navbar = () => {
+const Navbar = (props) => {
   const Container = styled.div`
     height:60px;
     background-color: white;
@@ -83,19 +83,30 @@ const Navbar = () => {
    }
 
    const [isTokenValid, setIsTokenValid] = useState(false);
+   const [curr_user, setcurr_user] = useState("");
+   const SERVER = "http://localhost:5001/";
 
    useEffect(()=>{
     const token = localStorage.getItem('token')
 
     if  (token){
-      setIsTokenValid(true)
+      setIsTokenValid(true);
+      const fetchuser = async () => {
+        await axios
+          .get(`${SERVER}api/user/`, {
+            headers: {
+              Authorization: `Bearer ${token}`,
+            },
+          })
+          .then((response) => setcurr_user(response.data))
+          .catch((error) => console.log(error));
+      };
+
+      fetchuser();
+      
     }else{
       setIsTokenValid(false)
     }
-
-    console.log(
-      isTokenValid
-    );
 
    },[])
    /*
@@ -173,7 +184,10 @@ const Navbar = () => {
               </MenuItem>
               <MenuItem>
                 <Link
-                  to="/chats"
+                  to={{
+                    pathname: "/chats",
+                    search: `?param1=${curr_user.id}`,
+                  }}
                   style={{ textDecoration: "none", color: "black" }}
                 >
                   CHATS

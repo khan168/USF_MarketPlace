@@ -1,15 +1,15 @@
 import React from "react";
-import Navbar from "../components/Navbar"
+import Navbar from "../components/Navbar";
 import styled from "styled-components";
 import Announcement from "../components/Annoucements";
 import Products from "../components/Products";
-import Newsletter from "../components/NewsLetter";
 import Footer from "../components/Footer";
 import CheckroomIcon from "@mui/icons-material/Checkroom";
 import ChairIcon from "@mui/icons-material/Chair";
 import SpeakerIcon from "@mui/icons-material/Speaker";
 import { useNavigate } from "react-router-dom";
-
+import { useEffect, useState } from "react";
+import axios from "axios";
 
 const Wrapper = styled.div`
   display: flex;
@@ -27,13 +27,10 @@ const IconsPanel = styled.div`
   width: 100%;
   height: 100%;
   display: flex;
-  flex-direction:column;
+  flex-direction: column;
   align-items: center;
   justify-content: space-evenly;
-
-
 `;
-
 
 const Right = styled.div`
   flex-grow: 2; /* Allow the scrollable content to grow and fill the remaining space */
@@ -41,8 +38,27 @@ const Right = styled.div`
   background-color: grey;
 `;
 const Home = () => {
+  // const user = localStorage.getItem("token");
+  const SERVER = "http://localhost:5001/";
   const Navigate = useNavigate();
-  const HandleClickClothes= (e) => {
+
+  const [list, setList] = useState([]);
+
+  useEffect(() => {
+    fetchdata();
+  }, []);
+
+  const fetchdata = () => {
+    axios
+      .get(`${SERVER}api/items/getAllItems`, {
+        // headers: {
+        //   Authorization: `Bearer ${user}`,
+        // },
+      })
+      .then((response) => setList(response.data))
+      .catch((error) => console.log(error));
+  };
+  const HandleClickClothes = (e) => {
     Navigate(`/products/clothes`);
   };
 
@@ -57,13 +73,13 @@ const Home = () => {
   return (
     <div>
       <Announcement></Announcement>
-      <Navbar />
+      <Navbar/>
       <Wrapper>
         <Left>
           <IconsPanel>
             <CheckroomIcon
               fontSize="large"
-              category="Clothes"
+              category="Clothing"
               onClick={HandleClickClothes}
             ></CheckroomIcon>
             <ChairIcon
@@ -79,7 +95,7 @@ const Home = () => {
           </IconsPanel>
         </Left>
         <Right>
-          <Products></Products>
+          <Products list={list}></Products>
         </Right>
       </Wrapper>
       <Footer></Footer>

@@ -5,20 +5,11 @@ import Footer from "../components/Footer";
 import Navbar from "../components/Navbar";
 import Newsletter from "../components/NewsLetter";
 import Slider from "../components/Slider";
-import { Link, useNavigate } from "react-router-dom";
+import { Link, useParams } from "react-router-dom";
+import { useEffect, useState } from "react";
+import axios from "axios";
 
 
-const FetchedProduct = [    //array make sure you put [0] before accessing property
-  {
-    user: "1234",
-    imgs: [
-      "https://i.ibb.co/S6qMxwr/jean.jpg",
-      "https://i.ibb.co/S6qMxwr/jean.jpg",
-      "./denim.jpg",
-    ],
-    price: "30",
-  },
-];
 
 const Container = styled.div``;
 
@@ -89,12 +80,8 @@ const AddContainer = styled.div`
   justify-content: space-between;
 `;
 
-
-
-
-
 const Button = styled.button`
-  padding: 15px;
+  /* padding: 15px; */
   border: 2px solid teal;
   background-color: lightblue;
   cursor: pointer;
@@ -107,25 +94,58 @@ const Button = styled.button`
 `;
 
 const Product = () => {
-  const currUser = "456"
+  const [curr_user, setcurr_user] = useState("");
+  const token = localStorage.getItem("token");
+  const SERVER = "http://localhost:5001/";
+  const [item, setItem] = useState("");
+  const { id } = useParams();
+
+  useEffect(() => {
+    const fetchuser = async () => {
+      await axios
+        .get(`${SERVER}api/user/`, {
+          headers: {
+            Authorization: `Bearer ${token}`,
+          },
+        })
+        .then((response) => setcurr_user(response.data))
+        .catch((error) => console.log(error));
+    };
+    
+    fetchuser();
+  }, [token]);
+
+
+  useEffect(() => {
+  const fetchdata = async () => {
+    await axios
+      .get(`${SERVER}api/items/${id}`, {
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
+      })
+      .then((response) => setItem(response.data))
+      .catch((error) => console.log(error));
+  };
+
+    fetchdata();
+  }, [id,token]);
+  
+
+
+
   return (
     <Container>
       <Navbar />
       <Announcement />
       <Wrapper>
         <ImgContainer>
-          <Slider sliderItem={FetchedProduct}></Slider>
+          <Slider sliderItem={item}></Slider>
         </ImgContainer>
         <InfoContainer>
-          <Title>Denim Jumpsuit</Title>
-          <Desc>
-            Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec
-            venenatis, dolor in finibus malesuada, lectus ipsum porta nunc, at
-            iaculis arcu nisi sed mauris. Nulla fermentum vestibulum ex, eget
-            tristique tortor pretium ut. Curabitur elit justo, consequat id
-            condimentum ac, volutpat ornare.
-          </Desc>
-          <Price>$ {FetchedProduct[0].price}</Price>
+          <Title>{item.title}</Title>
+          <Desc>{item.description}</Desc>
+          <Price>$ {item.price}</Price>
           <FilterContainer>
             <Filter>
               <FilterTitle>Color</FilterTitle>
@@ -145,14 +165,24 @@ const Product = () => {
             </Filter>
           </FilterContainer>
           <AddContainer>
-            <Button>
-              <Link
-                to={`/chats/${FetchedProduct[0].user+currUser}`}
-                style={{ textDecoration: "none" ,display:"flex", alignItems:"center", justifyContent:"space-between"}}
-              >
-                Message Seller <EmailIcon></EmailIcon>
-              </Link>
-            </Button>
+            {token && (
+              <Button>
+                <Link
+                  to={{
+                    pathname: "/chats",
+                    search: `?param1=${curr_user.id}`,
+                  }}
+                  style={{
+                    textDecoration: "none",
+                    display: "flex",
+                    alignItems: "center",
+                    justifyContent: "space-between",
+                  }}
+                >
+                  Message Seller <EmailIcon></EmailIcon>
+                </Link>
+              </Button>
+            )}
           </AddContainer>
         </InfoContainer>
       </Wrapper>

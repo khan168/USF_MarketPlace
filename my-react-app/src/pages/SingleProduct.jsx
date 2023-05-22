@@ -5,8 +5,8 @@ import Footer from "../components/Footer";
 import Navbar from "../components/Navbar";
 import Newsletter from "../components/NewsLetter";
 import Slider from "../components/Slider";
-import { Link, useParams } from "react-router-dom";
-import { useEffect, useState } from "react";
+import { Link, useParams, useNavigate } from "react-router-dom";
+import { useEffect, useState} from "react";
 import axios from "axios";
 
 
@@ -94,26 +94,13 @@ const Button = styled.button`
 `;
 
 const Product = () => {
-  const [curr_user, setcurr_user] = useState("");
+  const navigate = useNavigate();
   const token = localStorage.getItem("token");
+  const userid = localStorage.getItem("_id");
   const SERVER = "http://localhost:5001/";
   const [item, setItem] = useState("");
   const { id } = useParams();
-
-  useEffect(() => {
-    const fetchuser = async () => {
-      await axios
-        .get(`${SERVER}api/user/`, {
-          headers: {
-            Authorization: `Bearer ${token}`,
-          },
-        })
-        .then((response) => setcurr_user(response.data))
-        .catch((error) => console.log(error));
-    };
-    
-    fetchuser();
-  }, [token]);
+  const [loading,setloading] = useState(false)
 
 
   useEffect(() => {
@@ -132,7 +119,27 @@ const Product = () => {
   }, [id,token]);
   
 
-
+  const HandleClick = async ()=>{
+    setloading(true)
+     //create or find user
+    try {
+      await axios.post("/api/chat/", {to:item?.user},{
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
+      });
+      // console.log(res.data);
+      setloading(false)
+      navigate(
+        `/chats?param1=${
+          userid < item?.user ? userid + item?.user : item?.user + userid
+        }`
+      );
+    } catch (err) {
+      console.log(err);
+    }
+    
+  }
 
   return (
     <Container>
@@ -165,22 +172,27 @@ const Product = () => {
             </Filter>
           </FilterContainer>
           <AddContainer>
-            {token && (
-              <Button>
-                <Link
+            {token && loading ? <>Loading...</> :(
+              <Button
+                onClick={HandleClick}
+                style={{
+                  textDecoration: "none",
+                  display: "flex",
+                  alignItems: "center",
+                  justifyContent: "space-between",
+                }}
+              >
+                {/* <Link
                   to={{
                     pathname: "/chats",
-                    search: `?param1=${curr_user.id}`,
+                    search: `?param1=${
+                      userid < item?.user
+                        ? userid + item?.user
+                        : item?.user + userid
+                    }`,
                   }}
-                  style={{
-                    textDecoration: "none",
-                    display: "flex",
-                    alignItems: "center",
-                    justifyContent: "space-between",
-                  }}
-                >
-                  Message Seller <EmailIcon></EmailIcon>
-                </Link>
+                ></Link> */}
+                Message Seller <EmailIcon></EmailIcon>
               </Button>
             )}
           </AddContainer>

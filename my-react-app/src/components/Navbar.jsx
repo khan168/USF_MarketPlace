@@ -186,7 +186,7 @@ const Navbar = (props) => {
                 <Link
                   to={{
                     pathname: "/chats",
-                    search: `?param1=${curr_user.id}`,
+                    // search: `?param1=${curr_user.id}`,
                   }}
                   style={{ textDecoration: "none", color: "black" }}
                 >

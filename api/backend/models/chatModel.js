@@ -5,6 +5,7 @@ const ChatSchema = mongoose.Schema(
     chatid:{
         type:String,
         required:true,
+        unique:true
     },
     from: {
       type: mongoose.Schema.Types.ObjectId,

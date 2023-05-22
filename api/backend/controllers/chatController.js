@@ -33,14 +33,14 @@ const getChats = asyncHandler(async (req, res) => {
 // @access Private
 
 const findorcreateChat = asyncHandler(async (req, res,next) => {
-  const chat_id = req.user._id> req.body.to ? req.user._id + req.body.to : req.body.to + req.user._id;
+  const chat_id = req.user._id< req.body.to ? req.user._id + req.body.to : req.body.to + req.user._id;
 
   const foundChat = await Chat.find({chatid:chat_id});
   if(foundChat.length!==0){
       return res.status(200).send({oldchat:foundChat});
   }else{
     const newChat = new Chat({
-      chatid: req.user._id> req.to ? req.user._id + req.to : req.body.to + req.user._id,  //makes sure user1 and user2 chat is same as user2 and user1 chat
+      chatid: chat_id,  //makes sure user1 and user2 chat is same as user2 and user1 chat
       from: req.user._id,
       to: req.body.to,
     });

@@ -18,12 +18,14 @@ const Wrapper = styled.div`
 `;
 
 const Product = () => {
-  // const [curr_user, setcurr_user] = useState("");
+  const location = useLocation();
+  const searchParams = new URLSearchParams(location.search);
+  const param1 = searchParams.get("param1");
+  const id = localStorage.getItem("_id");
   const token = localStorage.getItem("token");
-  const SERVER = "http://localhost:5001/";
 
   const [conversations, setConversations] = useState([]);
-  const [currentChat, setCurrentChat] = useState(null);
+  const [currentChat, setCurrentChat] = useState(param1!==null ?{chatid:param1} :null);
   const [messages, setMessages] = useState([]);
   const [newMessage, setNewMessage] = useState("");
   const scrollRef = useRef();
@@ -31,7 +33,7 @@ const Product = () => {
   const handleSubmit = async (e) => {
     e.preventDefault();
     const message = {
-      user: param1,
+      user: id,
       desc: newMessage,
       chatid: currentChat?.chatid,
     };
@@ -72,6 +74,7 @@ const Product = () => {
   }, [token]);
 
   useEffect(() => {
+    // console.log(currentChat.chatid);
     const getMessages = async () => {
       try {
         const res = await axios.get("/api/message/" + currentChat?.chatid, {
@@ -79,7 +82,6 @@ const Product = () => {
             Authorization: `Bearer ${token}`,
           },
         });
-        console.log(res.data);
         setMessages(res.data);
       } catch (err) {
         console.log(err);
@@ -88,10 +90,7 @@ const Product = () => {
     getMessages();
   }, [token, currentChat?.chatid]);
 
-  const location = useLocation();
-  const searchParams = new URLSearchParams(location.search);
-
-  const param1 = searchParams.get("param1");
+  
 
   return (
     <Container>
@@ -104,7 +103,7 @@ const Product = () => {
             <div>
               {conversations.map((c) => (
                 <div onClick={() => setCurrentChat(c)}>
-                  <Conversation conversationDetail={c} curr_user={param1} />
+                  <Conversation conversationDetail={c} curr_user={id} />
                 </div>
               ))}
             </div>
@@ -124,7 +123,7 @@ const Product = () => {
                     >
                       <Message
                         message={m}
-                        own={m.user === param1 ? "true" : "false"}
+                        own={m.user === id ? "true" : "false"}
                       />
                     </div>
                   ))}

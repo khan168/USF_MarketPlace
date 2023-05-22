@@ -93,7 +93,7 @@ const Register = () => {
       console.log(response.data);
       localStorage.setItem("token",response.data.token);
       localStorage.setItem("_id", response.data._id)
-      //Navigate(`/`);
+      Navigate(`/`);
       
     } catch (error) {
       if (error.response) {

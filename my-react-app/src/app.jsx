@@ -6,7 +6,8 @@ import Register from "./pages/Register";
 import Login from "./pages/login";
 import SingleProduct from "./pages/SingleProduct";
 import SingleChat from './pages/SingleChat';
-import Chats from './pages/Chats';
+import { useEffect, useState } from "react";
+import axios from "axios"
 
 //upload
 //temp
@@ -36,10 +37,6 @@ const router = createBrowserRouter([
   },
   {
     path: "/chats",
-    element: <Chats />,
-  },
-  {
-    path: "/chats/:id",
     element: <SingleChat />,
   },
   {

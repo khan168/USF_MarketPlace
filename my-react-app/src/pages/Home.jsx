@@ -38,7 +38,7 @@ const Right = styled.div`
   background-color: grey;
 `;
 const Home = () => {
-  const user = localStorage.getItem("token");
+  // const user = localStorage.getItem("token");
   const SERVER = "http://localhost:5001/";
   const Navigate = useNavigate();
 
@@ -73,7 +73,7 @@ const Home = () => {
   return (
     <div>
       <Announcement></Announcement>
-      <Navbar />
+      <Navbar/>
       <Wrapper>
         <Left>
           <IconsPanel>

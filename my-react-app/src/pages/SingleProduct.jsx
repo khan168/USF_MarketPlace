@@ -168,11 +168,10 @@ const Product = () => {
             {token && (
               <Button>
                 <Link
-                  to={`/chats/${
-                    curr_user.id < item.user
-                      ? curr_user.id + item.user
-                      : item.user + curr_user.id
-                  }`}
+                  to={{
+                    pathname: "/chats",
+                    search: `?param1=${curr_user.id}`,
+                  }}
                   style={{
                     textDecoration: "none",
                     display: "flex",

@@ -82,7 +82,7 @@ const Profile = () => {
       console.log(id)
       console.log(token)
       try {
-        const response = await axios.get(`http://localhost:5001/api/user/`, { _id: id }, {
+        const response = await axios.get(`http://localhost:5001/api/user/`, {
           headers: { Authorization: `Bearer ${token}` }
         });
 
@@ -103,7 +103,7 @@ const Profile = () => {
           <h2>{userData.username}</h2>
           <h3>{userData.name}</h3>
           <p>{userData.email}</p>
-          // Your code here to display the user's posts...
+          {/* // Your code here to display the user's posts... */}
         </>
       ) : (
         <p>Loading...</p>

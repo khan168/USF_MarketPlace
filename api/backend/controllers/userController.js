@@ -9,9 +9,9 @@ const User = require('../models/userModel')
 // @access Public
 const registerUser = asyncHandler(async (req, res) => {
 
-    const { name, email, password, username, profileImage } = req.body
+    const { name, email, password, number, username, profileImage } = req.body
 
-    if (!name || !email || !password || !username || !profileImage)  {
+    if (!name || !email || !password || !username || !profileImage || !number)  {
         res.status(400).json({ message: 'Please enter all fields' });
         throw new Error('Please enter all fields')
     }
@@ -33,6 +33,7 @@ const registerUser = asyncHandler(async (req, res) => {
         email,
         username,
         profileImage,
+        number,
         password: hashedPassword
     })
 
@@ -41,6 +42,7 @@ const registerUser = asyncHandler(async (req, res) => {
             _id: user._id,
             name: user.name,
             email: user.email,
+            number: user.number,
             username: user.username,
             profileImage: user.profileImage,
             token: generateToken(user._id)

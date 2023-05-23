@@ -48,6 +48,23 @@ const getAllItemsByCategory = asyncHandler(async (req, res) => {
 })
 
 
+// @desc Get All Items by Category
+// @access Private
+const getAllByUser = asyncHandler(async (req, res) => {
+    const _id = req.body._id; 
+    console.log("reaching")
+    const items = await Item.find({_id: mongoose.Types.ObjectId(_id)})
+    
+    if(items && items.length !== 0){
+        res.status(200).json(items)
+    } else {
+        res.status(400)
+        throw new Error('Please add title field')
+        
+    }
+})
+
+
 
 // @desc Set item
 // @route POST /api/items
@@ -112,4 +129,5 @@ module.exports = {
     deleteItem,
     getAllItems,
     getAllItemsByCategory,
+    getAllByUser
 }

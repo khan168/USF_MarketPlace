@@ -5,7 +5,8 @@ const { getItem,
     updateItem, 
     deleteItem,
     getAllItems,
-    getAllItemsByCategory
+    getAllItemsByCategory,
+    getAllByUser
 } = require('../controllers/itemController.js')
 
 const {protect} = require("../middleware/authMiddleware")
@@ -15,5 +16,6 @@ router.route('/:id').get(getItem)
 router.post("/",protect, addItem)
 router.route('/:id').put(protect, updateItem).delete(protect, deleteItem)
 router.route('/getAllItemsByCategory').get(getAllItemsByCategory)
+router.route('/getAllByUser').get(getAllByUser)
 
 module.exports = router

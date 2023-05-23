@@ -116,8 +116,8 @@ const deleteItem = asyncHandler(async (req, res) => {
         throw new Error('Item not found')
     }
 
-    await item.remove
-
+    await item.remove()
+    console.log({message: `Item ${req.params.id} removed`})
     res.status(200).json({message: `Item ${req.params.id} removed`})
 })
 

@@ -1,5 +1,5 @@
 const asyncHandler = require('express-async-handler')
-
+const mongoose = require('mongoose');
 const Item = require('../models/itemModel')
 
 // @desc Get item
@@ -44,6 +44,22 @@ const getAllItemsByCategory = asyncHandler(async (req, res) => {
     } else {
         res.status(404)
         throw new Error(`No items found in category: ${category}`)
+    }
+})
+
+
+// @desc Get All Items by Category
+// @access Private
+const getAllByUser = asyncHandler(async (req, res) => {
+    const _id = req.body._id; 
+    console.log("reaching")
+    const items = await Item.find({user: mongoose.Types.ObjectId(_id)})
+    if(items && items.length !== 0){
+        res.status(200).json(items)
+    } else {
+        res.status(400)
+        throw new Error('Please add title field')
+        
     }
 })
 
@@ -100,8 +116,8 @@ const deleteItem = asyncHandler(async (req, res) => {
         throw new Error('Item not found')
     }
 
-    await item.remove
-
+    await item.remove()
+    console.log({message: `Item ${req.params.id} removed`})
     res.status(200).json({message: `Item ${req.params.id} removed`})
 })
 
@@ -112,4 +128,5 @@ module.exports = {
     deleteItem,
     getAllItems,
     getAllItemsByCategory,
+    getAllByUser
 }

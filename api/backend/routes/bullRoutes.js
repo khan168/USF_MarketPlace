@@ -16,6 +16,6 @@ router.route('/:id').get(getItem)
 router.post("/",protect, addItem)
 router.route('/:id').put(protect, updateItem).delete(protect, deleteItem)
 router.route('/getAllItemsByCategory').get(getAllItemsByCategory)
-router.route('/getAllByUser').get(getAllByUser)
+router.route('/getAllByUser').post(getAllByUser)
 
 module.exports = router

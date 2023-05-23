@@ -2,7 +2,6 @@ import React, { useState, useEffect } from "react";
 import styled from "styled-components";
 import axios from "axios";
 
-// Styled Components
 const ProfileContainer = styled.div`
   display: flex;
   flex-direction: column;
@@ -10,6 +9,10 @@ const ProfileContainer = styled.div`
   justify-content: center;
   padding: 2em;
   background: #f2f2f2;
+
+  @media (max-width: 600px) {
+    padding: 1em;
+  }
 `;
 
 const Card = styled.div`
@@ -25,25 +28,45 @@ const Card = styled.div`
   &:hover {
     transform: translateY(-20px);
   }
+
+  @media (max-width: 600px) {
+    width: 100%;
+    padding: 20px 30px 25px 30px;
+  }
 `;
 
 const Avatar = styled.img`
-  width: 120px;
-  height: 120px;
+  width: 150px;
+  height: 150px;
   border-radius: 50%;
   margin: 0 auto;
   object-fit: cover;
   box-shadow: 0px 14px 80px rgba(34, 35, 58, 0.2);
+
+  @media (max-width: 600px) {
+    width: 80px;
+    height: 80px;
+  }
 `;
 
 const UserName = styled.h3`
   margin: 20px 0 0 0;
   color: #333;
+
+  @media (max-width: 600px) {
+    font-size: 1.2rem;
+    margin: 15px 0 0 0;
+  }
 `;
 
 const UserInfo = styled.p`
   color: #777;
   margin-bottom: 20px;
+
+  @media (max-width: 600px) {
+    font-size: 0.9rem;
+    margin-bottom: 15px;
+  }
 `;
 
 const PostsContainer = styled.div`
@@ -51,6 +74,10 @@ const PostsContainer = styled.div`
   flex-direction: column;
   align-items: center;
   width: 100%;
+
+  @media (max-width: 600px) {
+    align-items: flex-start;
+  }
 `;
 
 const PostCard = styled.div`
@@ -61,19 +88,33 @@ const PostCard = styled.div`
   border-radius: 15px;
   text-align: center;
   margin-bottom: 2em;
+
+  @media (max-width: 600px) {
+    padding: 20px 30px 25px 30px;
+  }
 `;
 
 const PostTitle = styled.h4`
   color: #333;
+
+  @media (max-width: 600px) {
+    font-size: 1.1rem;
+  }
 `;
 
 const PostBody = styled.p`
   color: #777;
-`;
+
+  @media (max-width: 600px) {
+    font-size: 0.9rem;
+  }
+`;  
+
 
 
 const Profile = () => {
   const [userData, setUserData] = useState(null);
+  const [posts, setPosts] = useState([])
 
   useEffect(() => {
     const fetchData = async () => {
@@ -86,7 +127,10 @@ const Profile = () => {
           headers: { Authorization: `Bearer ${token}` }
         });
 
+              
+
         setUserData(response.data);
+        
       } catch (error) {
         console.error(`Error: ${error}`);
       }
@@ -96,20 +140,24 @@ const Profile = () => {
   }, []);
 
   return (
-    <div>
+    <ProfileContainer>
       {userData ? (
         <>
-          <img src={userData.profileImage} alt="Profile" />
-          <h2>{userData.username}</h2>
-          <h3>{userData.name}</h3>
-          <p>{userData.email}</p>
-          {/* // Your code here to display the user's posts... */}
+          <Card>
+            <Avatar src={userData.profileImage} alt="Profile" />
+            <UserName>{userData.username}</UserName>
+            <UserInfo>{userData.number}</UserInfo>
+            <UserInfo>{userData.name}</UserInfo>
+            <UserInfo>{userData.email}</UserInfo>
+            {/* // Your code here to display the user's posts... */}
+          </Card>
         </>
       ) : (
         <p>Loading...</p>
       )}
-    </div>
+    </ProfileContainer>
   );
 };
+
 
 export default Profile;

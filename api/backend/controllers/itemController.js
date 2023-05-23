@@ -1,5 +1,5 @@
 const asyncHandler = require('express-async-handler')
-
+const mongoose = require('mongoose');
 const Item = require('../models/itemModel')
 
 // @desc Get item
@@ -53,8 +53,7 @@ const getAllItemsByCategory = asyncHandler(async (req, res) => {
 const getAllByUser = asyncHandler(async (req, res) => {
     const _id = req.body._id; 
     console.log("reaching")
-    const items = await Item.find({_id: mongoose.Types.ObjectId(_id)})
-    
+    const items = await Item.find({user: mongoose.Types.ObjectId(_id)})
     if(items && items.length !== 0){
         res.status(200).json(items)
     } else {

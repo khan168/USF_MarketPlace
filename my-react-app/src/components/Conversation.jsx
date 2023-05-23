@@ -37,7 +37,7 @@ const Conversation = ({ conversationDetail,curr_user }) => {
   return (
     <Conversationdiv>
       <ConversationImg
-        src={user?.profilePicture ? user?.profilePicture : noAvatarsrc}
+        src={user?.profileImage ? user?.profileImage : noAvatarsrc}
         alt=""
       />
       <ConversationName >{user?.name}</ConversationName>

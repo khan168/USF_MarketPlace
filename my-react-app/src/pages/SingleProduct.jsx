@@ -175,7 +175,7 @@ const Product = () => {
             {token && loading ? (
               <>Loading...</>
             ) : (
-              token && (
+              token && userid!==item.user ? (
                 <Button
                   onClick={HandleClick}
                   style={{
@@ -197,7 +197,7 @@ const Product = () => {
                 ></Link> */}
                   Message Seller <EmailIcon></EmailIcon>
                 </Button>
-              )
+              ) : "You own this product"
             )}
           </AddContainer>
         </InfoContainer>

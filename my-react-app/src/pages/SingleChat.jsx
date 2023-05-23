@@ -17,6 +17,8 @@ const Wrapper = styled.div`
   background-color: beige;
 `;
 
+
+
 const Product = () => {
   const location = useLocation();
   const searchParams = new URLSearchParams(location.search);

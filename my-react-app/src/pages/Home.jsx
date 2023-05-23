@@ -7,6 +7,7 @@ import Footer from "../components/Footer";
 import CheckroomIcon from "@mui/icons-material/Checkroom";
 import ChairIcon from "@mui/icons-material/Chair";
 import SpeakerIcon from "@mui/icons-material/Speaker";
+import MoreHorizIcon from "@mui/icons-material/MoreHoriz";
 import { useNavigate } from "react-router-dom";
 import { useEffect, useState } from "react";
 import axios from "axios";
@@ -19,7 +20,7 @@ const Wrapper = styled.div`
 
 const Left = styled.div`
   padding: 20px;
-  width: 30%;
+  width: 20%;
   background-color: lightgrey;
 `;
 
@@ -40,40 +41,51 @@ const Right = styled.div`
 const Home = () => {
   // const user = localStorage.getItem("token");
   const SERVER = "http://localhost:5001/";
-  const Navigate = useNavigate();
 
   const [list, setList] = useState([]);
+  const [loading, setLoading] = useState([]);
+  const [error, setError] = useState(false);
 
   useEffect(() => {
+      const fetchdata = async () => {
+        setLoading(true);
+        await axios
+          .get(`${SERVER}api/items/getAllItems`, {
+            // headers: {
+            //   Authorization: `Bearer ${user}`,
+            // },
+          })
+          .then((response) => {
+            setLoading(false)
+            setList(response.data)})
+          .catch((error) => setError(error.message));
+      };
+    
     fetchdata();
   }, []);
 
-  const fetchdata = () => {
-    axios
-      .get(`${SERVER}api/items/getAllItems`, {
-        // headers: {
-        //   Authorization: `Bearer ${user}`,
-        // },
-      })
-      .then((response) => setList(response.data))
-      .catch((error) => console.log(error));
-  };
-  const HandleClickClothes = (e) => {
-    Navigate(`/products/clothes`);
+
+  const HandleClickClothes = async (e) => {
+    console.log("clothing");
+    
   };
 
-  const HandleClickFur = (e) => {
-    Navigate(`/products/Furniture`);
+  const HandleClickFur = async (e) => {
+    console.log("furniture")
   };
 
-  const HandleClickE = (e) => {
-    Navigate(`/products/Electronics`);
+  const HandleClickE = async (e) => {
+    console.log("electronics");
   };
 
+
+  const HandleClickMis = async (e) => {
+    console.log("misc");
+  };
   return (
     <div>
       <Announcement></Announcement>
-      <Navbar/>
+      <Navbar />
       <Wrapper>
         <Left>
           <IconsPanel>
@@ -81,21 +93,28 @@ const Home = () => {
               fontSize="large"
               category="Clothing"
               onClick={HandleClickClothes}
+              value="Clothing"
             ></CheckroomIcon>
             <ChairIcon
               fontSize="large"
               category="Furniture"
               onClick={HandleClickFur}
+              value="Furniture"
             ></ChairIcon>
             <SpeakerIcon
               fontSize="large"
               category="Electronics"
               onClick={HandleClickE}
             ></SpeakerIcon>
+            <MoreHorizIcon
+              fontSize="large"
+              category="Miscellaneous"
+              onClick={HandleClickMis}
+            ></MoreHorizIcon>
           </IconsPanel>
         </Left>
         <Right>
-          <Products list={list}></Products>
+          {error ? error : loading ? "Loading..." :<Products list={list}></Products>}
         </Right>
       </Wrapper>
       <Footer></Footer>

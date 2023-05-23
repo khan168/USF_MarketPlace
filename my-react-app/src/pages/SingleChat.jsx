@@ -124,6 +124,7 @@ const Product = () => {
                       <Message
                         message={m}
                         own={m.user === id ? "true" : "false"}
+                        chat={currentChat}
                       />
                     </div>
                   ))}

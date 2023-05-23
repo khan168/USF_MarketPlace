@@ -47,12 +47,12 @@ margin-top: 10px;
 
 
 
-export default function Message({ message, own }) {
+export default function Message({ message, own,chat }) {
   return (
     <Messagediv own={own}>
         <MessageTop>
           <MessageImg
-            src="https://images.pexels.com/photos/3686769/pexels-photo-3686769.jpeg?auto=compress&cs=tinysrgb&dpr=2&w=500"
+            src={chat?.from?.profileImage ? own==="true" ? chat.from?.profileImage : chat.to?.profileImage : "https://images.pexels.com/photos/3686769/pexels-photo-3686769.jpeg?auto=compress&cs=tinysrgb&dpr=2&w=500"}
             alt=""
           />
           <MessageText>{message?.desc}</MessageText>

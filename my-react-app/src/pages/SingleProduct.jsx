@@ -172,17 +172,20 @@ const Product = () => {
             </Filter>
           </FilterContainer>
           <AddContainer>
-            {token && loading ? <>Loading...</> :(
-              <Button
-                onClick={HandleClick}
-                style={{
-                  textDecoration: "none",
-                  display: "flex",
-                  alignItems: "center",
-                  justifyContent: "space-between",
-                }}
-              >
-                {/* <Link
+            {token && loading ? (
+              <>Loading...</>
+            ) : (
+              token && (
+                <Button
+                  onClick={HandleClick}
+                  style={{
+                    textDecoration: "none",
+                    display: "flex",
+                    alignItems: "center",
+                    justifyContent: "space-between",
+                  }}
+                >
+                  {/* <Link
                   to={{
                     pathname: "/chats",
                     search: `?param1=${
@@ -192,8 +195,9 @@ const Product = () => {
                     }`,
                   }}
                 ></Link> */}
-                Message Seller <EmailIcon></EmailIcon>
-              </Button>
+                  Message Seller <EmailIcon></EmailIcon>
+                </Button>
+              )
             )}
           </AddContainer>
         </InfoContainer>

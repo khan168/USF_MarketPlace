@@ -8,7 +8,7 @@ import { useNavigate } from 'react-router-dom';
 import { useEffect } from 'react'; 
 import axios from "axios"
 import { Button } from '@mui/material';
-
+import Popup from './Popup';
 //const jwt = require('jsonwebtoken');
 
 
@@ -83,6 +83,7 @@ const Navbar = (props) => {
    }
 
    const [isTokenValid, setIsTokenValid] = useState(false);
+   const [openPopup, setOpenPopup] = useState(false);
    const [curr_user, setcurr_user] = useState("");
    const SERVER = "http://localhost:5001/";
 
@@ -162,9 +163,15 @@ const Navbar = (props) => {
           {isTokenValid ? (
             <>
               <MenuItem>
-                <Button style={{ textDecoration: "none", color: "black" }}>
+                <Button
+                  style={{ textDecoration: "none", color: "black" }}
+                  onClick={() => {
+                    setOpenPopup(true);
+                  }}
+                >
                   CREATE POST
                 </Button>
+                {openPopup && <Popup setOpenPopup={setOpenPopup} />}
               </MenuItem>
               <MenuItem>
                 <Link

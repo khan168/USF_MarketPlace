@@ -1,0 +1,290 @@
+import React, { useState } from "react";
+import styled from "styled-components";
+import CloseIcon from "@mui/icons-material/Close";
+import upload from "../utilities/Upload";
+import axios from "axios";
+
+const PopupBackground = styled.div`
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background-color: rgba(0, 0, 0, 0.5);
+  z-index: 999;
+`;
+
+const PopupContainer = styled.div`
+  position: relative;
+  background-color: white;
+  border-radius: 8px;
+  padding: 20px;
+  width: 725px;
+  height: 625px;
+  display: flex;
+  align-items: center;
+  gap: 20px;
+  flex-wrap: wrap;
+`;
+
+const ImageContainer = styled.div`
+  flex: 1;
+  height: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 50%;
+  border: 1px solid #ccc;
+`;
+
+const ImageBox = styled.div`
+  width: 90%;
+  height: 90%;
+  border: 2px solid #ccc;
+  border-radius: 8px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+`;
+
+const ItemContainer = styled.form`
+  flex: 1;
+  height: 85%;
+  display: flex;
+  align-items: flex-start;
+  width: 50%;
+  flex-direction: column;
+  cursor: auto;
+`;
+
+const CloseButton = styled.button`
+  position: absolute;
+  top: 10px;
+  right: 10px;
+  border: none;
+  background-color: transparent;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+`;
+
+const Input = styled.input`
+  width: 80%;
+  padding: 10px;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  margin-bottom: 10px;
+`;
+
+const Label = styled.label`
+  font-weight: bold;
+  margin-bottom: 10px;
+`;
+
+const Asterisk = styled.span`
+  color: red;
+  margin-left: 2px;
+`;
+
+const Select = styled.select`
+  width: 80%;
+  padding: 10px;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  margin-bottom: 10px;
+`;
+
+const DescriptionInput = styled.textarea`
+  width: 80%;
+  padding: 10px;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  margin-bottom: 20px; /* Increased margin-bottom for longer text box */
+  resize: vertical;
+`;
+
+const CreateButton = styled.input`
+  background-color: #4caf50;
+  color: white;
+  border: none;
+  padding: 10px 20px;
+  border-radius: 4px;
+  cursor: pointer;
+`;
+
+const ImageBoxUpload = styled.label`
+  cursor: pointer;
+`;
+
+function Popup({ setOpenPopup }) {
+  const handleClose = () => {
+    setOpenPopup(false);
+  };
+
+  const [files_raw, setfile_raw] = useState([]);
+
+  const userid = localStorage.getItem("_id");
+  const token = localStorage.getItem("token");
+
+  const [formData, setFormData] = useState({
+    user: userid,
+    price: "",
+    title: "",
+    description: "",
+    category: "",
+    images: [],
+  });
+  const [loading, setLoading] = useState(false);
+
+  const HandleChange = (event) => {
+    const { name, value } = event.target;
+    setFormData((prevFormData) => ({
+      ...prevFormData,
+      [name]: value,
+    }));
+  };
+
+  const [multipleImages, setMultipleImages] = useState([]);
+  // Functions to preview multiple images
+  const changeMultipleFiles = (e) => {
+    if (e.target.files) {
+      const imageArray = Array.from(e.target.files).map((file) =>
+        URL.createObjectURL(file)
+      );
+      const stringarray = Array.from(e.target.files).map((file) => file);
+      setMultipleImages((prevImages) => prevImages.concat(imageArray));
+      setfile_raw((prevImages) => prevImages.concat(stringarray));
+    }
+  };
+
+  const upload_files = async () => {
+    let arr = [];
+    await Promise.all(
+      files_raw.map(async (e) => {
+        const url = await upload(e);
+        arr.push(url);
+      })
+    );
+    formData["images"] = arr;
+  };
+
+  const HandleSubmit = async (e) => {
+    
+    e.preventDefault();
+    setLoading(true);
+    await upload_files();
+    
+    console.log(formData);
+    try {
+      //   await axios.
+      const res = await axios.post("/api/items/", formData, {
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
+      });
+      setLoading(false);
+      console.log(res);
+      setMultipleImages([]);
+    } catch (error) {
+      console.log(error);
+    }
+  };
+
+  const render = (data) => {
+    return data.map((image) => {
+      return (
+        <img
+          style={{ height: "100px", width: "100px" }}
+          className="image"
+          src={image}
+          alt=""
+          key={image}
+        />
+      );
+    });
+  };
+
+  return (
+    <PopupBackground>
+      <PopupContainer>
+        <CloseButton onClick={handleClose}>
+          <CloseIcon />
+        </CloseButton>
+        <ImageContainer>
+          {/* <ImageBoxUpload htmlFor="image-upload">
+            <ImageBox>Image Placeholder</ImageBox>
+            <input
+              id="image-upload"
+              type="file"
+              accept="image/*"
+              onChange={handleImageUpload}
+            />
+          </ImageBoxUpload> */}
+          <input
+            type="file"
+            name="file1"
+            multiple
+            onChange={changeMultipleFiles}
+          />
+          <hr></hr>
+          {render(multipleImages)}
+        </ImageContainer>
+        <ItemContainer onSubmit={HandleSubmit}>
+          <Label>
+            Title
+            <Asterisk>*</Asterisk>
+          </Label>
+          <Input
+            name="title"
+            type="text"
+            placeholder="Enter name"
+            onChange={HandleChange}
+            required
+          />
+          <Label>
+            Price
+            <Asterisk>*</Asterisk>
+          </Label>
+          <Input
+            name="price"
+            type="text"
+            placeholder="Enter name"
+            onChange={HandleChange}
+            required
+          />
+          <Label>
+            Description
+            <Asterisk>*</Asterisk>
+          </Label>
+          <DescriptionInput
+            name="description"
+            placeholder="Enter description"
+            onChange={HandleChange}
+            required
+          ></DescriptionInput>
+          <Label>
+            Category
+            <Asterisk>*</Asterisk>
+          </Label>
+          <Select name="category" onChange={HandleChange} required>
+            <option value="">Select category</option>
+            <option value="Clothing">Clothing</option>
+            <option value="Electronics">Electronics</option>
+            <option value="Furniture">Cars</option>
+            <option value="Miscellaneous">Miscellaneous</option>
+          </Select>
+          {loading ? (
+            "Loading..."
+          ) : (
+            <CreateButton type="submit" value="Submit" />
+          )}
+        </ItemContainer>
+      </PopupContainer>
+    </PopupBackground>
+  );
+}
+
+export default Popup;

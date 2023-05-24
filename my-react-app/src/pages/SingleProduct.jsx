@@ -16,6 +16,7 @@ const Container = styled.div``;
 const Wrapper = styled.div`
   padding: 50px;
   display: flex;
+  justify-content: space-between;
 `;
 
 const ImgContainer = styled.div`
@@ -185,15 +186,13 @@ const Product = () => {
     }
     
   }
-
-  console.log(item.user)
   return (
     <Container>
       <Navbar />
       <Announcement />
       <Wrapper>
         <ImgContainer>
-          <Slider sliderItem={item}></Slider>
+          <Slider array={item?.images}></Slider>
         </ImgContainer>
         <InfoContainer>
           <Title>{item.title}</Title>

@@ -23,10 +23,11 @@ const Arrow = styled.div`
 `;
 
 const Container = styled.div`
+  margin: auto;
   position: relative;
-  height: 80vh;
+  height: 50vh;
   width: 37vw;
-  display: flex;
+  /* display: flex; */
   align-items: center;
   justify-content: center;
   overflow: hidden;
@@ -42,7 +43,7 @@ const Wrapper = styled.div`
 `;
 
 const Slide = styled.div`
-  width: 37vw;
+  /* width: 37vw; */
   height: 100%;
   /* display: flex; */
   align-items: center;
@@ -50,8 +51,9 @@ const Slide = styled.div`
 `;
 
 const ImageContainer = styled.div`
-  width: 100%;
+  width: 37vw;
   height: 100%;
+  
   /* flex: 1; */
 `;
 
@@ -61,32 +63,27 @@ const Image = styled.img`
   width: 100%;
   height: 100%;
   transform: scale(0.9);
-  /* object-fit: cover; */
+  object-fit: cover;
 `;
 
-const Slider = (props) => {
-  const [array,setarray] = React.useState([])
-  useEffect(() => {
-    console.log(props.sliderItem.images || "here");
-    // setarray(props.sliderItem.images)
-  }, []);
+const Slider = ({array}) => {
+  
 
   const [slideIndex, setSlideIndex] = React.useState(0);
   const handleClick = (direction) => {
     if (direction === "left") {
       setSlideIndex(slideIndex > 0 ? slideIndex - 1 : 0);
     } else {
-      setSlideIndex(slideIndex < 1 ? slideIndex + 1 : 0);
+      setSlideIndex(slideIndex <array.length-1 ? slideIndex + 1 : 0);
     }
   };
   return (
-    <div>
       <Container>
         <Arrow direction="left" onClick={() => handleClick("left")}>
           <ArrowBackIosIcon fontSize="large"></ArrowBackIosIcon>
         </Arrow>
         <Wrapper slideindex={slideIndex}>
-          {array.map((item,index) => (
+          {array?.map((item,index) => (
             <Slide key={index}>
               <ImageContainer>
                 <Image src={item} />
@@ -103,7 +100,6 @@ const Slider = (props) => {
           <ArrowForwardIosIcon fontSize="large"></ArrowForwardIosIcon>
         </Arrow>
       </Container>
-    </div>
   );
 };
 

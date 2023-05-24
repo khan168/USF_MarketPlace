@@ -130,16 +130,8 @@ const Footer = () => {
       <Right>
         <Title>Contact</Title>
         <ContactItem>
-          <RoomIcon style={{ marginRight: "10px" }} /> 622 Dixie Path , South
-          Tobinchester 98336
-        </ContactItem>
-        <ContactItem>
-          <PhoneIcon style={{ marginRight: "10px" }} /> +1 234 56 78
-        </ContactItem>
-        <ContactItem>
           <MailOutlineIcon style={{ marginRight: "10px" }} /> contact@usf.dev
         </ContactItem>
-        <Payment src="https://i.ibb.co/Qfvn4z6/payment.png" />
       </Right>
     </Container>
   );

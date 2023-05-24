@@ -8,6 +8,7 @@ import CheckroomIcon from "@mui/icons-material/Checkroom";
 import ChairIcon from "@mui/icons-material/Chair";
 import SpeakerIcon from "@mui/icons-material/Speaker";
 import MoreHorizIcon from "@mui/icons-material/MoreHoriz";
+import RestartAltIcon from "@mui/icons-material/RestartAlt";
 import { useEffect, useState, useRef } from "react";
 import axios from "axios";
 
@@ -76,23 +77,35 @@ const Home = () => {
   }, [cat]);
 
   const HandleClickClothes = () => {
-    minRef.current.value=null;
+    minRef.current.value=null;      //to reset the min max and not sort with both query
     maxRef.current.value=null;
     setCat("Clothing")
   };
 
   const HandleClickFur = () => {
+    minRef.current.value = null;
+    maxRef.current.value = null;
     setCat("Furniture");
   };
 
   const HandleClickE = () => {
+    minRef.current.value = null;
+    maxRef.current.value = null;
     setCat("Electronics");
   };
 
   const HandleClickMis = () => {
+    minRef.current.value = null;
+    maxRef.current.value = null;
     setCat("Miscellaneous"); //could be spelt wrong
-
   };
+  const HandleClickRestart = () => {
+    minRef.current.value = null;
+    maxRef.current.value = null;
+    setCat("");
+  };
+
+
 
 
   const HandleFilter = async()=>{
@@ -124,6 +137,11 @@ const Home = () => {
             <button onClick={HandleFilter}>Apply</button>
           </Filter>
           <IconsPanel>
+            <RestartAltIcon
+              fontSize="large"
+              category="Miscellaneous"
+              onClick={HandleClickRestart}
+            ></RestartAltIcon>
             <CheckroomIcon
               fontSize="large"
               category="Clothing"
@@ -143,7 +161,6 @@ const Home = () => {
             ></SpeakerIcon>
             <MoreHorizIcon
               fontSize="large"
-              category="Miscellaneous"
               onClick={HandleClickMis}
             ></MoreHorizIcon>
           </IconsPanel>

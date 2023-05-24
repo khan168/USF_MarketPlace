@@ -4,7 +4,8 @@ const { registerUser,
     loginUser,
     logoutUser, 
     getUser,
-    deleteUser }
+    deleteUser,
+    getUserById }
  = require('../controllers/userController.js')
  
 const {protect} = require('../middleware/authMiddleware.js')
@@ -13,6 +14,7 @@ const {protect} = require('../middleware/authMiddleware.js')
 router.post('/register', registerUser)
 router.post('/login', loginUser)
 router.post('/logout', logoutUser)
+router.post('/getUserById', getUserById)
 router.route('/').get(protect, getUser).delete(protect, deleteUser)
 
 

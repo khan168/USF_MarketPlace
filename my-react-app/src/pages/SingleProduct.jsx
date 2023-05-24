@@ -140,7 +140,7 @@ const Product = () => {
     }
     
   }
-
+  console.log(item.user)
   return (
     <Container>
       <Navbar />

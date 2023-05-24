@@ -8,8 +8,7 @@ import CheckroomIcon from "@mui/icons-material/Checkroom";
 import ChairIcon from "@mui/icons-material/Chair";
 import SpeakerIcon from "@mui/icons-material/Speaker";
 import MoreHorizIcon from "@mui/icons-material/MoreHoriz";
-import { useNavigate } from "react-router-dom";
-import { useEffect, useState } from "react";
+import { useEffect, useState, useRef } from "react";
 import axios from "axios";
 
 const Wrapper = styled.div`
@@ -20,7 +19,7 @@ const Wrapper = styled.div`
 
 const Left = styled.div`
   padding: 20px;
-  width: 20%;
+  width: 10%;
   background-color: lightgrey;
 `;
 
@@ -38,6 +37,13 @@ const Right = styled.div`
   overflow-y: auto; /* Enable vertical scrolling */
   background-color: grey;
 `;
+
+const Filter = styled.div`
+display: flex;
+flex-direction:column;
+justify-content: space-evenly;
+`
+
 const Home = () => {
   // const user = localStorage.getItem("token");
   const SERVER = "http://localhost:5001/";
@@ -45,49 +51,78 @@ const Home = () => {
   const [list, setList] = useState([]);
   const [loading, setLoading] = useState([]);
   const [error, setError] = useState(false);
+  const minRef = useRef();
+  const maxRef = useRef();
+  const [cat,setCat]=useState("");
+
+  const [searchTerm,setSearchterm] = useState(""); //for search bar
 
   useEffect(() => {
-      const fetchdata = async () => {
-        setLoading(true);
-        await axios
-          .get(`${SERVER}api/items/getAllItems`, {
-            // headers: {
-            //   Authorization: `Bearer ${user}`,
-            // },
-          })
-          .then((response) => {
-            setLoading(false)
-            setList(response.data)})
-          .catch((error) => setError(error.message));
-      };
-    
+    const fetchdata = async () => {
+      setLoading(true);
+
+      await axios
+        .get(
+          `${SERVER}api/items/?min=${minRef.current.value}&max=${maxRef.current.value}&cat=${cat}`
+        )
+        .then((response) => {
+          setList(response.data);
+          setLoading(false);
+        })
+        .catch((error) => setError(error.message));
+    };
+
     fetchdata();
-  }, []);
+  }, [cat]);
 
-
-  const HandleClickClothes = async (e) => {
-    console.log("clothing");
-    
+  const HandleClickClothes = () => {
+    minRef.current.value=null;
+    maxRef.current.value=null;
+    setCat("Clothing")
   };
 
-  const HandleClickFur = async (e) => {
-    console.log("furniture")
+  const HandleClickFur = () => {
+    setCat("Furniture");
   };
 
-  const HandleClickE = async (e) => {
-    console.log("electronics");
+  const HandleClickE = () => {
+    setCat("Electronics");
+  };
+
+  const HandleClickMis = () => {
+    setCat("Miscellaneous"); //could be spelt wrong
+
   };
 
 
-  const HandleClickMis = async (e) => {
-    console.log("misc");
-  };
+  const HandleFilter = async()=>{
+     setLoading(true);
+     setCat("")
+     await axios
+       .get(
+         `${SERVER}api/items/?min=${minRef.current.value}&max=${maxRef.current.value}&cat=${cat}`
+       )
+       .then((response) => {
+         setList(response.data);
+         setLoading(false);
+       });
+  }
+
+  const filteredList = list.filter((ele) =>
+    ele.title.toLowerCase().includes(searchTerm.toLowerCase())
+  );
   return (
     <div>
       <Announcement></Announcement>
-      <Navbar />
+      <Navbar term={searchTerm} setTerm={setSearchterm} />
       <Wrapper>
         <Left>
+          <Filter>
+            <span>Amount</span>
+            <input ref={minRef} type="number" placeholder="min" />
+            <input ref={maxRef} type="number" placeholder="max" />
+            <button onClick={HandleFilter}>Apply</button>
+          </Filter>
           <IconsPanel>
             <CheckroomIcon
               fontSize="large"
@@ -114,7 +149,13 @@ const Home = () => {
           </IconsPanel>
         </Left>
         <Right>
-          {error ? error : loading ? "Loading..." :<Products list={list}></Products>}
+          {error ? (
+            error
+          ) : loading ? (
+            "Loading..."
+          ) : (
+            <Products list={filteredList}></Products>
+          )}
         </Right>
       </Wrapper>
       <Footer></Footer>

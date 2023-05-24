@@ -20,14 +20,32 @@ const getItem = asyncHandler(async (req, res) => {
 // @route GET /api/items
 // @access Private
 
-const getAllItems = asyncHandler(async (req, res) => {
-    const items = await Item.find({})
+const getAllItems = asyncHandler(async (req, res) => {  //this query creates a common end point for several resources
+    // const items = await Item.find({})
 
-    if(items && items.length !== 0){
-        res.status(200).json(items)
-    } else {
-        res.status(404)
-        throw new Error('No items found')
+    // if(items && items.length !== 0){
+    //     res.status(200).json(items)
+    // } else {
+    //     res.status(404)
+    //     throw new Error('No items found')
+    // }
+    const q = req.query;
+    const filters = {
+      ...(q.userId && { userId: q.userId }),
+      ...(q.cat && { category: q.cat }),
+      ...((q.min || q.max) && {
+        price: {
+          ...(q.min && { $gt: q.min }),
+          ...(q.max && { $lt: q.max }),
+        },
+      }),
+      ...(q.search && { title: { $regex: q.search, $options: "i" } }),
+    };
+    try {
+      const items = await Item.find(filters)
+      res.status(200).send(items);
+    } catch (err) {
+      next(err);
     }
 })
 

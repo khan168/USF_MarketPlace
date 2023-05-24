@@ -185,19 +185,9 @@ const Product = () => {
                     justifyContent: "space-between",
                   }}
                 >
-                  {/* <Link
-                  to={{
-                    pathname: "/chats",
-                    search: `?param1=${
-                      userid < item?.user
-                        ? userid + item?.user
-                        : item?.user + userid
-                    }`,
-                  }}
-                ></Link> */}
                   Message Seller <EmailIcon></EmailIcon>
                 </Button>
-              ) : "You own this product"
+              ) : token ? "You own this product" : " "
             )}
           </AddContainer>
         </InfoContainer>

@@ -11,6 +11,62 @@ import { Button } from '@mui/material';
 import Popup from './Popup';
 //const jwt = require('jsonwebtoken');
 
+const Container = styled.div`
+  height: 60px;
+  background-color: white;
+`;
+const Wrapper = styled.div`
+  padding: 10px 20px;
+  display: flex;
+  justify-content: space-between;
+`;
+
+const Left = styled.div`
+  display: flex;
+  flex: 1;
+  align-items: center;
+`;
+
+const Center = styled.div`
+  flex: 1;
+`;
+
+const Right = styled.div`
+  flex: 1;
+  display: flex;
+  align-items: center;
+  justify-content: flex-end;
+`;
+
+const Language = styled.span`
+  font-size: 14px;
+  cursor: pointer;
+`;
+
+const SearchContainer = styled.div`
+  display: flex;
+  border: 1px solid lightgrey;
+  align-items: center;
+  margin-left: 25px;
+  padding: 5px;
+`;
+
+const Input = styled.input`
+  border: none;
+`;
+
+const Logo = styled.h1`
+  font-weight: bold;
+  text-align: center;
+  cursor: pointer;
+`;
+
+const MenuItem = styled.div`
+  font-size: 14px;
+  cursor: pointer;
+  margin-left: 25px;
+`;
+
 
 const  SimpleBadge=()=> {
   return (
@@ -21,62 +77,8 @@ const  SimpleBadge=()=> {
 }
 
 
-const Navbar = (props) => {
-  const Container = styled.div`
-    height:60px;
-    background-color: white;
-  `
-  const Wrapper=styled.div`
-    padding: 10px 20px;
-    display: flex;
-    justify-content: space-between;
-    `
-
-   const Left = styled.div`
-    display:flex;
-    flex: 1;
-    align-items: center;
-   `;
-
-   const Center = styled.div`
-     flex: 1;
-   `;
-
-   const Right = styled.div`
-     flex: 1;
-     display: flex;
-     align-items: center;
-     justify-content: flex-end;
-   `;
-
-   const Language = styled.span`
-     font-size: 14px;
-     cursor: pointer;
-   `;
-
-   const SearchContainer = styled.div`
-    display: flex;
-    border:1px solid lightgrey;
-    align-items: center;
-    margin-left: 25px;
-    padding: 5px;
-   `;
-
-   const Input = styled.input`
-    border: none;
-   `
-
-   const Logo = styled.h1`
-     font-weight: bold;
-     text-align: center;
-     cursor: pointer;
-   `;
-
-   const MenuItem = styled.div`
-    font-size: 14px;
-    cursor: pointer;
-    margin-left: 25px;
-   `
+const Navbar = ({term,setTerm}) => {
+  
    const Navigate = useNavigate();
    const HandleClick = ()=>{
     Navigate("/")
@@ -84,7 +86,7 @@ const Navbar = (props) => {
 
    const [isTokenValid, setIsTokenValid] = useState(false);
    const [openPopup, setOpenPopup] = useState(false);
-   const [curr_user, setcurr_user] = useState("");
+   const [curr_user, setcurr_user] = useState("");   //use for display picture
    const SERVER = "http://localhost:5001/";
 
    useEffect(()=>{
@@ -136,11 +138,20 @@ const Navbar = (props) => {
   //     setIsTokenValid(false);
   //   }
   // }, []);
+  
 
    const HandleLogout= async (e) => {
      localStorage.removeItem("token");
      Navigate(`/login`);
    };
+
+    const handleSearch = (event) => {
+      const searchTerm = event.target.value;
+      setTerm(searchTerm);
+
+      // Perform search logic here and update searchResults state accordingly
+      
+    };
 
 
   return (
@@ -149,7 +160,7 @@ const Navbar = (props) => {
         <Left>
           <Language>EN</Language>
           <SearchContainer>
-            <Input />
+            <Input value={term} onChange={handleSearch} />
             <SearchIcon />
           </SearchContainer>
         </Left>

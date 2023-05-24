@@ -93,6 +93,29 @@ const Button = styled.button`
   }
 `;
 
+
+const SellerInfo = styled.div`
+  display: flex;
+  align-items: center;
+`;
+
+const SellerImage = styled.img`
+  height: 50px;
+  width: 50px;
+  border-radius: 50%;
+  margin-right: 10px;
+`;
+
+const SellerName = styled.span`
+  font-weight: 500;
+  margin-right: 10px;
+`;
+
+const SellerNumber = styled.span`
+  font-weight: 400;
+  color: gray;
+`;
+
 const Product = () => {
   const navigate = useNavigate();
   const token = localStorage.getItem("token");
@@ -101,23 +124,45 @@ const Product = () => {
   const [item, setItem] = useState("");
   const { id } = useParams();
   const [loading,setloading] = useState(false)
+  
+  //product user
+  const [user, setUser] = useState({});
+
 
 
   useEffect(() => {
-  const fetchdata = async () => {
-    await axios
-      .get(`${SERVER}api/items/${id}`, {
-        headers: {
-          Authorization: `Bearer ${token}`,
-        },
-      })
-      .then((response) => setItem(response.data))
-      .catch((error) => console.log(error));
-  };
+    const fetchdata = async () => {
+      await axios
+        .get(`${SERVER}api/items/${id}`, {
+          headers: {
+            Authorization: `Bearer ${token}`,
+          },
+        })
+        .then(async (response) => {
+          setItem(response.data);
+    
+          // Fetch user data after getting the item data
+          const userResponse = await axios.post(`${SERVER}api/user/getUserById`, {
+            _id: response.data.user,
+          }, {
+            headers: {
+              Authorization: `Bearer ${token}`,
+            },
+          });
+    
+          // Set the user state with the user data
+          console.log(userResponse.data)
+          setUser(userResponse.data);
+        })
+        .catch((error) => console.log(error));
+    };
 
     fetchdata();
   }, [id,token]);
   
+
+
+
 
   const HandleClick = async ()=>{
     setloading(true)
@@ -140,6 +185,7 @@ const Product = () => {
     }
     
   }
+
   console.log(item.user)
   return (
     <Container>
@@ -172,24 +218,31 @@ const Product = () => {
             </Filter>
           </FilterContainer>
           <AddContainer>
-            {token && loading ? (
-              <>Loading...</>
-            ) : (
-              token && userid!==item.user ? (
-                <Button
-                  onClick={HandleClick}
-                  style={{
-                    textDecoration: "none",
-                    display: "flex",
-                    alignItems: "center",
-                    justifyContent: "space-between",
-                  }}
-                >
-                  Message Seller <EmailIcon></EmailIcon>
-                </Button>
-              ) : token ? "You own this product" : " "
-            )}
-          </AddContainer>
+  {token && loading ? (
+    <>Loading...</>
+  ) : (
+    token && userid!==item.user ? (
+      <>
+        <SellerInfo>
+          <SellerImage src={user.profileImage} alt={user.name} />
+          <SellerName>{user.name}</SellerName>
+          <SellerNumber>{user.number}</SellerNumber>
+        </SellerInfo>
+        <Button
+          onClick={HandleClick}
+          style={{
+            textDecoration: "none",
+            display: "flex",
+            alignItems: "center",
+            justifyContent: "space-between",
+          }}
+        >
+          Message Seller <EmailIcon></EmailIcon>
+        </Button>
+      </>
+    ) : token ? "You own this product" : " "
+  )}
+</AddContainer>
         </InfoContainer>
       </Wrapper>
       <Newsletter />

@@ -10,6 +10,10 @@ import styled from "styled-components";
 
 const Container = styled.div`
   display: flex;
+  flex-direction: column;
+  @media (min-width: 768px) {
+    flex-direction: row;
+  }
 `;
 
 const Left = styled.div`
@@ -55,12 +59,19 @@ const List = styled.ul`
   padding: 0;
   list-style: none;
   display: flex;
-  flex-wrap: wrap;
+  flex-direction: column;
+  @media (min-width: 768px) {
+    flex-direction: row;
+    flex-wrap: wrap;
+  }
 `;
 
 const ListItem = styled.li`
-  width: 50%;
+  width: 100%;
   margin-bottom: 10px;
+  @media (min-width: 768px) {
+    width: 50%;
+  }
 `;
 
 const Right = styled.div`
@@ -75,7 +86,10 @@ const ContactItem = styled.div`
 `;
 
 const Payment = styled.img`
-  width: 50%;
+  width: 100%;
+  @media (min-width: 768px) {
+    width: 50%;
+  }
 `;
 
 const Footer = () => {
@@ -108,12 +122,7 @@ const Footer = () => {
         <List>
           <ListItem>Home</ListItem>
           <ListItem>Cart</ListItem>
-          <ListItem>Man Fashion</ListItem>
-          <ListItem>Woman Fashion</ListItem>
-          <ListItem>Accessories</ListItem>
           <ListItem>My Account</ListItem>
-          <ListItem>Order Tracking</ListItem>
-          <ListItem>Wishlist</ListItem>
           <ListItem>Wishlist</ListItem>
           <ListItem>Terms</ListItem>
         </List>

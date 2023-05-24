@@ -70,7 +70,10 @@ const Cost = styled.h3`
   padding: 10px;
 `;
 
-
+const TitleAndCostWrapper = styled.div`
+  display: flex;
+  justify-content: space-between; // add this if you want them to be on opposite ends
+`;
 
 
 
@@ -81,7 +84,10 @@ const Product = ({ item }) => {
   }
   return (
     <Container>
-      <Title>{item.title}</Title>
+      <TitleAndCostWrapper>
+        <Title>{item.title} </Title>
+        <Cost>${item.price}</Cost>  
+      </TitleAndCostWrapper>
       <Image src={item.images[0]} />
       <Info className="info">
         <Icon onClick={HandleClick}>
@@ -91,7 +97,7 @@ const Product = ({ item }) => {
           <FavoriteBorderIcon />
         </Icon>
       </Info>
-      <Cost>${item.price}</Cost>
+      
     </Container>
   );
 };

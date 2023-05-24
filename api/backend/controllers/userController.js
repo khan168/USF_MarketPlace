@@ -11,7 +11,7 @@ const registerUser = asyncHandler(async (req, res) => {
 
     const { name, email, password, number, username, profileImage } = req.body
 
-    if (!name || !email || !password || !username || !profileImage || !number)  {
+    if (!name || !email || !password || !username || !number)  {
         res.status(400).json({ message: 'Please enter all fields' });
         throw new Error('Please enter all fields')
     }
@@ -109,6 +109,19 @@ const getUser = asyncHandler(async (req, res) => {
     })
 })
 
+const getUserById =  asyncHandler(async (req, res) => {
+    const {_id, name, profileImage, username, number} = await User.findById(req.body._id)
+
+    res.status(200).json({
+        id: _id,
+        name,
+        profileImage,
+        username,
+        number
+    })
+})
+
+
 // @desc Delete user data
 // @route DELETE /api/users/
 // @access Private
@@ -134,5 +147,6 @@ module.exports = {
     loginUser,
     getUser,
     deleteUser,
-    logoutUser
+    logoutUser,
+    getUserById
 }

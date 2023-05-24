@@ -14,21 +14,40 @@ import Popup from './Popup';
 const Container = styled.div`
   height: 60px;
   background-color: white;
+  @media (max-width: 768px) {
+    height: auto;
+  }
 `;
+
 const Wrapper = styled.div`
   padding: 10px 20px;
   display: flex;
   justify-content: space-between;
+  align-items: center;
+  @media (max-width: 768px) {
+    flex-direction: column;
+  }
 `;
 
 const Left = styled.div`
   display: flex;
   flex: 1;
   align-items: center;
+  order: 1;
+  @media (max-width: 768px) {
+    order: 2;
+    margin-top: 10px;
+  }
 `;
 
 const Center = styled.div`
   flex: 1;
+  display: flex;
+  justify-content: center;
+  order: 2;
+  @media (max-width: 768px) {
+    order: 1;
+  }
 `;
 
 const Right = styled.div`
@@ -36,12 +55,14 @@ const Right = styled.div`
   display: flex;
   align-items: center;
   justify-content: flex-end;
+  order: 3;
+  @media (max-width: 768px) {
+    justify-content: center;
+    margin-top: 10px;
+  }
 `;
 
-const Language = styled.span`
-  font-size: 14px;
-  cursor: pointer;
-`;
+
 
 const SearchContainer = styled.div`
   display: flex;
@@ -158,7 +179,6 @@ const Navbar = ({term,setTerm}) => {
     <Container>
       <Wrapper>
         <Left>
-          <Language>EN</Language>
           <SearchContainer>
             <Input value={term} onChange={handleSearch} />
             <SearchIcon />

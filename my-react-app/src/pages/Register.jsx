@@ -19,10 +19,12 @@ const Container = styled.div`
 const Wrapper = styled.div`
   padding-top: 20px;
   padding: 20px;
-  width: 25%;
+  width: 90%;  // relative to its parent
+  max-width: 400px;  // won't grow wider than 400px
   background-color: white;
   border-radius: 5%;
   border: 1px solid black;
+  box-sizing: border-box;  // includes padding and border in the element's total width and height
 `;
 
 const Title = styled.h1`
@@ -35,6 +37,8 @@ const Title = styled.h1`
 const Input = styled.input`
   padding: 10px;
   margin: 0 10px 10px 0;
+  width: 100%;  // take the full width of the parent container
+  box-sizing: border-box;  // includes padding and border in the element's total width and height
 `;
 
 const Form = styled.form`
@@ -50,7 +54,7 @@ const Agreement = styled.span`
 `;
 
 const Button = styled.button`
-  width: 40%;
+  width: 100%;  // take the full width of the parent container
   border: none;
   padding: 15px 20px;
   background-color: teal;

@@ -12,6 +12,7 @@ require("./ChatPage.css");
 const Container = styled.div``;
 
 const Wrapper = styled.div`
+  height: calc(100vh - 410px);
   padding: 50px;
   display: flex;
   background-color: beige;
@@ -92,7 +93,10 @@ const Product = () => {
     getMessages();
   }, [token, currentChat?.chatid]);
 
-  
+  useEffect(() => {
+    scrollRef.current?.scrollIntoView({ behavior: "smooth" });
+  }, [messages]);
+
 
   return (
     <Container>
@@ -101,7 +105,11 @@ const Product = () => {
       <Wrapper>
         <div className="chatMenu">
           <div className="chatMenuWrapper">
-            <input placeholder="Search for Sellers" className="chatMenuInput" />
+            <input
+              placeholder="Search for Sellers"
+              className="chatMenuInput"
+              style={{ padding: "15px" }}
+            />
             <div>
               {conversations.map((c) => (
                 <div onClick={() => setCurrentChat(c)}>
@@ -115,7 +123,7 @@ const Product = () => {
           <div className="chatBoxWrapper">
             {currentChat ? (
               <>
-                <div className="chatBoxTop">
+                <div className="chatBoxTop" ref={scrollRef}>
                   {messages.map((m) => (
                     <div
                       ref={scrollRef}

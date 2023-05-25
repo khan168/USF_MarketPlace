@@ -1,5 +1,5 @@
 .messenger {
-  height: calc(100vh - 70px);
+  height: calc(100vh - 100px);
   display: flex;
 }
 
@@ -19,6 +19,7 @@
 }
 
 .chatBoxWrapper {
+  overflow: hidden;
   display: flex;
   flex-direction: column;
   justify-content: space-between;

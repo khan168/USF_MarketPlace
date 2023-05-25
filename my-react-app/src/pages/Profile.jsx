@@ -3,6 +3,8 @@ import styled from "styled-components";
 import axios from "axios";
 import Navbar from "../components/Navbar"
 import Footer from "../components/Footer";
+import { useNavigate } from "react-router-dom";
+
 
 const ProfileContainer = styled.div`
   display: flex;
@@ -101,6 +103,13 @@ const PostCard = styled.div`
   border-radius: 15px;
   text-align: center;
   margin-bottom: 2em;
+  cursor: pointer;
+  transition: transform 0.3s ease-in-out;
+  
+  &:hover {
+    transform: scale(1.02);
+    box-shadow: 0 5px 15px rgba(0,0,0,0.2);
+  }
 
   @media (max-width: 600px) {
     width: 100%;
@@ -154,6 +163,7 @@ const noAvatarsrc =
 
 
 const Profile = () => {
+  const navigate = useNavigate();
 
   const handleDelete = async (postId) => {
     const token = localStorage.getItem("token");
@@ -216,17 +226,17 @@ const Profile = () => {
             </Card>
             <PostsContainer>
               {posts.map((post) => (
-                <PostCard key={post._id}>
-                  {post.images[0] && (
-                    <PostImage src={post.images[0]} alt="Post" />
-                  )}
-                  <PostTitle>{post.title}</PostTitle>
-                  <PostPrice>${post.price}</PostPrice>
-                  <PostBody>{post.description}</PostBody>
-                  <DeleteButton onClick={() => handleDelete(post._id)}>
-                    Delete
-                  </DeleteButton>
-                </PostCard>
+                <PostCard key={post._id} onClick={() => navigate(`/product/${post._id}`)}>
+                {post.images[0] && (
+                  <PostImage src={post.images[0]} alt="Post" />
+                )}
+                <PostTitle>{post.title}</PostTitle>
+                <PostPrice>${post.price}</PostPrice>
+                <PostBody>{post.description}</PostBody>
+                <DeleteButton onClick={(e) => {e.stopPropagation(); handleDelete(post._id);}}>
+                  Delete
+                </DeleteButton>
+              </PostCard>
               ))}
             </PostsContainer>
           </>

@@ -5,6 +5,7 @@ import Badge from '@mui/material/Badge';
 import FavoriteIcon from "@mui/icons-material/Favorite";
 import { Link } from 'react-router-dom';
 import { useNavigate } from 'react-router-dom';
+import { useLocation } from 'react-router-dom';
 import { useEffect } from 'react'; 
 import axios from "axios"
 import { Button } from '@mui/material';
@@ -100,7 +101,9 @@ const  SimpleBadge=()=> {
 
 
 const Navbar = ({term,setTerm}) => {
-  
+   const location = useLocation();
+   const { pathname } = location;
+
    const Navigate = useNavigate();
    const HandleClick = ()=>{
     Navigate("/")
@@ -180,10 +183,12 @@ const Navbar = ({term,setTerm}) => {
     <Container>
       <Wrapper>
         <Left>
-          <SearchContainer>
-            <Input value={term} onChange={handleSearch} />
-            <SearchIcon />
-          </SearchContainer>
+                {pathname === '/' && (
+            <SearchContainer>
+              <Input value={term} onChange={handleSearch} />
+              <SearchIcon />
+            </SearchContainer>
+          )}
         </Left>
         <Center>
           <Logo onClick={HandleClick}>Bulls Buy</Logo>

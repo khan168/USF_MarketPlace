@@ -10,12 +10,14 @@ const ProfileContainer = styled.div`
   align-items: center;
   justify-content: center;
   padding: 2em;
+  min-height: calc(100vh - 80px); // Assuming the footer is 80px tall
   background: #f2f2f2;
 
   @media (max-width: 600px) {
     padding: 1em;
   }
 `;
+
 
 const PostPrice = styled.p`
   color: #333;

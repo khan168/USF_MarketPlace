@@ -21,14 +21,6 @@ const getItem = asyncHandler(async (req, res) => {
 // @access Private
 
 const getAllItems = asyncHandler(async (req, res) => {  //this query creates a common end point for several resources
-    // const items = await Item.find({})
-
-    // if(items && items.length !== 0){
-    //     res.status(200).json(items)
-    // } else {
-    //     res.status(404)
-    //     throw new Error('No items found')
-    // }
     const q = req.query;
     const filters = {
       ...(q.userId && { userId: q.userId }),
@@ -42,8 +34,23 @@ const getAllItems = asyncHandler(async (req, res) => {  //this query creates a c
       ...(q.search && { title: { $regex: q.search, $options: "i" } }),
     };
     try {
-      const items = await Item.find(filters)
-      res.status(200).send(items);
+
+      if(q?.sort==="priceh")  {
+        const items = await Item.find(filters).sort({"price":-1})
+        res.status(200).send(items);
+    }
+      else if (q?.sort === "pricel") {
+        const items = await Item.find(filters).sort({"price":1})
+        res.status(200).send(items);
+    }
+      else if(q?.sort==="createdAt") {
+        const items = await Item.find(filters).sort({[q?.sort]:-1})
+        res.status(200).send(items);
+    }
+      else {
+        const items = await Item.find(filters)
+        res.status(200).send(items);
+      }
     } catch (err) {
       next(err);
     }

@@ -48,10 +48,10 @@ const Container = styled.div`
   padding: 20px;
   flex: 1;
   margin: 5px;
-  height: 300px;
-  min-width: 200px;
+  height: 250px;
+  min-width: 150;
   /* display: flex; */
-  background-color: #f5fbfd;
+  background-color: rgb(237, 235, 209);
   position: relative;
   /* display: flex; */
 

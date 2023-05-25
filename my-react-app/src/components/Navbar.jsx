@@ -13,7 +13,8 @@ import Popup from './Popup';
 
 const Container = styled.div`
   height: 60px;
-  background-color: white;
+  background-color: rgb(0, 103, 71);
+  color: white;
   @media (max-width: 768px) {
     height: auto;
   }
@@ -195,7 +196,7 @@ const Navbar = ({term,setTerm}) => {
             <>
               <MenuItem>
                 <Button
-                  style={{ textDecoration: "none", color: "black" }}
+                  style={{ textDecoration: "none", color: "white" }}
                   onClick={() => {
                     setOpenPopup(true);
                   }}
@@ -207,7 +208,7 @@ const Navbar = ({term,setTerm}) => {
               <MenuItem>
                 <Link
                   to="/profile"
-                  style={{ textDecoration: "none", color: "black" }}
+                  style={{ textDecoration: "none", color: "white" }}
                 >
                   PROFILE
                 </Link>
@@ -215,7 +216,7 @@ const Navbar = ({term,setTerm}) => {
               <MenuItem>
                 <Link
                   onClick={HandleLogout}
-                  style={{ textDecoration: "none", color: "black" }}
+                  style={{ textDecoration: "none", color: "white" }}
                 >
                   LOGOUT
                 </Link>
@@ -226,7 +227,7 @@ const Navbar = ({term,setTerm}) => {
                     pathname: "/chats",
                     // search: `?param1=${curr_user.id}`,
                   }}
-                  style={{ textDecoration: "none", color: "black" }}
+                  style={{ textDecoration: "none", color: "white" }}
                 >
                   CHATS
                 </Link>

@@ -21,7 +21,8 @@ const Wrapper = styled.div`
 const Left = styled.div`
   padding: 20px;
   width: 10%;
-  background-color: lightgrey;
+  background-color: rgb(207, 196, 147);
+  
 `;
 
 const IconsPanel = styled.div`
@@ -35,7 +36,8 @@ const IconsPanel = styled.div`
 const Right = styled.div`
   flex-grow: 2; /* Allow the scrollable content to grow and fill the remaining space */
   overflow-y: auto; /* Enable vertical scrolling */
-  background-color: grey;
+  background-color: white;
+
 `;
 
 const Filter = styled.div`

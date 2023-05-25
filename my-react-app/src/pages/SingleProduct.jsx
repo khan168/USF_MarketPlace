@@ -16,12 +16,23 @@ const Container = styled.div``;
 const Wrapper = styled.div`
   padding: 50px;
   display: flex;
+  flex-direction: column;
   justify-content: space-between;
+
+  @media (min-width: 768px) { 
+    flex-direction: row;
+  }
 `;
 
 const ImgContainer = styled.div`
   flex: 1;
+  width: 100%;
+
+  @media (min-width: 768px) { 
+    width: auto;
+  }
 `;
+
 
 const InfoContainer = styled.div`
   flex: 1;

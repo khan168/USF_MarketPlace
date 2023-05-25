@@ -19,7 +19,7 @@ const PopupBackground = styled.div`
 
 const PopupContainer = styled.div`
   position: relative;
-  background-color: white;
+  background-color: rgb(207, 196, 147);
   border-radius: 8px;
   padding: 20px;
   width: 725px;
@@ -38,6 +38,8 @@ const ImageContainer = styled.div`
   justify-content: center;
   width: 50%;
   border: 1px solid #ccc;
+  background-color: white;
+
 `;
 
 const ImageBox = styled.div`
@@ -82,6 +84,7 @@ const Input = styled.input`
 const Label = styled.label`
   font-weight: bold;
   margin-bottom: 10px;
+  color: black;
 `;
 
 const Asterisk = styled.span`

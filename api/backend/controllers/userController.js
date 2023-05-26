@@ -32,10 +32,10 @@ const resetpass = asyncHandler(async (req, res) => {
         user: "",
         pass: "",
         clientId:
-          "206292363090-u2cc5g11r9vvotro17aiqa7m10p7cu4h.apps.googleusercontent.com",
-        clientSecret: "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",
+          "",
+        clientSecret: "",
         refreshToken:
-          "1//04u5FABuCR5TTCgYIARAAGAQSNwF-L9Ir7B1JXGfz0LnyHecaAsD4o6X62RRyPM6qinZy2eGzMOU97aeZ_dwBKf2MILsdZPRWFl4",
+          "",
       },
     });
 

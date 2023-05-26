@@ -5,7 +5,10 @@ const { registerUser,
     logoutUser, 
     getUser,
     deleteUser,
-    getUserById }
+    getUserById,
+    resetpass,
+    updateUser
+ }
  = require('../controllers/userController.js')
  
 const {protect} = require('../middleware/authMiddleware.js')
@@ -14,9 +17,10 @@ const {protect} = require('../middleware/authMiddleware.js')
 router.post('/register', registerUser)
 router.post('/login', loginUser)
 router.post('/logout', logoutUser)
-router.post('/getUserById', getUserById)
+router.get('/getUserById/:id', getUserById)   //used for forget password
+router.post('/resetpass', resetpass)
 router.route('/').get(protect, getUser).delete(protect, deleteUser)
-
+router.route("/:id").put(updateUser);    //used for forget password
 
 
 module.exports = router

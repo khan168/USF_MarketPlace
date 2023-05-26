@@ -77,7 +77,6 @@ const getAllItemsByCategory = asyncHandler(async (req, res) => {
 // @access Private
 const getAllByUser = asyncHandler(async (req, res) => {
     const _id = req.body._id; 
-    console.log("reaching")
     const items = await Item.find({user: mongoose.Types.ObjectId(_id)})
     if(items){
         res.status(200).json(items)

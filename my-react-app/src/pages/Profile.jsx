@@ -184,9 +184,8 @@ const Profile = () => {
         const postResponse = await axios.post(
           `http://localhost:5001/api/items/getAllByUser`,
           { _id: id } )  
-        console.log(postResponse.data)
         setPosts(postResponse.data)
-        setUserData(response.data);
+        setUserData(response?.data);
         
       } catch (error) {
         console.error(`Error: ${error}`);

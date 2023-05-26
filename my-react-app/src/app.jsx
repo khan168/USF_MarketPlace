@@ -6,8 +6,8 @@ import Register from "./pages/Register";
 import Login from "./pages/login";
 import SingleProduct from "./pages/SingleProduct";
 import SingleChat from './pages/SingleChat';
-import { useEffect, useState } from "react";
-import axios from "axios"
+import ForgotPass from './pages/ForgotPass';
+import RedirectPass from './pages/RedirectPass';
 
 //upload
 //temp
@@ -46,6 +46,14 @@ const router = createBrowserRouter([
   {
     path: "/profile",
     element: <Profile></Profile>,
+  },
+  {
+    path: "/forgot-password",
+    element: <ForgotPass></ForgotPass>,
+  },
+  {
+    path: "/forgot-password/:id/:token",
+    element: <RedirectPass></RedirectPass>,
   },
 ]);
 

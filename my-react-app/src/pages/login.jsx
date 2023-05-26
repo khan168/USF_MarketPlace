@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import axios from 'axios';
 import styled from "styled-components";
 import Navbar from "../components/Navbar";
-import { useNavigate } from "react-router-dom";
+import { useNavigate,Link } from "react-router-dom";
 
 const Container = styled.div`
   width: 100vw;
@@ -131,10 +131,21 @@ const Login = () => {
         <Left>
           <Form onSubmit={handleSubmit} style={{ flex: 2 }}>
             <Title>Sign In</Title>
-            <Input placeholder="Email" value={email} onChange={(e) => setEmail(e.target.value)}></Input>
-            <Input type="password" placeholder="Password" value={password} onChange={(e) => setPassword(e.target.value)}></Input>
+            <Input
+              placeholder="Email"
+              value={email}
+              onChange={(e) => setEmail(e.target.value)}
+            ></Input>
+            <Input
+              type="password"
+              placeholder="Password"
+              value={password}
+              onChange={(e) => setPassword(e.target.value)}
+            ></Input>
             <Button type="submit">Sign In</Button>
+            <Link to="/forgot-password">Forgot password?</Link>
           </Form>
+
           <p style={{ flex: 1 }}>OR</p>
           <Right style={{ flex: 2 }}>
             <Loginbutton onClick={"google"} color={"#df4930"}>

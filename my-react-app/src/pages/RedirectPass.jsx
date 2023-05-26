@@ -3,13 +3,14 @@ import { useParams } from "react-router-dom";
 import axios from "axios";
 
 
+
+
 const RedirectPass = () => {
   const params = useParams();
   const SERVER = "http://localhost:5001/";
 
   // Access the parameters using the keys defined in your route
   const { id, token } = params;
-  console.log(id);
 
   const [found,setfound]=useState(false)
   const [loading,setloading]=useState(false)
@@ -26,9 +27,7 @@ const RedirectPass = () => {
         if (!res.data.user) {
           setfound(false);
         } else {
-            console.log("here");
           const secret = "abc@123" + res.data.user.password;
-          console.log(secret);
           await axios
             .post(`${SERVER}api/verify`, {
               secret,

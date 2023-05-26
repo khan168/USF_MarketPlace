@@ -2,11 +2,12 @@ import React from 'react'
 import { useState } from 'react'
 import axios from 'axios'
 
+
+
 const ForgotPass = () => {
 
   const [email,setEmail]= useState("")
   const [result,setResult]= useState("")
-
   const HandleSubmit = async (e)=>{
     e.preventDefault();
     try {

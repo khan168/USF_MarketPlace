@@ -2,7 +2,6 @@ const express = require('express')
 const router = express.Router()
 const { registerUser, 
     loginUser,
-    logoutUser, 
     getUser,
     deleteUser,
     getUserById,
@@ -16,7 +15,7 @@ const {protect} = require('../middleware/authMiddleware.js')
 
 router.post('/register', registerUser)
 router.post('/login', loginUser)
-router.post('/logout', logoutUser)
+// router.post('/logout', logoutUser)
 router.get('/getUserById/:id', getUserById)   //used for forget password
 router.post('/resetpass', resetpass)
 router.route('/').get(protect, getUser).delete(protect, deleteUser)

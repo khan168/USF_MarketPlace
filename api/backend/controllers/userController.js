@@ -3,6 +3,8 @@ const bcrypt = require("bcryptjs");
 const asyncHandler = require("express-async-handler");
 const User = require("../models/userModel");
 const nodemailer = require("nodemailer");
+require("dotenv").config({ path: "./api/.env" });
+
 
 // @desc Delete user data
 // @route DELETE /api/users/
@@ -14,7 +16,7 @@ const resetpass = asyncHandler(async (req, res) => {
   if (!user) {
     return res.send("User not registered");
   } else {
-    const secret = "abc@123" + user?.password; //the password part makes sure user link is 1 time
+    const secret = process.env.JWT_SECRET + user?.password; //the password part makes sure user link is 1 time
     console.log(secret);
     const payload = {
       email,
@@ -29,30 +31,28 @@ const resetpass = asyncHandler(async (req, res) => {
       service: "gmail",
       auth: {
         type: "OAuth2",
-        user: "",
-        pass: "",
-        clientId:
-          "",
-        clientSecret: "",
-        refreshToken:
-          "",
+        user: process.env.USER,
+        pass: process.env.PASS,
+        clientId: process.env.CLIENTID,
+        clientSecret: process.env.CLIENTSECRET,
+        refreshToken: process.env.REFRESHTOKEN,
       },
     });
 
     let mailOptions = {
-      from: "blitzsama19@gmail.com",
+      from: process.env.USER,
       to: email,
       subject: "USF Market Place",
       text: link,
     };
 
-    // transporter.sendMail(mailOptions, function (err, data) {
-    //   if (err) {
-    //     console.log("Error " + err);
-    //   } else {
-    //     console.log("Email sent successfully");
-    //   }
-    // });
+    transporter.sendMail(mailOptions, function (err, data) {
+      if (err) {
+        console.log("Error " + err);
+      } else {
+        console.log("Email sent successfully");
+      }
+    });
 
     return res.send(`Link sent to email ${email}`);
   }
@@ -132,16 +132,16 @@ const loginUser = asyncHandler(async (req, res) => {
 // @desc Logout user
 // @route GET /api/users/logout
 // @access Private
-const logoutUser = asyncHandler(async (req, res) => {
+const logoutUser = asyncHandler(async (req, res) => {   //made it synch by removing JWT token from frontend
   // Replace the JWT with a blank string that expires in 1 second
-  const blankToken = jwt.sign({ id: "" }, "abc@123", {
-    expiresIn: "1s",
-  });
+  // const blankToken = jwt.sign({ id: "" }, "", {
+  //   expiresIn: "1s",
+  // });
 
-  // Set the new token as the authorization header
-  req.headers.authorization = `Bearer ${blankToken}`;
+  // // Set the new token as the authorization header
+  // req.headers.authorization = `Bearer ${blankToken}`;
 
-  res.json({ message: "User logged out successfully" });
+  // res.json({ message: "User logged out successfully" });
 });
 
 // @desc Get user data
@@ -181,8 +181,8 @@ const deleteUser = asyncHandler(async (req, res) => {
     .catch((err) => res.status(400).json("Error: " + err));
 });
 
-// @desc Delete user data
-// @route DELETE /api/users/
+// @desc Update user password
+// @route PUT /api/users/:id
 // @access Private
 const updateUser = asyncHandler(async (req, res) => {
   const { password } = req.body;
@@ -197,7 +197,7 @@ const updateUser = asyncHandler(async (req, res) => {
 
 // Generate a token
 const generateToken = (id) => {
-  return jwt.sign({ id }, "abc@123", {
+  return jwt.sign({ id }, process.env.JWT_SECRET, {
     expiresIn: "30d",
   });
 };

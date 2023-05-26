@@ -1,10 +1,11 @@
 const express = require('express')
-const dotenv = require('dotenv').config()
+const dotenv = require('dotenv').config({ path: "./api/.env" });
 const colors = require('colors')
 const jwt = require("jsonwebtoken");
 const connectDB = require('./config/db.js')
 const {errorHandler} = require('./middleware/errorMiddleware.js')
-const port = process.env.PORT || 5001
+
+const port = process.env.PORT
 
 // connecting the backend with frontend
 const cors =require("cors")

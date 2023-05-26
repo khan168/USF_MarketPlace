@@ -91,13 +91,7 @@ const MenuItem = styled.div`
 `;
 
 
-const  SimpleBadge=()=> {
-  return (
-    <Badge badgeContent={4} color="primary">
-      <FavoriteIcon color="action" />
-    </Badge>
-  );
-}
+
 
 
 const Navbar = ({term,setTerm}) => {
@@ -109,10 +103,17 @@ const Navbar = ({term,setTerm}) => {
     Navigate("/")
    }
 
+   
+
    const [isTokenValid, setIsTokenValid] = useState(false);
    const [openPopup, setOpenPopup] = useState(false);
    const [curr_user, setcurr_user] = useState("");   //use for display picture
    const SERVER = "http://localhost:5001/";
+   const [like, setLikes] = useState(0)
+
+   const _id = localStorage.getItem("_id")
+
+  
 
    useEffect(()=>{
     const token = localStorage.getItem('token')
@@ -137,6 +138,34 @@ const Navbar = ({term,setTerm}) => {
     }
 
    },[])
+
+
+
+   const  SimpleBadge=()=> {
+    return (
+      <Badge badgeContent={like} color="primary">
+        <FavoriteIcon color="action" />
+      </Badge>
+    );
+  }
+
+
+  useEffect(() => {
+    const fetchLikes = async () => {
+        const response = await axios.get(`${SERVER}api/likes/user/${_id}`, {
+            headers: {
+                Authorization: `Bearer ${localStorage.getItem('token')}`,
+            },
+        });
+
+        setLikes(response.data.length);
+    }
+
+    if (isTokenValid) {
+        fetchLikes();
+    } 
+  }, [isTokenValid, curr_user.id]);
+
    /*
 
    THIS CODE SHOULD BE IN THE CLIENT SIDE

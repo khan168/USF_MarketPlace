@@ -157,19 +157,18 @@ const Product = () => {
         })
         .then(async (response) => {
           setItem(response.data);
+         
     
           // Fetch user data after getting the item data
-          const userResponse = await axios.post(`${SERVER}api/user/getUserById`, {
-            _id: response.data.user,
-          }, {
+          const userResponse = await axios.get(`${SERVER}api/user/getUserbyID/${response.data.user}`, {
             headers: {
-              Authorization: `Bearer ${token}`,
+                Authorization: `Bearer ${token}`,
             },
-          });
+        });;
     
           // Set the user state with the user data
-          console.log(userResponse.data)
-          setUser(userResponse.data);
+          console.log(userResponse.data.user)
+          setUser(userResponse.data.user);
         })
         .catch((error) => console.log(error));
     };

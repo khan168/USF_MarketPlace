@@ -4,7 +4,6 @@ const colors = require('colors')
 const jwt = require("jsonwebtoken");
 const connectDB = require('./config/db.js')
 const {errorHandler} = require('./middleware/errorMiddleware.js')
-
 const port = process.env.PORT
 
 // connecting the backend with frontend
@@ -27,6 +26,7 @@ app.use('/api/items', require('./routes/bullRoutes'))
 app.use('/api/user', require('./routes/userRoutes'))
 app.use("/api/chat", require("./routes/ChatRoutes"));
 app.use("/api/message", require("./routes/messageRoutes"));
+app.use('/api/likes',  require('./routes/likeRoutes'));
 app.use("/api/verify",async (req,res)=>{
     const {token,secret} = req.body
     try {

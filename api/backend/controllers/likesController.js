@@ -1,5 +1,5 @@
 const asyncHandler = require('express-async-handler');
-const Like = require('../models/like');
+const Like = require('../models/likesModel');
 
 // @desc Create a like
 // @route POST /api/likes

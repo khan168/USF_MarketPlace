@@ -26,7 +26,7 @@ app.use('/api/items', require('./routes/bullRoutes'))
 app.use('/api/user', require('./routes/userRoutes'))
 app.use("/api/chat", require("./routes/ChatRoutes"));
 app.use("/api/message", require("./routes/messageRoutes"));
-app.use('/api/likes',  require('./routes/likeRoutes'));
+app.use('/api/likes',  require('./routes/likesRoutes'));
 app.use("/api/verify",async (req,res)=>{
     const {token,secret} = req.body
     try {

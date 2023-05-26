@@ -9,6 +9,7 @@ import ChairIcon from "@mui/icons-material/Chair";
 import SpeakerIcon from "@mui/icons-material/Speaker";
 import MoreHorizIcon from "@mui/icons-material/MoreHoriz";
 import RestartAltIcon from "@mui/icons-material/RestartAlt";
+import ReactLoading from 'react-loading';
 import { useEffect, useState, useRef } from "react";
 import axios from "axios";
 
@@ -21,7 +22,8 @@ const Wrapper = styled.div`
 const Left = styled.div`
   padding: 20px;
   width: 10%;
-  background-color: lightgrey;
+  background-color: rgb(207, 196, 147);
+  
 `;
 
 const IconsPanel = styled.div`
@@ -35,7 +37,8 @@ const IconsPanel = styled.div`
 const Right = styled.div`
   flex-grow: 2; /* Allow the scrollable content to grow and fill the remaining space */
   overflow-y: auto; /* Enable vertical scrolling */
-  background-color: grey;
+  background-color: white;
+
 `;
 
 const Filter = styled.div`
@@ -51,6 +54,14 @@ const Select = styled.select`
   border: 1px solid #ccc;
   border-radius: 4px;
   margin-bottom: 10px;
+`;
+
+//for spinner
+const LoadingWrapper = styled.div`
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100%;
 `;
 
 
@@ -201,7 +212,9 @@ const Home = () => {
           {error ? (
             error
           ) : loading ? (
-            "Loading..."
+            <LoadingWrapper>
+             <ReactLoading type={"spin"} color={"blue"} height={100} width={100} />
+            </LoadingWrapper>
           ) : (
             <Products list={filteredList}></Products>
           )}

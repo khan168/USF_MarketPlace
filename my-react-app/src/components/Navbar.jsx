@@ -5,6 +5,7 @@ import Badge from '@mui/material/Badge';
 import FavoriteIcon from "@mui/icons-material/Favorite";
 import { Link } from 'react-router-dom';
 import { useNavigate } from 'react-router-dom';
+import { useLocation } from 'react-router-dom';
 import { useEffect } from 'react'; 
 import axios from "axios"
 import { Button } from '@mui/material';
@@ -13,7 +14,8 @@ import Popup from './Popup';
 
 const Container = styled.div`
   height: 60px;
-  background-color: white;
+  background-color: rgb(0, 103, 71);
+  color: white;
   @media (max-width: 768px) {
     height: auto;
   }
@@ -99,7 +101,9 @@ const  SimpleBadge=()=> {
 
 
 const Navbar = ({term,setTerm}) => {
-  
+   const location = useLocation();
+   const { pathname } = location;
+
    const Navigate = useNavigate();
    const HandleClick = ()=>{
     Navigate("/")
@@ -179,10 +183,12 @@ const Navbar = ({term,setTerm}) => {
     <Container>
       <Wrapper>
         <Left>
-          <SearchContainer>
-            <Input value={term} onChange={handleSearch} />
-            <SearchIcon />
-          </SearchContainer>
+                {pathname === '/' && (
+            <SearchContainer>
+              <Input value={term} onChange={handleSearch} />
+              <SearchIcon />
+            </SearchContainer>
+          )}
         </Left>
         <Center>
           <Logo onClick={HandleClick}>Bulls Buy</Logo>
@@ -195,7 +201,7 @@ const Navbar = ({term,setTerm}) => {
             <>
               <MenuItem>
                 <Button
-                  style={{ textDecoration: "none", color: "black" }}
+                  style={{ textDecoration: "none", color: "white" }}
                   onClick={() => {
                     setOpenPopup(true);
                   }}
@@ -207,7 +213,7 @@ const Navbar = ({term,setTerm}) => {
               <MenuItem>
                 <Link
                   to="/profile"
-                  style={{ textDecoration: "none", color: "black" }}
+                  style={{ textDecoration: "none", color: "white" }}
                 >
                   PROFILE
                 </Link>
@@ -215,7 +221,7 @@ const Navbar = ({term,setTerm}) => {
               <MenuItem>
                 <Link
                   onClick={HandleLogout}
-                  style={{ textDecoration: "none", color: "black" }}
+                  style={{ textDecoration: "none", color: "white" }}
                 >
                   LOGOUT
                 </Link>
@@ -226,7 +232,7 @@ const Navbar = ({term,setTerm}) => {
                     pathname: "/chats",
                     // search: `?param1=${curr_user.id}`,
                   }}
-                  style={{ textDecoration: "none", color: "black" }}
+                  style={{ textDecoration: "none", color: "white" }}
                 >
                   CHATS
                 </Link>

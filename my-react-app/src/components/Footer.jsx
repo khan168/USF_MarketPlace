@@ -11,6 +11,8 @@ import styled from "styled-components";
 const Container = styled.div`
   display: flex;
   flex-direction: column;
+  background-color: rgb(0, 103, 71);
+  color: white;
   @media (min-width: 768px) {
     flex-direction: row;
   }

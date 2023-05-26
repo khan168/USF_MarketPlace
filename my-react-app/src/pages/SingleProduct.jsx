@@ -3,7 +3,6 @@ import styled from "styled-components";
 import Announcement from "../components/Annoucements";
 import Footer from "../components/Footer";
 import Navbar from "../components/Navbar";
-import Newsletter from "../components/NewsLetter";
 import Slider from "../components/Slider";
 import { Link, useParams, useNavigate } from "react-router-dom";
 import { useEffect, useState} from "react";
@@ -11,17 +10,34 @@ import axios from "axios";
 
 
 
-const Container = styled.div``;
+const Container = styled.div`
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+`;
+
 
 const Wrapper = styled.div`
   padding: 50px;
   display: flex;
+  flex-direction: column;
   justify-content: space-between;
+
+  @media (min-width: 768px) { 
+    flex-direction: row;
+  }
 `;
 
 const ImgContainer = styled.div`
   flex: 1;
+  width: 100%;
+
+  @media (min-width: 768px) { 
+    width: auto;
+  }
 `;
+
 
 const InfoContainer = styled.div`
   flex: 1;
@@ -244,7 +260,7 @@ const Product = () => {
 </AddContainer>
         </InfoContainer>
       </Wrapper>
-      <Newsletter />
+      
       <Footer />
     </Container>
   );

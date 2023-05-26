@@ -18,18 +18,22 @@ const Container = styled.div`
 const Left = styled.div`
   padding-top: 20px;
   padding: 20px;
-  width: 35%;
+  width: 90%; // relative to its parent
+  max-width: 400px; // won't grow wider than 400px
   background-color: white;
   border-radius: 5%;
   border: 1px solid black;
   display: flex;
   align-items: center;
+  box-sizing: border-box; // includes padding and border in the element's total width and height
 `;
 
 const Right = styled.div`
   padding-top: 20px;
   padding: 20px;
-  width: 35%;
+  width: 90%; // relative to its parent
+  max-width: 400px; // won't grow wider than 400px
+  box-sizing: border-box; // includes padding and border in the element's total width and height
 `;
 
 const Title = styled.h1`
@@ -38,10 +42,11 @@ const Title = styled.h1`
   font-size: 20px;
   margin-bottom: 10px;
 `;
-
 const Input = styled.input`
   padding: 10px;
   margin: 0 10px 10px 0;
+  width: 100%; // take the full width of the parent container
+  box-sizing: border-box; // includes padding and border in the element's total width and height
 `;
 
 const Form = styled.form`
@@ -51,7 +56,7 @@ const Form = styled.form`
 `;
 
 const Button = styled.button`
-  width: 40%;
+  width: 100%; // take the full width of the parent container
   border: none;
   padding: 15px 20px;
   background-color: teal;
@@ -59,9 +64,8 @@ const Button = styled.button`
   cursor: pointer;
   display: block;
 `;
-
 const Loginbutton = styled.button`
-  width: 150px;
+  width: 100%; // take the full width of the parent container
   padding: 15px 25px;
   border-radius: 5px;
   color: white;
@@ -70,8 +74,8 @@ const Loginbutton = styled.button`
   font-weight: bold;
   margin-bottom: 20px;
   cursor: pointer;
-  /* background-color: ; */
   background-color: ${(props) => props.color};
+  box-sizing: border-box; // includes padding and border in the element's total width and height
 `;
 
 const Icon = styled.img`

@@ -142,8 +142,9 @@ const Navbar = ({term,setTerm}) => {
 
 
    const  SimpleBadge=()=> {
+    const navigate = useNavigate();
     return (
-      <Badge badgeContent={like} color="primary">
+      <Badge badgeContent={like} color="primary" onClick={() => navigate('/favorites')}>
         <FavoriteIcon color="action" />
       </Badge>
     );

@@ -3,7 +3,7 @@ const bcrypt = require("bcryptjs");
 const asyncHandler = require("express-async-handler");
 const User = require("../models/userModel");
 const nodemailer = require("nodemailer");
-require("dotenv").config({ path: "./api/.env" });
+require("dotenv").config({ path: "../api/.env" });
 
 
 // @desc Delete user data
@@ -31,13 +31,15 @@ const resetpass = asyncHandler(async (req, res) => {
       service: "gmail",
       auth: {
         type: "OAuth2",
-        user: process.env.USER,
+        user: "bullsmarketplace@gmail.com",
         pass: process.env.PASS,
         clientId: process.env.CLIENTID,
         clientSecret: process.env.CLIENTSECRET,
         refreshToken: process.env.REFRESHTOKEN,
       },
     });
+   
+    console.log(process.env.PASS)
 
     let mailOptions = {
       from: process.env.USER,

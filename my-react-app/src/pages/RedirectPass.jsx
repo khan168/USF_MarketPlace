@@ -2,7 +2,65 @@ import React, { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
 import axios from "axios";
 
+import styled from 'styled-components';
+ const Container = styled.div`
+    height: 100vh;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    background-color: rgb(0, 103, 71);
+    padding: 20px;
+`;
+ const Title = styled.h2`
+    color: #ffffff;
+    margin-bottom: 20px;
+`;
+ const Form = styled.form`
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 20px;
+    background-color: #ffffff;
+    padding: 40px;
+    border-radius: 10px;
+    box-shadow: 0px 0px 15px rgba(0, 0, 0, 0.1);
+`;
+ const Label = styled.label`
+    font-size: 1em;
+    color: #066763;
+    font-weight: bold;
+`;
 
+const Input = styled.input`
+    width: 100%;
+    padding: 10px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+`;
+ const Button = styled.button`
+    background-color: #066763;
+    color: #ffffff;
+    padding: 10px 20px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    font-size: 1em;
+    transition: background-color 0.3s;
+
+    &:hover {
+        background-color: #044c4a;
+    }
+`;
+ const Message = styled.p`
+    color: rgb(207, 196, 147);
+`;
+ const ErrorMessage = styled.p`
+    color: #f00;
+    font-weight: bold;
+    margin-top: 20px;
+`;
 
 
 const RedirectPass = () => {
@@ -54,19 +112,23 @@ const RedirectPass = () => {
   }
 
   return (
-      (found && !loading) ?
-      <>
-        <div>Set new password</div>
-        <form onSubmit={HandleSubmit}>
-          <label>New Password</label>
-          <input type="text" onChange={(e)=>setpass(e.target.value)}/>
-          <label>Confirm Password</label>
-          <input type="text" onChange={(e)=>setpass(e.target.value)} />
-          <button>submit</button>
-        </form>
-        {message}
-      </>
-      : loading ? "" : "Invalid token"
+    <Container>
+        { (found && !loading) ?
+        <>
+            <Title>Set new password</Title>
+            <Form onSubmit={HandleSubmit}>
+                <Label>New Password</Label>
+                <Input type="password" onChange={(e)=>setpass(e.target.value)}/>
+                <Label>Confirm Password</Label>
+                <Input type="password" onChange={(e)=>setpass(e.target.value)} />
+                <Button>Submit</Button>
+            </Form>
+            <Message>{message}</Message>
+        </>
+        :
+        loading ? <Message>Loading...</Message> : <ErrorMessage>Invalid token</ErrorMessage>
+        }
+    </Container>
   );
 };
 

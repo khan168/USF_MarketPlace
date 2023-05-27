@@ -1,39 +1,100 @@
-import React from 'react'
-import { useState } from 'react'
-import axios from 'axios'
+import React, { useState } from 'react';
+import axios from 'axios';
+import styled from 'styled-components';
+
+
+
+const Container = styled.div`
+  height: 100vh;
+  padding: 20px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  background: #f8f9fa;
+  background-color: rgb( 0, 103, 71);
+`;
+
+const Form = styled.form`
+  background: white;
+  padding: 30px;
+  border-radius: 8px;
+  box-shadow: 0px 2px 15px rgba(0, 0, 0, 0.1);
+  width: 100%;
+  max-width: 400px;
+
+  h1 {
+    margin-bottom: 20px;
+  }
+`;
+
+const Input = styled.input`
+  width: 100%;
+  padding: 10px;
+  margin-bottom: 10px;
+  border-radius: 5px;
+  border: 1px solid #ced4da;
+`;
+
+const Button = styled.button`
+  padding: 10px 20px;
+  background-color: #007bff;
+  color: white;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  transition: background-color 0.3s;
+
+  &:hover {
+    background-color: #0056b3;
+  }
+`;
+
+const Result = styled.h1`
+  margin-bottom: 30px;
+  color: rgb(207, 196, 147);
+
+`;
 
 
 
 const ForgotPass = () => {
+  const [email, setEmail] = useState('');
+  const [result, setResult] = useState('');
 
-  const [email,setEmail]= useState("")
-  const [result,setResult]= useState("")
-  const HandleSubmit = async (e)=>{
+  const handleSubmit = async (e) => {
     e.preventDefault();
     try {
-      const res=await axios.post('http://localhost:5001/api/user/resetpass', {email});
-      setResult(res.data)
-    }catch (error) {
+      const res = await axios.post('http://localhost:5001/api/user/resetpass', { email });
+      setResult(res.data);
+    } catch (error) {
       if (error.response) {
-        alert(error.response.data.message)
+        alert(error.response.data.message);
         console.error(`Error: ${error.response.data.message}`);
       } else {
-        alert(error.message)
+        alert(error.message);
         console.error(`Error: ${error.message}`);
       }
     }
   };
 
   return (
-    <div style={ {height:'100vh', padding:'20px', display:'flex', justifyContent:'space-evenly',flexDirection:'column', alignItems:'center'}}>
-    <form style={{}} onSubmit={HandleSubmit}>
-        <h1>Enter your email</h1>
-        <input type="text" placeholder='johndoe@gmail.com' onChange={e=>setEmail(e.target.value)}/>
-        <button>Submit</button>
-    </form>
-    <h1>{result}</h1>
-    </div>
-  )
-}
+    
+    <Container>
+       <Result>{result}</Result>
+      <Form onSubmit={handleSubmit}>
+        <h1>Enter Your Email</h1>
+        <Input
+          type='email'
+          placeholder='johndoe@gmail.com'
+          onChange={(e) => setEmail(e.target.value)}
+          required
+        />
+        <Button type='submit'>Submit</Button>
+      </Form>
+     
+    </Container>
+  );
+};
 
-export default ForgotPass
+export default ForgotPass;

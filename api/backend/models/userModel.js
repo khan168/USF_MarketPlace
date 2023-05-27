@@ -30,6 +30,10 @@ const userSchema = mongoose.Schema(
       type: String,
       required: false,
     },
+    googleID: {
+      type: String,
+      required: false,
+    }
   },
   {
     timestamps: true,

@@ -114,7 +114,7 @@ const Login = () => {
 
 
   const google = () => {
-    window.open("http://localhost:4000/auth/google", "_self");
+    window.location.href = 'http://localhost:4000/auth/google';
   };
 
   const github = () => {
@@ -152,7 +152,7 @@ const Login = () => {
 
           <p style={{ flex: 1 }}>OR</p>
           <Right style={{ flex: 2 }}>
-            <Loginbutton onClick={"google"} color={"#df4930"}>
+            <Loginbutton onClick={google} color={"#df4930"}>
               <Icon src="./google.png"></Icon>
               Google
             </Loginbutton>

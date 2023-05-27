@@ -32,14 +32,17 @@ const deleteLike = asyncHandler(async (req, res) => {
 // @route GET /api/likes/user/:userId
 // @access Private
 const getUserLikes = asyncHandler(async (req, res) => {
-    const likes = await Like.find({ user: req.params.userId });
+    const likes = await Like.find({ user: req.params.userId }).populate('post');
 
     if (!likes) {
         res.status(404);
         throw new Error('No likes found for this user');
     }
 
-    res.status(200).json(likes);
+    // Extract post data from likes
+    const likedPosts = likes.map(like => like.post);
+
+    res.status(200).json(likedPosts);
 });
 
 // @desc Get likes by post

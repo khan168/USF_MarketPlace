@@ -8,6 +8,10 @@ import { Link, useParams, useNavigate } from "react-router-dom";
 import { useEffect, useState} from "react";
 import axios from "axios";
 
+import FavoriteBorderIcon from '@mui/icons-material/FavoriteBorder';
+import FavoriteIcon from '@mui/icons-material/Favorite';
+
+
 
 
 const Container = styled.div`
@@ -201,6 +205,79 @@ const Product = () => {
     }
     
   }
+  // states for the like button 
+  const [liked, setLiked] = useState(false);
+  const [likeId, setLikeId] = useState(null);
+  const [likeCheckCompleted, setLikeCheckCompleted] = useState(false);
+
+
+  useEffect(() => {
+    const fetchData = async () => {
+      await axios
+        .get(`${SERVER}api/items/${id}`, {
+          headers: {
+            Authorization: `Bearer ${token}`,
+          },
+        })
+        .then(async (response) => {
+          setItem(response.data);
+          // Fetch user data after getting the item data
+          const userResponse = await axios.get(`${SERVER}api/user/getUserbyID/${response.data.user}`, {
+            headers: {
+                Authorization: `Bearer ${token}`,
+            },
+          });
+
+          // Set the user state with the user data
+          setUser(userResponse.data.user);
+
+          // After fetching the item and user data, check for existing likes
+          const likesResponse = await axios.get(`${SERVER}api/likes/post/${response.data._id}`, {
+            headers: {
+              Authorization: `Bearer ${token}`,
+            },
+          });
+          const userLike = likesResponse.data.find(like => like.user === userid);
+          if (userLike) {
+            setLiked(true);
+            setLikeId(userLike._id);
+          }
+          setLikeCheckCompleted(true); // Set like check completed to true
+        })
+        .catch((error) => console.log(error));
+    };
+
+    fetchData();
+  }, [id, token, userid]);
+
+
+
+  const handleLike = async () => {
+    if (!liked) {
+      // Create a like
+      const response = await axios.post(`${SERVER}api/likes`, {
+        user: userid,
+        post: item._id,
+      }, {
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
+      });
+      setLikeId(response.data._id);  // Save the like id for later
+    } else {
+      // Delete the like
+      await axios.delete(`${SERVER}api/likes/${likeId}`, {
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
+      });
+      setLikeId(null);
+    }
+    // Toggle the like status
+    setLiked(!liked);
+  };
+
+  
   return (
     <Container>
       <Navbar />
@@ -213,7 +290,7 @@ const Product = () => {
           <Title>{item.title}</Title>
           <Desc>{item.description}</Desc>
           <Price>$ {item.price}</Price>
-          <FilterContainer>
+          {/* <FilterContainer>
             <Filter>
               <FilterTitle>Color</FilterTitle>
               <FilterColor color="black" />
@@ -230,7 +307,7 @@ const Product = () => {
                 <FilterSizeOption>XL</FilterSizeOption>
               </FilterSize>
             </Filter>
-          </FilterContainer>
+          </FilterContainer> */}
           <AddContainer>
   {token && loading ? (
     <>Loading...</>
@@ -257,6 +334,17 @@ const Product = () => {
     ) : token ? "You own this product" : " "
   )}
 </AddContainer>
+      {likeCheckCompleted ? (
+        liked ? (
+          <FavoriteIcon onClick={handleLike} style={{ color: "red" }} />
+        ) : (
+          <FavoriteBorderIcon onClick={handleLike} />
+        )
+      ) : (
+        // Replace this with a loading spinner or similar
+        <p></p>
+      )}
+
         </InfoContainer>
       </Wrapper>
       

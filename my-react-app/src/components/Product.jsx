@@ -39,6 +39,7 @@ const Icon = styled.div`
 const Image = styled.img`
   height: 65%;
   z-index: 2;
+  flex:1;
   width:100%;
   margin-top:30px;
   margin-bottom:15px;

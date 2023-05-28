@@ -19,27 +19,26 @@ const PopupBackground = styled.div`
 
 const PopupContainer = styled.div`
   position: relative;
-  background-color: rgb(207, 196, 147);
+  background-color: rgb(0, 103, 71);
   border-radius: 8px;
   padding: 20px;
   width: 725px;
   height: 625px;
   display: flex;
   align-items: center;
+  flex-direction: column; // Add this line
   gap: 20px;
   flex-wrap: wrap;
 `;
 
 const ImageContainer = styled.div`
   flex: 1;
+  flex-wrap: wrap;
   height: 100%;
   display: flex;
   align-items: center;
   justify-content: center;
   width: 50%;
-  border: 1px solid #ccc;
-  background-color: white;
-
 `;
 
 const ImageBox = styled.div`
@@ -84,7 +83,7 @@ const Input = styled.input`
 const Label = styled.label`
   font-weight: bold;
   margin-bottom: 10px;
-  color: black;
+  color: white;
 `;
 
 const Asterisk = styled.span`
@@ -121,6 +120,25 @@ const CreateButton = styled.input`
 const ImageBoxUpload = styled.label`
   cursor: pointer;
 `;
+
+const FileInput = styled.input`
+  position: absolute;
+  z-index: -1;
+  opacity: 0;  
+`;
+
+const FileLabel = styled.label`
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 100px;
+  height: 100px;
+  border: 1px solid #ccc;
+  cursor: pointer;
+  margin: 10px;
+  background-color: rgb(0, 90, 71);
+`;
+
 
 function Popup({ setOpenPopup }) {
   const handleClose = () => {
@@ -200,7 +218,7 @@ function Popup({ setOpenPopup }) {
     return data.map((image) => {
       return (
         <img
-          style={{ height: "100px", width: "100px" }}
+          style={{ height: "100px", width: "100px", margin: "10px" }}
           className="image"
           src={image}
           alt=""
@@ -226,14 +244,20 @@ function Popup({ setOpenPopup }) {
               onChange={handleImageUpload}
             />
           </ImageBoxUpload> */}
-          <input
-            type="file"
-            name="file1"
-            multiple
-            onChange={changeMultipleFiles}
-          />
-          <hr></hr>
           {render(multipleImages)}
+          <FileLabel htmlFor="file-input">
+    Select Images
+    <FileInput
+      id="file-input"
+      type="file"
+      name="file1"
+      multiple
+      onChange={changeMultipleFiles}
+    />
+</FileLabel>
+
+          <hr></hr>
+          
         </ImageContainer>
         <ItemContainer onSubmit={HandleSubmit}>
           <Label>

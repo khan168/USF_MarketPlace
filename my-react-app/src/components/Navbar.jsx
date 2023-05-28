@@ -233,18 +233,18 @@ const Navbar = ({term,setTerm}) => {
                 <SimpleBadge />
               </MenuItem>
               <MenuItem>
-                <Button
-                  style={{ textDecoration: "none", color: "white" }}
+                <div
+                  style={{ textDecoration: "none", color: "white", textAlign:"end" }}
                   onClick={() => {
                     setOpenPopup(true);
                   }}
                 >
                   CREATE POST
-                </Button>
+                </div>
                 {openPopup && <Popup setOpenPopup={setOpenPopup} />}
               </MenuItem>
               <MenuItem>
-                <Link to="/profile" style={{ color: "white" }}>
+                <Link to="/profile" style={{textDecoration: "none", color: "white" }}>
                   PROFILE
                 </Link>
               </MenuItem>

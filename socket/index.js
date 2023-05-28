@@ -16,10 +16,8 @@ const removeUser = (socketId) => {
 };
 
 const getUser = (userId) => {
-//   const receiverId = currentChat?.to._id === user ? currentChat?.from._id : id;
-console.log("here");
-  const u = users.find((user) => user.userId === userId);
-  console.log(u.userId);
+  // return currentChat?.to._id === userId ? currentChat?.from._id : id;
+  // const u = users.find((user) => user.userId === userId);
   return users.find((user) => user.userId === userId);
 };
 

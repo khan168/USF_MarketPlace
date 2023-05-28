@@ -37,7 +37,6 @@ const Icon = styled.div`
   }
 `;
 const Image = styled.img`
-  flex:1;
   height: 65%;
   z-index: 2;
   width:100%;

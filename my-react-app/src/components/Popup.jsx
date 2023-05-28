@@ -26,9 +26,10 @@ const PopupContainer = styled.div`
   height: 625px;
   display: flex;
   align-items: center;
-  flex-direction: column; // Add this line
+  flex-direction: column;
   gap: 20px;
   flex-wrap: wrap;
+  box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.4), 0 6px 20px 0 rgba(0, 0, 0, 0.4); 
 `;
 
 const ImageContainer = styled.div`
@@ -53,7 +54,7 @@ const ImageBox = styled.div`
 
 const ItemContainer = styled.form`
   flex: 1;
-  height: 85%;
+  height: 95%;
   display: flex;
   align-items: flex-start;
   width: 50%;
@@ -78,6 +79,8 @@ const Input = styled.input`
   border: 1px solid #ccc;
   border-radius: 4px;
   margin-bottom: 10px;
+  box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.4), 0 6px 20px 0 rgba(0, 0, 0, 0.4); 
+
 `;
 
 const Label = styled.label`
@@ -97,6 +100,7 @@ const Select = styled.select`
   border: 1px solid #ccc;
   border-radius: 4px;
   margin-bottom: 10px;
+  box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.4), 0 6px 20px 0 rgba(0, 0, 0, 0.4); 
 `;
 
 const DescriptionInput = styled.textarea`
@@ -106,6 +110,8 @@ const DescriptionInput = styled.textarea`
   border-radius: 4px;
   margin-bottom: 20px; /* Increased margin-bottom for longer text box */
   resize: vertical;
+  box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.4), 0 6px 20px 0 rgba(0, 0, 0, 0.4); 
+
 `;
 
 const CreateButton = styled.input`
@@ -115,6 +121,10 @@ const CreateButton = styled.input`
   padding: 10px 20px;
   border-radius: 4px;
   cursor: pointer;
+  transition: background-color 0.2s ease; // Add transition for smooth hover effect
+  &:hover {
+    background-color: #45a049; // Add hover color change
+  }
 `;
 
 const ImageBoxUpload = styled.label`
@@ -125,6 +135,8 @@ const FileInput = styled.input`
   position: absolute;
   z-index: -1;
   opacity: 0;  
+  &:hover {
+    background-color: rgb(0, 110, 81); // Change color when hovered
 `;
 
 const FileLabel = styled.label`
@@ -264,7 +276,7 @@ function Popup({ setOpenPopup }) {
             Title
             <Asterisk>*</Asterisk>
           </Label>
-          <Input
+          <Input  
             name="title"
             type="text"
             placeholder="Enter name"

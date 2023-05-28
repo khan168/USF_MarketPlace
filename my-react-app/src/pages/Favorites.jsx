@@ -99,14 +99,18 @@ const [posts, setPosts] = useState([]);
 
         <PostsContainer>
       {posts.map((post) => (
-        <PostCard key={post._id} onClick={() => navigate(`/product/${post._id}`)}>
-        {post.images[0] && (
-          <PostImage src={post.images[0]} alt="Post" />
-        )}
-        <PostTitle>{post.title}</PostTitle>
-        <PostPrice>${post.price}</PostPrice>
-        <PostBody>{post.description}</PostBody>
-      </PostCard>
+         post && (
+            <PostCard key={post._id} onClick={() => navigate(`/product/${post._id}`)}>
+              {post.images && post.images[0] ? (
+                <PostImage src={post.images[0]} alt="Post" />
+              ) : (
+                <PostImage src={'placeholder-image-url'} alt="Post" />
+              )}
+              <PostTitle>{post.title}</PostTitle>
+              <PostPrice>${post.price}</PostPrice>
+              <PostBody>{post.description}</PostBody>
+            </PostCard>
+          )
       ))}
     </PostsContainer>
 

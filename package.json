@@ -6,7 +6,8 @@
   "scripts": {
     "server": "nodemon api/backend/server.js",
     "client": "npm start --prefix my-react-app",
-    "dev": "concurrently \"npm run server\" \"npm run client\""
+    "socket": "nodemon socket/index.js",
+    "dev": "concurrently \"npm run server\" \"npm run client\"  \" npm run socket\""
   },
   "keywords": [],
   "author": "",

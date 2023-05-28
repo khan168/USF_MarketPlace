@@ -162,9 +162,27 @@ const Home = () => {
       <Wrapper>
         <Left>
           <Filter>
-            <span>Amount</span>
-            <input ref={minRef} type="number" placeholder="min" />
-            <input ref={maxRef} type="number" placeholder="max" />
+            <span
+              style={{
+                marginBottom: "10px",
+                textAlign: "center",
+                fontWeight: "bold",
+              }}
+            >
+              Amount
+            </span>
+            <input
+              style={{ padding: "5px", marginBottom: "5px",textDecoration: "none" }}
+              ref={minRef}
+              type="number"
+              placeholder="min"
+            />
+            <input
+              style={{ padding: "5px", marginBottom: "5px" }}
+              ref={maxRef}
+              type="number"
+              placeholder="max"
+            />
             <button onClick={HandleFilter} style={{ padding: "5px" }}>
               Apply
             </button>
@@ -180,7 +198,7 @@ const Home = () => {
               fontSize="large"
               category="Miscellaneous"
               onClick={HandleClickRestart}
-              style={{ marginBottom: "60px", marginTop:"50px" }}
+              style={{ marginBottom: "60px", marginTop: "50px" }}
             ></RestartAltIcon>
             <CheckroomIcon
               fontSize="large"
@@ -214,7 +232,12 @@ const Home = () => {
             error
           ) : loading ? (
             <LoadingWrapper>
-             <ReactLoading type={"spin"} color={"blue"} height={100} width={100} />
+              <ReactLoading
+                type={"spin"}
+                color={"blue"}
+                height={100}
+                width={100}
+              />
             </LoadingWrapper>
           ) : (
             <Products list={filteredList}></Products>

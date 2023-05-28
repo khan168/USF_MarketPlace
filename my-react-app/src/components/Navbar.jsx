@@ -68,7 +68,7 @@ const Right = styled.div`
 
 const SearchContainer = styled.div`
   display: flex;
-  border: 1px solid lightgrey;
+  /* border: 1px solid lightgrey; */
   align-items: center;
   margin-left: 25px;
   padding: 5px;
@@ -76,6 +76,9 @@ const SearchContainer = styled.div`
 
 const Input = styled.input`
   border: none;
+  padding: 5px;
+  margin-right: 5px;
+  font-weight: bold;
 `;
 
 const Logo = styled.h1`
@@ -165,7 +168,7 @@ const Navbar = ({term,setTerm}) => {
     if (isTokenValid) {
         fetchLikes();
     } 
-  }, [isTokenValid, curr_user.id]);
+  }, [_id,isTokenValid]);
 
    /*
 
@@ -213,7 +216,7 @@ const Navbar = ({term,setTerm}) => {
     <Container>
       <Wrapper>
         <Left>
-                {pathname === '/' && (
+          {pathname === "/" && (
             <SearchContainer>
               <Input value={term} onChange={handleSearch} />
               <SearchIcon />
@@ -224,11 +227,11 @@ const Navbar = ({term,setTerm}) => {
           <Logo onClick={HandleClick}>Bulls Buy</Logo>
         </Center>
         <Right>
-          <MenuItem>
-            <SimpleBadge />
-          </MenuItem>
           {isTokenValid ? (
             <>
+              <MenuItem>
+                <SimpleBadge />
+              </MenuItem>
               <MenuItem>
                 <Button
                   style={{ textDecoration: "none", color: "white" }}
@@ -241,10 +244,7 @@ const Navbar = ({term,setTerm}) => {
                 {openPopup && <Popup setOpenPopup={setOpenPopup} />}
               </MenuItem>
               <MenuItem>
-                <Link
-                  to="/profile"
-                  style={{ textDecoration: "none", color: "white" }}
-                >
+                <Link to="/profile" style={{ color: "white" }}>
                   PROFILE
                 </Link>
               </MenuItem>
@@ -271,12 +271,18 @@ const Navbar = ({term,setTerm}) => {
           ) : (
             <>
               <MenuItem>
-                <Link to="/register" style={{ textDecoration: "none" }}>
+                <Link
+                  to="/register"
+                  style={{ textDecoration: "none", color: "white" }}
+                >
                   REGISTER
                 </Link>
               </MenuItem>
               <MenuItem>
-                <Link to="/login" style={{ textDecoration: "none" }}>
+                <Link
+                  to="/login"
+                  style={{ textDecoration: "none", color: "white" }}
+                >
                   LOGIN
                 </Link>
               </MenuItem>

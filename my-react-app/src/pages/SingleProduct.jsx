@@ -137,6 +137,11 @@ const SellerNumber = styled.span`
   color: gray;
 `;
 
+const DateLabel = styled.span`
+font-weight: 400;
+color: gray;
+`;
+
 const Product = () => {
   const navigate = useNavigate();
   const token = localStorage.getItem("token");
@@ -230,6 +235,8 @@ const Product = () => {
 
           // Set the user state with the user data
           setUser(userResponse.data.user);
+          
+
 
           // After fetching the item and user data, check for existing likes
           const likesResponse = await axios.get(`${SERVER}api/likes/post/${response.data._id}`, {
@@ -290,6 +297,7 @@ const Product = () => {
           <Title>{item.title}</Title>
           <Desc>{item.description}</Desc>
           <Price>$ {item.price}</Price>
+          <DateLabel>{new Date(item.createdAt).toLocaleDateString(undefined, { year: 'numeric', month: 'long', day: 'numeric', hour: '2-digit', minute: '2-digit', second: '2-digit' })}</DateLabel>
           {/* <FilterContainer>
             <Filter>
               <FilterTitle>Color</FilterTitle>

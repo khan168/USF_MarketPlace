@@ -14,7 +14,7 @@ const ProfileContainer = styled.div`
   align-items: center;
   justify-content: center;
   padding: 2em;
-  min-height: calc(100vh - 80px); // Assuming the footer is 80px tall
+  min-height: calc(100vh - 1000px); // Assuming the footer is 80px tall
   background: #f2f2f2;
 
   @media (max-width: 600px) {
@@ -114,10 +114,11 @@ const PostCard = styled.div`
   }
 
   @media (max-width: 600px) {
-    width: 100%;
+    width: 85%; // this will be relative to its parent container
     height: auto;
   }
 `;
+
 
 const PostImage = styled.img`
   width: 100%;

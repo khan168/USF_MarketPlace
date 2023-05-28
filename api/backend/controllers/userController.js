@@ -38,8 +38,6 @@ const resetpass = asyncHandler(async (req, res) => {
         refreshToken: process.env.REFRESHTOKEN,
       },
     });
-   
-    console.log(process.env.PASS)
 
     let mailOptions = {
       from: process.env.USER,

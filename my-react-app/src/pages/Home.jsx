@@ -17,6 +17,7 @@ const Wrapper = styled.div`
   display: flex;
   /* margin-top: 50px; */
   height: calc(100vh - 50px);
+  font-family: "Playfair", serif;
 `;
 
 const Left = styled.div`

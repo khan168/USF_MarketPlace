@@ -39,18 +39,21 @@ const Icon = styled.div`
 const Image = styled.img`
   height: 65%;
   z-index: 2;
+  flex:1;
   width:100%;
-  margin-top:30px
+  margin-top:30px;
+  margin-bottom:15px;
 `;
 
 const Container = styled.div`
   border-radius: 10%;
   padding: 20px;
-  flex: 1;
+  /* flex: 1; */
   margin: 5px;
   height: 250px;
-  min-width: 150;
-  /* display: flex; */
+  width: 250px;
+  display: flex;
+  flex-direction: column;
   background-color: rgb(237, 235, 209);
   position: relative;
   /* display: flex; */
@@ -61,17 +64,20 @@ const Container = styled.div`
 `;
 
 const Title = styled.h3`
-/* margin-bottom:5px ; */
-  padding:10px;
-`
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  max-width: 200px;
+  text-align: left;
+`;
 
 const Cost = styled.h3`
   /* margin-bottom:5px ; */
-  padding: 10px;
+  padding-top: 10px;
 `;
 
 const TitleAndCostWrapper = styled.div`
-  display: flex;
+  /* display: flex; */
   justify-content: space-between; // add this if you want them to be on opposite ends
 `;
 
@@ -97,7 +103,6 @@ const Product = ({ item }) => {
           <FavoriteBorderIcon />
         </Icon>
       </Info>
-      
     </Container>
   );
 };

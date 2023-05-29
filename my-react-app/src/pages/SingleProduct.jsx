@@ -5,10 +5,11 @@ import Footer from "../components/Footer";
 import Navbar from "../components/Navbar";
 import Slider from "../components/Slider";
 import { Link, useParams, useNavigate } from "react-router-dom";
-import { useEffect, useState} from "react";
+import { useEffect, useState } from "react";
 import axios from "axios";
 
-
+import FavoriteBorderIcon from "@mui/icons-material/FavoriteBorder";
+import FavoriteIcon from "@mui/icons-material/Favorite";
 
 const Container = styled.div`
   min-height: 100vh;
@@ -17,14 +18,13 @@ const Container = styled.div`
   justify-content: space-between;
 `;
 
-
 const Wrapper = styled.div`
   padding: 50px;
   display: flex;
   flex-direction: column;
   justify-content: space-between;
 
-  @media (min-width: 768px) { 
+  @media (min-width: 768px) {
     flex-direction: row;
   }
 `;
@@ -33,66 +33,42 @@ const ImgContainer = styled.div`
   flex: 1;
   width: 100%;
 
-  @media (min-width: 768px) { 
+  @media (min-width: 768px) {
     width: auto;
   }
 `;
 
-
 const InfoContainer = styled.div`
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
   flex: 1;
   padding: 0px 50px;
 `;
 
 const Title = styled.h1`
   font-weight: 200;
+  font-size: 50px;
 `;
 
-const Desc = styled.p`
-  margin: 20px 0px;
-`;
-
-const Price = styled.span`
-  font-weight: 100;
-  font-size: 40px;
-`;
-
-const FilterContainer = styled.div`
-  width: 50%;
-  margin: 30px 0px;
-  display: flex;
-  justify-content: space-between;
-`;
-
-const Filter = styled.div`
-  display: flex;
-  align-items: center;
-`;
-
-const FilterTitle = styled.span`
-  font-size: 20px;
+const Value = styled.div`
   font-weight: 200;
+  font-size:20px;
+  text-align: center;
+  margin-top: 4px;
+  flex: 1;
+  /* align-items:flex-start; */
 `;
 
-const FilterColor = styled.div`
-  width: 20px;
-  height: 20px;
-  border-radius: 50%;
-  background-color: ${(props) => props.color};
-  margin: 0px 5px;
-  cursor: pointer;
+const Price = styled.div`
+  font-weight: 100;
+  display: flex;
+  /* font-size: 40px; */
 `;
-
-const FilterSize = styled.select`
-  margin-left: 10px;
-  padding: 5px;
-`;
-
-const FilterSizeOption = styled.option``;
 
 const AddContainer = styled.div`
   width: 50%;
-  display: flex;
+  /* display: flex; */
   align-items: center;
   justify-content: space-between;
 `;
@@ -110,9 +86,8 @@ const Button = styled.button`
   }
 `;
 
-
 const SellerInfo = styled.div`
-  display: flex;
+  /* display: flex; */
   align-items: center;
 `;
 
@@ -126,12 +101,41 @@ const SellerImage = styled.img`
 const SellerName = styled.span`
   font-weight: 500;
   margin-right: 10px;
+  font-size: 20px;
 `;
 
 const SellerNumber = styled.span`
   font-weight: 400;
   color: gray;
+  font-size: 20px;
 `;
+
+const DateLabel = styled.div`
+  display: flex;
+  font-weight: 400;
+`;
+
+const TitleandLike = styled.div`
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+`;
+
+const LikeIconcontainer = styled.div`
+  display: flex;
+  flex: 3;
+  align-items: center;
+  justify-content: center;
+`;
+
+const Detail = styled.div`
+display: flex;
+`;
+
+const Key = styled.h2`
+`
+
+
 
 const Product = () => {
   const navigate = useNavigate();
@@ -140,12 +144,10 @@ const Product = () => {
   const SERVER = "http://localhost:5001/";
   const [item, setItem] = useState("");
   const { id } = useParams();
-  const [loading,setloading] = useState(false)
-  
+  const [loading, setloading] = useState(false);
+
   //product user
   const [user, setUser] = useState({});
-
-
 
   useEffect(() => {
     const fetchdata = async () => {
@@ -157,40 +159,42 @@ const Product = () => {
         })
         .then(async (response) => {
           setItem(response.data);
-         
-    
+
           // Fetch user data after getting the item data
-          const userResponse = await axios.get(`${SERVER}api/user/getUserbyID/${response.data.user}`, {
-            headers: {
+          const userResponse = await axios.get(
+            `${SERVER}api/user/getUserbyID/${response.data.user}`,
+            {
+              headers: {
                 Authorization: `Bearer ${token}`,
-            },
-        });;
-    
+              },
+            }
+          );
+
           // Set the user state with the user data
-          console.log(userResponse.data.user)
+          console.log(userResponse.data.user);
           setUser(userResponse.data.user);
         })
         .catch((error) => console.log(error));
     };
 
     fetchdata();
-  }, [id,token]);
-  
+  }, [id, token]);
 
-
-
-
-  const HandleClick = async ()=>{
-    setloading(true)
-     //create or find user
+  const HandleClick = async () => {
+    setloading(true);
+    //create or find user
     try {
-      await axios.post("/api/chat/", {to:item?.user},{
-        headers: {
-          Authorization: `Bearer ${token}`,
-        },
-      });
+      await axios.post(
+        "/api/chat/",
+        { to: item?.user },
+        {
+          headers: {
+            Authorization: `Bearer ${token}`,
+          },
+        }
+      );
       // console.log(res.data);
-      setloading(false)
+      setloading(false);
       navigate(
         `/chats?param1=${
           userid < item?.user ? userid + item?.user : item?.user + userid
@@ -199,8 +203,88 @@ const Product = () => {
     } catch (err) {
       console.log(err);
     }
-    
-  }
+  };
+  // states for the like button
+  const [liked, setLiked] = useState(false);
+  const [likeId, setLikeId] = useState(null);
+  const [likeCheckCompleted, setLikeCheckCompleted] = useState(false);
+
+  useEffect(() => {
+    const fetchData = async () => {
+      await axios
+        .get(`${SERVER}api/items/${id}`, {
+          headers: {
+            Authorization: `Bearer ${token}`,
+          },
+        })
+        .then(async (response) => {
+          setItem(response.data);
+          // Fetch user data after getting the item data
+          const userResponse = await axios.get(
+            `${SERVER}api/user/getUserbyID/${response.data.user}`,
+            {
+              headers: {
+                Authorization: `Bearer ${token}`,
+              },
+            }
+          );
+
+          // Set the user state with the user data
+          setUser(userResponse.data.user);
+
+          // After fetching the item and user data, check for existing likes
+          const likesResponse = await axios.get(
+            `${SERVER}api/likes/post/${response.data._id}`,
+            {
+              headers: {
+                Authorization: `Bearer ${token}`,
+              },
+            }
+          );
+          const userLike = likesResponse.data.find(
+            (like) => like.user === userid
+          );
+          if (userLike) {
+            setLiked(true);
+            setLikeId(userLike._id);
+          }
+          setLikeCheckCompleted(true); // Set like check completed to true
+        })
+        .catch((error) => console.log(error));
+    };
+
+    fetchData();
+  }, [id, token, userid]);
+
+  const handleLike = async () => {
+    if (!liked) {
+      // Create a like
+      const response = await axios.post(
+        `${SERVER}api/likes`,
+        {
+          user: userid,
+          post: item._id,
+        },
+        {
+          headers: {
+            Authorization: `Bearer ${token}`,
+          },
+        }
+      );
+      setLikeId(response.data._id); // Save the like id for later
+    } else {
+      // Delete the like
+      await axios.delete(`${SERVER}api/likes/${likeId}`, {
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
+      });
+      setLikeId(null);
+    }
+    // Toggle the like status
+    setLiked(!liked);
+  };
+
   return (
     <Container>
       <Navbar />
@@ -210,56 +294,85 @@ const Product = () => {
           <Slider array={item?.images}></Slider>
         </ImgContainer>
         <InfoContainer>
-          <Title>{item.title}</Title>
-          <Desc>{item.description}</Desc>
-          <Price>$ {item.price}</Price>
-          <FilterContainer>
-            <Filter>
-              <FilterTitle>Color</FilterTitle>
-              <FilterColor color="black" />
-              <FilterColor color="darkblue" />
-              <FilterColor color="gray" />
-            </Filter>
-            <Filter>
-              <FilterTitle>Size</FilterTitle>
-              <FilterSize>
-                <FilterSizeOption>XS</FilterSizeOption>
-                <FilterSizeOption>S</FilterSizeOption>
-                <FilterSizeOption>M</FilterSizeOption>
-                <FilterSizeOption>L</FilterSizeOption>
-                <FilterSizeOption>XL</FilterSizeOption>
-              </FilterSize>
-            </Filter>
-          </FilterContainer>
+          <TitleandLike>
+            <Title>{item.title}</Title>
+            {likeCheckCompleted ? (
+              liked ? (
+                <LikeIconcontainer>
+                  <FavoriteIcon
+                    onClick={handleLike}
+                    fontSize="32px"
+                    style={{ color: "red" }}
+                  />
+                </LikeIconcontainer>
+              ) : (
+                <LikeIconcontainer style={{ fontSize: "39px" }}>
+                  <FavoriteBorderIcon onClick={handleLike} fontSize="32px" />
+                </LikeIconcontainer>
+              )
+            ) : (
+              // Replace this with a loading spinner or similar
+              <p></p>
+            )}
+          </TitleandLike>
+
+          <Detail>
+            <Key>Details:</Key>
+            <Value> {item.description}</Value>
+          </Detail>
+          <Price>
+            <Key>Price: </Key>
+            <Value>$ {item.price} </Value>
+          </Price>
+          <DateLabel>
+            <Key>Posting: </Key>
+            <Value>
+              {new Date(item.createdAt).toLocaleDateString(undefined, {
+                year: "numeric",
+                month: "long",
+                day: "numeric",
+                hour: "2-digit",
+                minute: "2-digit",
+                second: "2-digit",
+              })}
+            </Value>
+          </DateLabel>
           <AddContainer>
-  {token && loading ? (
-    <>Loading...</>
-  ) : (
-    token && userid!==item.user ? (
-      <>
-        <SellerInfo>
-          <SellerImage src={user.profileImage} alt={user.name} />
-          <SellerName>{user.name}</SellerName>
-          <SellerNumber>{user.number}</SellerNumber>
-        </SellerInfo>
-        <Button
-          onClick={HandleClick}
-          style={{
-            textDecoration: "none",
-            display: "flex",
-            alignItems: "center",
-            justifyContent: "space-between",
-          }}
-        >
-          Message Seller <EmailIcon></EmailIcon>
-        </Button>
-      </>
-    ) : token ? "You own this product" : " "
-  )}
-</AddContainer>
+            {token && loading ? (
+              <>Loading...</>
+            ) : token && userid !== item.user ? (
+              <div style={{display:"flex" }}>
+                <div>
+                <SellerImage src={user.profileImage} alt={user.name} />
+                <SellerInfo>
+                  <SellerName>{user.name}</SellerName>
+                  <SellerNumber>{user.number}</SellerNumber>
+                </SellerInfo>
+                </div>
+                <Button
+                  onClick={HandleClick}
+                  style={{
+                    // borderRadius:"8%",
+                    flex:1,
+                    marginLeft:"100px",
+                    textDecoration: "none",
+                    display: "flex",
+                    alignItems: "center",
+                    justifyContent: "space-between",
+                  }}
+                >
+                  Message Seller <EmailIcon></EmailIcon>
+                </Button>
+              </div>
+            ) : token ? (
+              "You own this product"
+            ) : (
+              " "
+            )}
+          </AddContainer>
         </InfoContainer>
       </Wrapper>
-      
+
       <Footer />
     </Container>
   );

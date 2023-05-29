@@ -6,7 +6,7 @@ import { useNavigate,Link } from "react-router-dom";
 
 const Container = styled.div`
   width: 100vw;
-  height: 100vh;
+  height: calc(100vh - 60px);
   background-color: aliceblue;
   display: flex;
   align-items: center;
@@ -19,7 +19,7 @@ const Left = styled.div`
   padding-top: 20px;
   padding: 20px;
   width: 90%; // relative to its parent
-  max-width: 400px; // won't grow wider than 400px
+  max-width: 430px; // won't grow wider than 414px
   background-color: white;
   border-radius: 5%;
   border: 1px solid black;
@@ -32,19 +32,19 @@ const Right = styled.div`
   padding-top: 20px;
   padding: 20px;
   width: 90%; // relative to its parent
-  max-width: 400px; // won't grow wider than 400px
+  max-width: 440px; // won't grow wider than 400px
   box-sizing: border-box; // includes padding and border in the element's total width and height
 `;
 
 const Title = styled.h1`
   width: 100%;
   text-align: left;
-  font-size: 20px;
-  margin-bottom: 10px;
+  font-size: 25px;
+  margin-bottom: 5px;
 `;
 const Input = styled.input`
   padding: 10px;
-  margin: 0 10px 10px 0;
+  margin: 12px 20px 10px 0;
   width: 100%; // take the full width of the parent container
   box-sizing: border-box; // includes padding and border in the element's total width and height
 `;
@@ -52,6 +52,7 @@ const Input = styled.input`
 const Form = styled.form`
   /* display: flex; */
   padding: 20px;
+  padding-top: 5px;
   /* flex-wrap: wrap; */
 `;
 
@@ -113,6 +114,7 @@ const Login = () => {
   
 
 
+<<<<<<< HEAD
   const google = () => {
     window.location.href = 'http://localhost:4000/auth/google';
   };
@@ -124,6 +126,8 @@ const Login = () => {
   const facebook = () => {
     window.open("http://localhost:4000/auth/facebook", "_self");
   };
+=======
+>>>>>>> 9b59fa4c9e6fabb335d93bef49aa750a1b74d75d
 
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
@@ -133,7 +137,7 @@ const Login = () => {
       <Navbar></Navbar>
       <Container>
         <Left>
-          <Form onSubmit={handleSubmit} style={{ flex: 2 }}>
+          <Form onSubmit={handleSubmit} style={{ flex: 5 }}>
             <Title>Sign In</Title>
             <Input
               placeholder="Email"
@@ -146,23 +150,31 @@ const Login = () => {
               value={password}
               onChange={(e) => setPassword(e.target.value)}
             ></Input>
-            <Button type="submit">Sign In</Button>
-            <Link to="/forgot-password">Forgot password?</Link>
+            <Button type="submit" style={{ marginBottom: "15px" }}>
+              Sign In
+            </Button>
+            <Link to="/forgot-password" style={{ textDecoration:"none", color:"dark-green" }}>
+              Forgot password?
+            </Link>
           </Form>
 
           <p style={{ flex: 1 }}>OR</p>
           <Right style={{ flex: 2 }}>
+<<<<<<< HEAD
             <Loginbutton onClick={google} color={"#df4930"}>
+=======
+            <Loginbutton color={"#df4930"}>
+>>>>>>> 9b59fa4c9e6fabb335d93bef49aa750a1b74d75d
               <Icon src="./google.png"></Icon>
               Google
             </Loginbutton>
             <img alt="" className="icon" />
-            <Loginbutton onClick={"google"} color={"#507cc0"}>
+            <Loginbutton color={"#507cc0"}>
               <Icon src="./facebook.png"></Icon>
               facebook
             </Loginbutton>
             <img alt="" className="icon" />
-            <Loginbutton onClick={"google"} color={"black"}>
+            <Loginbutton color={"black"}>
               <Icon src="./github.png"></Icon>
               github
             </Loginbutton>

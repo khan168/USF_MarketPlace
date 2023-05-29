@@ -98,11 +98,11 @@ const Footer = () => {
   return (
     <Container>
       <Left>
-        <Logo>USF_MARKETPLACE.</Logo>
+        <Logo>USF Bulls Buy</Logo>
         <Desc>
-          There are many variations of passages of Lorem Ipsum available, but
-          the majority have suffered alteration in some form, by injected
-          humour, or randomised words which don’t look even slightly believable.
+        "Welcome to the University Marketplace, your go-to campus hub. Brought to life by three Computer Science students, 
+        this site encapsulates our passion for enhancing student life through technology. Each feature was crafted with love and keen understanding 
+        of university life. Our goal? To simplify your campus journey. Enjoy browsing!
         </Desc>
         <SocialContainer>
           <SocialIcon color="3B5999">

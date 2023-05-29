@@ -10,7 +10,10 @@ const Container = styled.div`
   padding: 20px;
   display: flex;
   flex-wrap: wrap;
-  justify-content: space-between;
+  justify-content: left;
+  @media (max-width: 767px) {
+    justify-content: center;
+  }
 `;
 
 const Products = ({list}) => {

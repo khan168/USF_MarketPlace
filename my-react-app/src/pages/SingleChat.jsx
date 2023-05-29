@@ -7,6 +7,7 @@ import { useLocation } from "react-router-dom";
 import { useEffect, useState, useRef } from "react";
 import axios from "axios";
 import Announcement from "../components/Annoucements";
+import { io } from "socket.io-client";
 require("./ChatPage.css");
 
 const Container = styled.div``;
@@ -18,8 +19,6 @@ const Wrapper = styled.div`
   background-color: beige;
 `;
 
-
-
 const Product = () => {
   const location = useLocation();
   const searchParams = new URLSearchParams(location.search);
@@ -27,20 +26,53 @@ const Product = () => {
   const id = localStorage.getItem("_id");
   const token = localStorage.getItem("token");
 
+  const socket = useRef(); //web socket connection to server
+  const [arrivalMessage, setArrivalMessage] = useState(null);
+
   const [conversations, setConversations] = useState([]);
-  const [currentChat, setCurrentChat] = useState(param1!==null ?{chatid:param1} :null);
-  const [messages, setMessages] = useState([]);
-  const [newMessage, setNewMessage] = useState("");
-  const scrollRef = useRef();
+  const [currentChat, setCurrentChat] = useState(
+    param1 !== null ? { chatid: param1 } : null
+  );
+  const [messages, setMessages] = useState([]); //get all messages from
+  const [newText, setNewText] = useState(""); //set message from text box
+  const scrollRef = useRef(); //reach chat box on message change
+
+  useEffect(() => {
+    socket.current = io("ws://localhost:8900");
+    socket.current.on("getMessage", (data) => {
+      setArrivalMessage({
+        sender: data.senderId,
+        desc: data.text,
+        createdAt: Date.now(),
+      });
+    });
+  }, []);
+
+  useEffect(() => {
+    arrivalMessage && (currentChat?.from._id === arrivalMessage.sender || currentChat?.to._id === arrivalMessage.sender) &&setMessages((prev) => [...prev, arrivalMessage]);
+  }, [arrivalMessage, currentChat, id]);
+
+  useEffect(() => {
+    socket.current.emit("addUser", id);
+    socket.current.on("getUsers", (users) => console.log(users));
+  }, [id]);
 
   const handleSubmit = async (e) => {
     e.preventDefault();
     const message = {
       user: id,
-      desc: newMessage,
+      desc: newText,
       chatid: currentChat?.chatid,
     };
+
+    const receiverId =
+      currentChat?.to._id === id ? currentChat?.from._id : currentChat?.to._id; //logic to get reciever
     
+    socket.current.emit("sendMessage", {
+      senderId: id,
+      receiverId,
+      text: newText,
+    });
 
     try {
       const res = await axios.post(
@@ -52,8 +84,8 @@ const Product = () => {
           },
         }
       );
-      setMessages([...messages, res.data]);
-      setNewMessage("");
+      setMessages([...messages, res.data]); //keep prev messages and add new message to UI and db
+      setNewText("");
     } catch (err) {
       console.log(err);
     }
@@ -96,7 +128,6 @@ const Product = () => {
   useEffect(() => {
     scrollRef.current?.scrollIntoView({ behavior: "smooth" });
   }, [messages]);
-
 
   return (
     <Container>
@@ -143,8 +174,8 @@ const Product = () => {
                   <textarea
                     className="chatMessageInput"
                     placeholder="write something..."
-                    onChange={(e) => setNewMessage(e.target.value)}
-                    value={newMessage}
+                    onChange={(e) => setNewText(e.target.value)}
+                    value={newText}
                   ></textarea>
                   <button className="chatSubmitButton" onClick={handleSubmit}>
                     Send

@@ -7,7 +7,7 @@ import upload from "../utilities/Upload";
 
 const Container = styled.div`
   width: 100vw;
-  height: 100vh;
+  height: calc(100vh - 60px);
   background-color: aliceblue;
   display: flex;
   align-items: center;
@@ -125,19 +125,49 @@ const Register = () => {
   }
   return (
     <>
-    
       <Navbar props={user}></Navbar>
       <Container>
         <Wrapper>
           <Form onSubmit={handleSubmit}>
             <Title>Create your account</Title>
-            <Input name="name" placeholder="Name" onChange={handleInputChange}></Input>
-            <Input name="email" placeholder="Email" onChange={handleInputChange}></Input>
-            <Input name="username" placeholder="Username" onChange={handleInputChange}></Input>
-            <Input name="number" placeholder="Number" onChange={handleInputChange}></Input>
-            <Input name="password" type="password" placeholder="Password" onChange={handleInputChange}></Input>
+            <Input
+              name="name"
+              placeholder="Name"
+              onChange={handleInputChange}
+            ></Input>
+            <Input
+              name="email"
+              placeholder="Email"
+              onChange={handleInputChange}
+            ></Input>
+            <Input
+              name="username"
+              placeholder="Username"
+              onChange={handleInputChange}
+            ></Input>
+            <Input
+              name="number"
+              placeholder="Number"
+              onChange={handleInputChange}
+            ></Input>
+            <Input
+              name="password"
+              type="password"
+              placeholder="Password"
+              onChange={handleInputChange}
+            ></Input>
             <Input type="password" placeholder="Confirm Password"></Input>
-            <Input name="Profile pic upload" type="file" onChange={handleFileChange} ></Input>
+            <div style={{marginTop:"10px"}}>
+              <div style={{ width: "110px", flex: 1 , marginTop:"10px", marginBottom:"5px"}}>
+              <label >Profile Picture:</label>
+              </div>
+              <input
+                name="Profile pic upload"
+                type="file"
+                onChange={handleFileChange}
+                style={{ flex: "1" ,marginLeft:"0px"}}
+              ></input>
+            </div>
             {loading ? <div>Loading...</div> : null}
             <Agreement>
               By creating an account, I consent to the processing of my personal

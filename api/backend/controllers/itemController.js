@@ -1,6 +1,8 @@
 const asyncHandler = require('express-async-handler')
 const mongoose = require('mongoose');
 const Item = require('../models/itemModel')
+const Like = require('../models/likesModel');
+
 
 // @desc Get item
 // @route GET /api/items
@@ -140,7 +142,10 @@ const deleteItem = asyncHandler(async (req, res) => {
         throw new Error('Item not found')
     }
 
+    // Find and delete all likes associated with this item
+    await Like.deleteMany({ post: req.params.id });
     await item.remove()
+    
     console.log({message: `Item ${req.params.id} removed`})
     res.status(200).json({message: `Item ${req.params.id} removed`})
 })

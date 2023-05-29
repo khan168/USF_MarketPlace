@@ -13,6 +13,7 @@ import RedirectPass from './pages/RedirectPass';
 //temp
 import AddImage from './components/AddImage';
 import Profile from './pages/Profile';
+import Favorites from './pages/Favorites';
 
 const router = createBrowserRouter([
   {
@@ -55,6 +56,10 @@ const router = createBrowserRouter([
     path: "/forgot-password/:id/:token",
     element: <RedirectPass></RedirectPass>,
   },
+  {
+    path: "/favorites",
+    element: <Favorites></Favorites>
+  }
 ]);
 
 export const App = () => {

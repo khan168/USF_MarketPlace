@@ -6,28 +6,28 @@ import ArrowForwardIosIcon from "@mui/icons-material/ArrowForwardIos";
 
 
 const Arrow = styled.div`
-  background-color: white;
+  /* background-color: white; */
   left: ${(props) => props.direction === "left" && "10px"};
   right: ${(props) => props.direction === "right" && "10px"};
   margin: auto;
-  top: 0;
-  bottom: 0;
+
+  /* top: 0;
+  bottom: 0; */
   cursor: pointer;
   z-index: 3;
   display: flex;
   align-items: center;
   justify-content: center;
-  position: absolute;
-  top: 0;
-  bottom: 0;
+  flex: 1;
+  /* position: absolute; */
 `;
 
 const Container = styled.div`
   margin: auto;
   position: relative;
-  height: 50vh;
-  width: 37vw;
-  /* display: flex; */
+  height: 70vh;
+  width: 100%;
+  display: flex;
   align-items: center;
   justify-content: center;
   overflow: hidden;
@@ -36,33 +36,36 @@ const Container = styled.div`
 
 
 const Wrapper = styled.div`
-  height: 100%;
-  display: flex;
-  transition: all 1.5s ease;
-  transform: translateX(${(props) => props.slideindex * -37}vw);
+  /* display: flex; */
+  width: 800px;
+  height: 700px;
+  overflow: hidden;
+  /* gap: 50px; */
+  /* transition: all 1.5s ease; */
+  /* transform: translateX(${(props) => props.slideindex * -800}px); */
 `;
 
 const Slide = styled.div`
   /* width: 37vw; */
-  height: 100%;
-  /* display: flex; */
+  display: flex;
   align-items: center;
+  transition: all 1.5s ease;
+  transform: translateX(${(props) => props.slideindex * -800}px);
   /* overflow: hidden; */
 `;
 
 const ImageContainer = styled.div`
-  width: 37vw;
+  width:100%;
   height: 100%;
-  
-  /* flex: 1; */
+  flex: 1;
 `;
 
 
 
 const Image = styled.img`
-  width: 100%;
-  height: 100%;
-  transform: scale(0.9);
+  width: 800px;
+  height: 700px;
+  /* transform: scale(0.9); */
   object-fit: cover;
 `;
 
@@ -71,6 +74,7 @@ const Slider = ({array}) => {
 
   const [slideIndex, setSlideIndex] = React.useState(0);
   const handleClick = (direction) => {
+    // console.log(direction);
     if (direction === "left") {
       setSlideIndex(slideIndex > 0 ? slideIndex - 1 : 0);
     } else {
@@ -78,28 +82,28 @@ const Slider = ({array}) => {
     }
   };
   return (
-      <Container>
-        <Arrow direction="left" onClick={() => handleClick("left")}>
-          <ArrowBackIosIcon fontSize="large"></ArrowBackIosIcon>
-        </Arrow>
-        <Wrapper slideindex={slideIndex}>
-          {array?.map((item,index) => (
-            <Slide key={index}>
-              <ImageContainer>
-                <Image src={item} />
-              </ImageContainer>
-            </Slide>
+    <Container>
+      <Arrow direction="left" onClick={() => handleClick("left")}>
+        <ArrowBackIosIcon fontSize="large"></ArrowBackIosIcon>
+      </Arrow>
+      <Wrapper>
+        <Slide slideindex={slideIndex}>
+          {array?.map((item, index) => (
+            <ImageContainer key={index}>
+              <Image src={item} />
+            </ImageContainer>
           ))}
-        </Wrapper>
-        <Arrow
-          direction="right"
-          onClick={() => {
-            handleClick("right");
-          }}
-        >
-          <ArrowForwardIosIcon fontSize="large"></ArrowForwardIosIcon>
-        </Arrow>
-      </Container>
+        </Slide>
+      </Wrapper>
+      <Arrow
+        direction="right"
+        onClick={() => {
+          handleClick("right");
+        }}
+      >
+        <ArrowForwardIosIcon fontSize="large"></ArrowForwardIosIcon>
+      </Arrow>
+    </Container>
   );
 };
 

@@ -112,22 +112,10 @@ const Login = () => {
     }
   };
   
-
-
-<<<<<<< HEAD
-  const google = () => {
-    window.location.href = 'http://localhost:4000/auth/google';
+  const googleAuth = () => {
+    window.open("/auth/google", "_self");
   };
 
-  const github = () => {
-    window.open("http://localhost:4000/auth/github", "_self");
-  };
-
-  const facebook = () => {
-    window.open("http://localhost:4000/auth/facebook", "_self");
-  };
-=======
->>>>>>> 9b59fa4c9e6fabb335d93bef49aa750a1b74d75d
 
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
@@ -160,11 +148,7 @@ const Login = () => {
 
           <p style={{ flex: 1 }}>OR</p>
           <Right style={{ flex: 2 }}>
-<<<<<<< HEAD
-            <Loginbutton onClick={google} color={"#df4930"}>
-=======
-            <Loginbutton color={"#df4930"}>
->>>>>>> 9b59fa4c9e6fabb335d93bef49aa750a1b74d75d
+            <Loginbutton color={"#df4930"} onClick={googleAuth}>
               <Icon src="./google.png"></Icon>
               Google
             </Loginbutton>

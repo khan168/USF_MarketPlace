@@ -12,13 +12,14 @@ import FavoriteBorderIcon from "@mui/icons-material/FavoriteBorder";
 import FavoriteIcon from "@mui/icons-material/Favorite";
 
 const Container = styled.div`
-  min-height: 100vh;
+  height: 100vh;
   display: flex;
   flex-direction: column;
   justify-content: space-between;
 `;
 
 const Wrapper = styled.div`
+  /* height: calc(100vh - 390px); */
   padding: 50px;
   display: flex;
   flex-direction: column;
@@ -79,6 +80,7 @@ const Button = styled.button`
   background-color: lightblue;
   cursor: pointer;
   font-weight: 500;
+  font-size: 20px;
   display: flex;
   align-items: center;
   &:hover {

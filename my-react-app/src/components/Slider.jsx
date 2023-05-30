@@ -31,11 +31,20 @@ const Container = styled.div`
   align-items: center;
   justify-content: center;
   overflow: hidden;
+  @media (max-width: 767px) {
+    height: 50vh;
+    display: flex;
+  }
 `;
 
 
 
 const Wrapper = styled.div`
+  @media (max-width: 767px) {
+    width: 70vw;
+    height: 470px;
+    flex: 14;
+  }
   /* display: flex; */
   width: 800px;
   height: 700px;
@@ -51,11 +60,20 @@ const Slide = styled.div`
   align-items: center;
   transition: all 1.5s ease;
   transform: translateX(${(props) => props.slideindex * -800}px);
+  @media (max-width: 767px) {
+    width: 145vw;
+    height: 400px;
+    transform: translateX(${(props) => props.slideindex * -80}vw);
+  }
   /* overflow: hidden; */
 `;
 
 const ImageContainer = styled.div`
-  width:100%;
+  @media (max-width: 767px) {
+    /* width: 70vw;
+    height: 50vh; */
+  }
+  /* width: 40vw; */
   height: 100%;
   flex: 1;
 `;
@@ -64,9 +82,13 @@ const ImageContainer = styled.div`
 
 const Image = styled.img`
   width: 800px;
-  height: 700px;
+  height: 100%;
   /* transform: scale(0.9); */
   object-fit: cover;
+  @media (max-width: 767px) {
+    /* width: 145vw; */
+
+  }
 `;
 
 const Slider = ({array}) => {

@@ -19,27 +19,27 @@ const PopupBackground = styled.div`
 
 const PopupContainer = styled.div`
   position: relative;
-  background-color: rgb(207, 196, 147);
+  background-color: rgb(0, 103, 71);
   border-radius: 8px;
   padding: 20px;
   width: 725px;
   height: 625px;
   display: flex;
   align-items: center;
+  flex-direction: column;
   gap: 20px;
   flex-wrap: wrap;
+  box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.4), 0 6px 20px 0 rgba(0, 0, 0, 0.4); 
 `;
 
 const ImageContainer = styled.div`
   flex: 1;
+  flex-wrap: wrap;
   height: 100%;
   display: flex;
   align-items: center;
   justify-content: center;
   width: 50%;
-  border: 1px solid #ccc;
-  background-color: white;
-
 `;
 
 const ImageBox = styled.div`
@@ -54,7 +54,7 @@ const ImageBox = styled.div`
 
 const ItemContainer = styled.form`
   flex: 1;
-  height: 85%;
+  height: 95%;
   display: flex;
   align-items: flex-start;
   width: 50%;
@@ -79,12 +79,14 @@ const Input = styled.input`
   border: 1px solid #ccc;
   border-radius: 4px;
   margin-bottom: 10px;
+  box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.4), 0 6px 20px 0 rgba(0, 0, 0, 0.4); 
+
 `;
 
 const Label = styled.label`
   font-weight: bold;
   margin-bottom: 10px;
-  color: black;
+  color: white;
 `;
 
 const Asterisk = styled.span`
@@ -98,6 +100,7 @@ const Select = styled.select`
   border: 1px solid #ccc;
   border-radius: 4px;
   margin-bottom: 10px;
+  box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.4), 0 6px 20px 0 rgba(0, 0, 0, 0.4); 
 `;
 
 const DescriptionInput = styled.textarea`
@@ -107,6 +110,8 @@ const DescriptionInput = styled.textarea`
   border-radius: 4px;
   margin-bottom: 20px; /* Increased margin-bottom for longer text box */
   resize: vertical;
+  box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.4), 0 6px 20px 0 rgba(0, 0, 0, 0.4); 
+
 `;
 
 const CreateButton = styled.input`
@@ -116,11 +121,36 @@ const CreateButton = styled.input`
   padding: 10px 20px;
   border-radius: 4px;
   cursor: pointer;
+  transition: background-color 0.2s ease; // Add transition for smooth hover effect
+  &:hover {
+    background-color: #45a049; // Add hover color change
+  }
 `;
 
 const ImageBoxUpload = styled.label`
   cursor: pointer;
 `;
+
+const FileInput = styled.input`
+  position: absolute;
+  z-index: -1;
+  opacity: 0;  
+  &:hover {
+    background-color: rgb(0, 110, 81); // Change color when hovered
+`;
+
+const FileLabel = styled.label`
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 100px;
+  height: 100px;
+  border: 1px solid #ccc;
+  cursor: pointer;
+  margin: 10px;
+  background-color: rgb(0, 90, 71);
+`;
+
 
 function Popup({ setOpenPopup }) {
   const handleClose = () => {
@@ -200,7 +230,7 @@ function Popup({ setOpenPopup }) {
     return data.map((image) => {
       return (
         <img
-          style={{ height: "100px", width: "100px" }}
+          style={{ height: "100px", width: "100px", margin: "10px" }}
           className="image"
           src={image}
           alt=""
@@ -226,21 +256,27 @@ function Popup({ setOpenPopup }) {
               onChange={handleImageUpload}
             />
           </ImageBoxUpload> */}
-          <input
-            type="file"
-            name="file1"
-            multiple
-            onChange={changeMultipleFiles}
-          />
-          <hr></hr>
           {render(multipleImages)}
+          <FileLabel htmlFor="file-input">
+    Select Images
+    <FileInput
+      id="file-input"
+      type="file"
+      name="file1"
+      multiple
+      onChange={changeMultipleFiles}
+    />
+</FileLabel>
+
+          <hr></hr>
+          
         </ImageContainer>
         <ItemContainer onSubmit={HandleSubmit}>
           <Label>
             Title
             <Asterisk>*</Asterisk>
           </Label>
-          <Input
+          <Input  
             name="title"
             type="text"
             placeholder="Enter name"

@@ -132,7 +132,6 @@ const Product = () => {
   return (
     <Container>
       <Navbar />
-      <Announcement></Announcement>
       <Wrapper>
         <div className="chatMenu">
           <div className="chatMenuWrapper">

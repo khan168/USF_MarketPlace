@@ -157,7 +157,7 @@ const Home = () => {
 
   return (
     <div>
-      <Announcement></Announcement>
+      
       <Navbar term={searchTerm} setTerm={setSearchterm} />
       <Wrapper>
         <Left>

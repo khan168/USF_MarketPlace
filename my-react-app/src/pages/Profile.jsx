@@ -33,7 +33,7 @@ const PostPrice = styled.p`
 const Card = styled.div`
   width: 350px;
   background: white;
-
+  background: rgb(237, 235, 209);
   padding: 40px 55px 45px 55px;
   border-radius: 15px;
   transition: all 0.3s ease-out;
@@ -100,13 +100,14 @@ const PostCard = styled.div`
   justify-content: space-between;
   width: 300px;
   height: 300px;
-  background: white;
+  background: rgb(237, 235, 209);
   padding: 20px 30px;
   border-radius: 15px;
   text-align: center;
   margin-bottom: 2em;
   cursor: pointer;
   transition: transform 0.3s ease-in-out;
+  
   
   &:hover {
     transform: scale(1.02);

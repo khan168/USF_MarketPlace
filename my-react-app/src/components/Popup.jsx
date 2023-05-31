@@ -221,8 +221,12 @@ function Popup({ setOpenPopup }) {
       setLoading(false);
       console.log(res);
       setMultipleImages([]);
+      setErrorMessage(null);
     } catch (error) {
       console.log(error);
+      setErrorMessage(error.response.data.message);
+    }finally {
+      setLoading(false);
     }
   };
 
@@ -239,6 +243,9 @@ function Popup({ setOpenPopup }) {
       );
     });
   };
+
+  const [errorMessage, setErrorMessage] = useState(null);
+
 
   return (
     <PopupBackground>
@@ -315,11 +322,16 @@ function Popup({ setOpenPopup }) {
             <option value="Furniture">Cars</option>
             <option value="Miscellaneous">Miscellaneous</option>
           </Select>
-          {loading ? (
-            "Loading..."
-          ) : (
-            <CreateButton type="submit" value="Submit" />
-          )}
+          {
+              loading ? (
+                "Loading..."
+              ) : (
+                <>
+                  {errorMessage && <div style={{color: 'red'}}>{errorMessage}</div>}
+                  <CreateButton type="submit" value="Submit" />
+                </>
+              )
+            }
         </ItemContainer>
       </PopupContainer>
     </PopupBackground>

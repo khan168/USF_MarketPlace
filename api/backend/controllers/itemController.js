@@ -95,9 +95,14 @@ const getAllByUser = asyncHandler(async (req, res) => {
 // @route POST /api/items
 // @access Private
 const addItem = asyncHandler(async (req, res) => {
-    if (!req.body.title) {
-        res.status(400)
-        throw new Error('Please add title field')
+    if (!req.body.title || req.body.title.length > 50) {
+        res.status(404)
+        throw new Error('Title is required and should be less than 50 characters')
+    }
+
+    if (req.body.description && req.body.description.length > 1000) {
+        res.status(404)
+        throw new Error('Description should be less than 1000 characters')
     }
 
     const item = await Item.create({

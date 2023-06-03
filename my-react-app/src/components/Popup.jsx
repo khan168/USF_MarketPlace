@@ -71,6 +71,11 @@ const CloseButton = styled.button`
   cursor: pointer;
   display: flex;
   align-items: center;
+  
+  transition: transform 0.3s ease;
+  &:hover {
+    transform: scale(1.3);
+  }
 `;
 
 const Input = styled.input`
@@ -80,13 +85,20 @@ const Input = styled.input`
   border-radius: 4px;
   margin-bottom: 10px;
   box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.4), 0 6px 20px 0 rgba(0, 0, 0, 0.4); 
-
+  &:focus {
+    outline: none;
+    border: 1px solid #4caf50;
+    box-shadow: 0 0 5px 1px #4caf50;
+  }
 `;
 
 const Label = styled.label`
   font-weight: bold;
   margin-bottom: 10px;
   color: white;
+  &:hover {
+    color: #4caf50;
+  }
 `;
 
 const Asterisk = styled.span`
@@ -111,6 +123,11 @@ const DescriptionInput = styled.textarea`
   margin-bottom: 20px; /* Increased margin-bottom for longer text box */
   resize: vertical;
   box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.4), 0 6px 20px 0 rgba(0, 0, 0, 0.4); 
+  &:focus {
+    outline: none;
+    border: 1px solid #4caf50;
+    box-shadow: 0 0 5px 1px #4caf50;
+  }
 
 `;
 
@@ -221,6 +238,7 @@ function Popup({ setOpenPopup }) {
       setLoading(false);
       console.log(res);
       setMultipleImages([]);
+      window.location.reload();
       setErrorMessage(null);
     } catch (error) {
       console.log(error);
@@ -275,7 +293,6 @@ function Popup({ setOpenPopup }) {
     />
 </FileLabel>
 
-          <hr></hr>
           
         </ImageContainer>
         <ItemContainer onSubmit={HandleSubmit}>

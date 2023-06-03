@@ -284,6 +284,7 @@ const Product = () => {
       setLikeId(null);
     }
     // Toggle the like status
+    window.location.reload(); // This will refresh the page.
     setLiked(!liked);
   };
 

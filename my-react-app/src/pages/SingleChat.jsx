@@ -6,7 +6,6 @@ import Message from "../components/Message";
 import { useLocation } from "react-router-dom";
 import { useEffect, useState, useRef } from "react";
 import axios from "axios";
-import Announcement from "../components/Annoucements";
 import { io } from "socket.io-client";
 require("./ChatPage.css");
 

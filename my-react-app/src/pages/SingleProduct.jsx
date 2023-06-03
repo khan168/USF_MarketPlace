@@ -1,10 +1,9 @@
 import EmailIcon from "@mui/icons-material/Email";
 import styled from "styled-components";
-import Announcement from "../components/Annoucements";
 import Footer from "../components/Footer";
 import Navbar from "../components/Navbar";
 import Slider from "../components/Slider";
-import { Link, useParams, useNavigate } from "react-router-dom";
+import { useParams, useNavigate } from "react-router-dom";
 import { useEffect, useState } from "react";
 import axios from "axios";
 

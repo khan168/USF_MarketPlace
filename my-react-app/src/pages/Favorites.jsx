@@ -76,7 +76,7 @@ const [posts, setPosts] = useState([]);
       const userId = localStorage.getItem('_id');
         console.log(userId)
       try {
-        const res = await axios.get(`/api/likes/user/${userId}`, {
+        const res = await axios.get(`${process.env.REACT_APP_SERVER}api/likes/user/${userId}`, {
           headers: {
             'Authorization': `Bearer ${token}`
           }

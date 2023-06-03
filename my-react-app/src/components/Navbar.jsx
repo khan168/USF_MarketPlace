@@ -8,7 +8,6 @@ import { useNavigate } from 'react-router-dom';
 import { useLocation } from 'react-router-dom';
 import { useEffect } from 'react'; 
 import axios from "axios"
-import { Button } from '@mui/material';
 import Popup from './Popup';
 //const jwt = require('jsonwebtoken');
 
@@ -110,8 +109,7 @@ const Navbar = ({term,setTerm}) => {
 
    const [isTokenValid, setIsTokenValid] = useState(false);
    const [openPopup, setOpenPopup] = useState(false);
-   const [curr_user, setcurr_user] = useState("");   //use for display picture
-   const SERVER = "http://localhost:5001/";
+  //  const [curr_user, setcurr_user] = useState("");   //use for display picture
    const [like, setLikes] = useState(0)
 
    const _id = localStorage.getItem("_id")
@@ -125,12 +123,12 @@ const Navbar = ({term,setTerm}) => {
       setIsTokenValid(true);
       const fetchuser = async () => {
         await axios
-          .get(`${SERVER}api/user/`, {
+          .get(`${process.env.REACT_APP_SERVER}api/user/`, {
             headers: {
               Authorization: `Bearer ${token}`,
             },
           })
-          .then((response) => setcurr_user(response.data))
+          .then((response) => console.log(response.data))
           .catch((error) => console.log(error));
       };
 
@@ -156,7 +154,7 @@ const Navbar = ({term,setTerm}) => {
 
   useEffect(() => {
     const fetchLikes = async () => {
-        const response = await axios.get(`${SERVER}api/likes/user/${_id}`, {
+        const response = await axios.get(`${process.env.REACT_APP_SERVER}api/likes/user/${_id}`, {
             headers: {
                 Authorization: `Bearer ${localStorage.getItem('token')}`,
             },

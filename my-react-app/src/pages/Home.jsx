@@ -1,7 +1,6 @@
 import React from "react";
 import Navbar from "../components/Navbar";
 import styled from "styled-components";
-import Announcement from "../components/Annoucements";
 import Products from "../components/Products";
 import Footer from "../components/Footer";
 import CheckroomIcon from "@mui/icons-material/Checkroom";
@@ -144,7 +143,7 @@ const Home = () => {
   }
 
     const HandleSelect = (event) => {
-      const { name, value } = event.target;
+      const { value } = event.target;
       setSort(value)
     };
 

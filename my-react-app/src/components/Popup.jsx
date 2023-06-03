@@ -42,15 +42,7 @@ const ImageContainer = styled.div`
   width: 50%;
 `;
 
-const ImageBox = styled.div`
-  width: 90%;
-  height: 90%;
-  border: 2px solid #ccc;
-  border-radius: 8px;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-`;
+
 
 const ItemContainer = styled.form`
   flex: 1;
@@ -144,17 +136,16 @@ const CreateButton = styled.input`
   }
 `;
 
-const ImageBoxUpload = styled.label`
-  cursor: pointer;
-`;
+
 
 const FileInput = styled.input`
   position: absolute;
   z-index: -1;
   opacity: 0;  
   &:hover {
-    background-color: rgb(0, 110, 81); // Change color when hovered
-`;
+    background-color: rgb(0, 110, 81);
+    } // Change color when hovered
+`
 
 const FileLabel = styled.label`
   display: flex;
@@ -230,7 +221,7 @@ function Popup({ setOpenPopup }) {
     console.log(formData);
     try {
       //   await axios.
-      const res = await axios.post("/api/items/", formData, {
+      const res = await axios.post(`${process.env.REACT_APP_SERVER}api/items/`, formData, {
         headers: {
           Authorization: `Bearer ${token}`,
         },

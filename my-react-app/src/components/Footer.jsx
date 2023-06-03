@@ -2,8 +2,6 @@ import FacebookIcon from "@mui/icons-material/Facebook";
 import InstagramIcon from "@mui/icons-material/Instagram";
 import TwitterIcon from "@mui/icons-material/Twitter";
 import PinterestIcon from "@mui/icons-material/Pinterest";
-import RoomIcon from "@mui/icons-material/Room";
-import PhoneIcon from "@mui/icons-material/Phone";
 import MailOutlineIcon from "@mui/icons-material/MailOutline";
 
 import styled from "styled-components";
@@ -87,12 +85,6 @@ const ContactItem = styled.div`
   align-items: center;
 `;
 
-const Payment = styled.img`
-  width: 100%;
-  @media (min-width: 768px) {
-    width: 50%;
-  }
-`;
 
 const Footer = () => {
   return (

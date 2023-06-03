@@ -72,7 +72,6 @@ const Register = () => {
     password: '',
     number: ''
   });
-  const [file, setFile] = useState(null);
   const [loading, setLoading] = useState(false);
   const [link, setLink] = useState(null)
  
@@ -111,7 +110,7 @@ const Register = () => {
 
   const handleFileChange = async (e) => {
     const file = e.target.files[0]; // Use file directly from event target
-    setFile(file); // Set the state
+    // setFile(file); // Set the state
     setLoading(true); // begin loading
   
     const url = await upload(file); // Use the local file variable here

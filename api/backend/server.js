@@ -1,5 +1,5 @@
 const express = require('express')
-const dotenv = require('dotenv').config({ path: "./api/.env" });
+const dotenv = require('dotenv').config({ path: "../.env" });
 const colors = require('colors')
 const jwt = require("jsonwebtoken");
 const connectDB = require('./config/db.js')

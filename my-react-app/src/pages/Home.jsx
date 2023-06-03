@@ -69,8 +69,7 @@ const LoadingWrapper = styled.div`
 
 const Home = () => {
   // const user = localStorage.getItem("token");
-  const SERVER = "http://localhost:5001/";
-
+  const SERVER = process.env.REACT_APP_SERVER;
   const [list, setList] = useState([]);
   const [loading, setLoading] = useState([]);
   const [error, setError] = useState(false);
@@ -86,7 +85,7 @@ const Home = () => {
       setLoading(true);
       await axios
         .get(
-          `${SERVER}api/items/?min=${minRef.current.value}&max=${maxRef.current.value}&cat=${cat}&sort=${sort}`
+          `${process.env.REACT_APP_SERVER}api/items/?min=${minRef.current.value}&max=${maxRef.current.value}&cat=${cat}&sort=${sort}`
         )
         .then((response) => {
           setList(response.data);
@@ -96,7 +95,7 @@ const Home = () => {
     };
 
     fetchdata();
-  }, [cat,sort]);
+  }, [cat,sort,SERVER]);
 
   const HandleClickClothes = () => {
     minRef.current.value=null;      //to reset the min max and not sort with both query

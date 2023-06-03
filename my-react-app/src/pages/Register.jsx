@@ -93,8 +93,7 @@ const Register = () => {
     };
     console.log(dataToSubmit)
     try {
-      const response = await axios.post('http://localhost:5001/api/user/register', dataToSubmit);
-      console.log(response.data);
+      const response = await axios.post(`${process.env.REACT_APP_SERVER}api/user/register`, dataToSubmit);
       localStorage.setItem("token",response.data.token);
       localStorage.setItem("_id", response.data._id)
       Navigate(`/`);

@@ -65,7 +65,7 @@ const Input = styled.input`
 
 const RedirectPass = () => {
   const params = useParams();
-  const SERVER = "http://localhost:5001/";
+  // const SERVER = "http://localhost:5001/";
 
   // Access the parameters using the keys defined in your route
   const { id, token } = params;
@@ -81,13 +81,13 @@ const RedirectPass = () => {
     const getUserandVerify = async () => {
         setloading(true);
     try {
-        const res = await axios.get(`${SERVER}api/user/getUserById/${id}`);
+        const res = await axios.get(`${process.env.REACT_APP_SERVER}api/user/getUserById/${id}`);
         if (!res.data.user) {
           setfound(false);
         } else {
           const secret = "abc@123" + res.data.user.password;
           await axios
-            .post(`${SERVER}api/verify`, {
+            .post(`${process.env.REACT_APP_SERVER}api/verify`, {
               secret,
               token,
             })
@@ -107,7 +107,7 @@ const RedirectPass = () => {
 
   const HandleSubmit = async (e)=>{
     e.preventDefault()
-    await axios.put(`${SERVER}api/user/${id}`,{password}).then(res=>setMessage(res.data?.message))
+    await axios.put(`${process.env.REACT_APP_SERVER}api/user/${id}`,{password}).then(res=>setMessage(res.data?.message))
 
   }
 

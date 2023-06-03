@@ -181,9 +181,12 @@ const Profile = () => {
     const token = localStorage.getItem("token");
     try {
       
-      const response = await axios.delete(`http://localhost:5001/api/items/${postId}`, {
-        headers: { Authorization: `Bearer ${token}` },
-      });
+      const response = await axios.delete(
+        `${process.env.REACT_APP_SERVER}api/items/${postId}`,
+        {
+          headers: { Authorization: `Bearer ${token}` },
+        }
+      );
       if(response.status === 200) {
         setPosts(posts.filter(post => post._id !== postId));
       }
@@ -201,13 +204,17 @@ const Profile = () => {
       const id = localStorage.getItem("_id");
       const token = localStorage.getItem("token");
       try {
-        const response = await axios.get(`http://localhost:5001/api/user/`, {
-          headers: { Authorization: `Bearer ${token}` }
-        });
+        const response = await axios.get(
+          `${process.env.REACT_APP_SERVER}api/user/`,
+          {
+            headers: { Authorization: `Bearer ${token}` },
+          }
+        );
 
         const postResponse = await axios.post(
-          `http://localhost:5001/api/items/getAllByUser`,
-          { _id: id } )  
+          `${process.env.REACT_APP_SERVER}api/items/getAllByUser`,
+          { _id: id }
+        );  
         setPosts(postResponse.data)
         setUserData(response?.data);
         

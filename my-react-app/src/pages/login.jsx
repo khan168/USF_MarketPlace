@@ -95,7 +95,7 @@ const Login = () => {
     e.preventDefault();
     const formData = { email, password };
     try {
-      const response = await axios.post('http://localhost:5001/api/user/login', formData);
+      const response = await axios.post(`${process.env.REACT_APP_SERVER}api/user/login`, formData);
       localStorage.setItem("token",response.data.token);
       localStorage.setItem("_id", response.data._id)
 

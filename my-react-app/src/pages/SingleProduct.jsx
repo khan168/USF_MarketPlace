@@ -143,7 +143,6 @@ const Product = () => {
   const navigate = useNavigate();
   const token = localStorage.getItem("token");
   const userid = localStorage.getItem("_id");
-  const SERVER = "http://localhost:5001/";
   const [item, setItem] = useState("");
   const { id } = useParams();
   const [loading, setloading] = useState(false);
@@ -154,7 +153,7 @@ const Product = () => {
   useEffect(() => {
     const fetchdata = async () => {
       await axios
-        .get(`${SERVER}api/items/${id}`, {
+        .get(`${process.env.REACT_APP_SERVER}api/items/${id}`, {
           headers: {
             Authorization: `Bearer ${token}`,
           },
@@ -164,7 +163,7 @@ const Product = () => {
 
           // Fetch user data after getting the item data
           const userResponse = await axios.get(
-            `${SERVER}api/user/getUserbyID/${response.data.user}`,
+            `${process.env.REACT_APP_SERVER}api/user/getUserbyID/${response.data.user}`,
             {
               headers: {
                 Authorization: `Bearer ${token}`,
@@ -214,7 +213,7 @@ const Product = () => {
   useEffect(() => {
     const fetchData = async () => {
       await axios
-        .get(`${SERVER}api/items/${id}`, {
+        .get(`${process.env.REACT_APP_SERVER}api/items/${id}`, {
           headers: {
             Authorization: `Bearer ${token}`,
           },
@@ -223,7 +222,7 @@ const Product = () => {
           setItem(response.data);
           // Fetch user data after getting the item data
           const userResponse = await axios.get(
-            `${SERVER}api/user/getUserbyID/${response.data.user}`,
+            `${process.env.REACT_APP_SERVER}api/user/getUserbyID/${response.data.user}`,
             {
               headers: {
                 Authorization: `Bearer ${token}`,
@@ -236,7 +235,7 @@ const Product = () => {
 
           // After fetching the item and user data, check for existing likes
           const likesResponse = await axios.get(
-            `${SERVER}api/likes/post/${response.data._id}`,
+            `${process.env.REACT_APP_SERVER}api/likes/post/${response.data._id}`,
             {
               headers: {
                 Authorization: `Bearer ${token}`,
@@ -262,7 +261,7 @@ const Product = () => {
     if (!liked) {
       // Create a like
       const response = await axios.post(
-        `${SERVER}api/likes`,
+        `${process.env.REACT_APP_SERVER}api/likes`,
         {
           user: userid,
           post: item._id,
@@ -276,7 +275,7 @@ const Product = () => {
       setLikeId(response.data._id); // Save the like id for later
     } else {
       // Delete the like
-      await axios.delete(`${SERVER}api/likes/${likeId}`, {
+      await axios.delete(`${process.env.REACT_APP_SERVER}api/likes/${likeId}`, {
         headers: {
           Authorization: `Bearer ${token}`,
         },
@@ -303,8 +302,7 @@ const Product = () => {
                 <LikeIconcontainer>
                   <FavoriteIcon
                     onClick={handleLike}
-                    fontSize="32px"
-                    style={{ color: "red" }}
+                    style={{ color: "red" , fontSize:"39px" }}
                   />
                 </LikeIconcontainer>
               ) : (

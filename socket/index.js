@@ -1,6 +1,17 @@
-const io = require("socket.io")(8900, {
+const fs = require("fs");
+const https = require("https");
+const io = require("socket.io");
+
+const serverOptions = {
+  key: fs.readFileSync("/path/to/private/key.pem"),
+  cert: fs.readFileSync("/path/to/certificate.pem"),
+};
+
+const server = https.createServer(serverOptions);
+const socketServer = io(server, {
   cors: {
-    origin: "http://localhost:3000",
+    origin: "https://localhost:3000",
+    methods: ["GET", "POST"],
   },
 });
 
@@ -16,34 +27,36 @@ const removeUser = (socketId) => {
 };
 
 const getUser = (userId) => {
-  // return currentChat?.to._id === userId ? currentChat?.from._id : id;
-  // const u = users.find((user) => user.userId === userId);
   return users.find((user) => user.userId === userId);
 };
 
-
-io.on("connection",(socket)=>{
-  console.log("user connected");
+socketServer.on("connection", (socket) => {
+  console.log("User connected");
 
   socket.on("addUser", (userId) => {
     addUser(userId, socket.id);
-    io.emit("getUsers", users);
+    socketServer.emit("getUsers", users);
   });
 
-  //sent message
+  // Send message
   socket.on("sendMessage", ({ senderId, receiverId, text }) => {
     const user = getUser(receiverId);
-    io.to(user.socketId).emit("getMessage", {
-      senderId,
-      text,
-    });
+    if (user) {
+      socketServer.to(user.socketId).emit("getMessage", {
+        senderId,
+        text,
+      });
+    }
   });
 
-  //when disconnect
+  // When disconnect
   socket.on("disconnect", () => {
-    console.log("a user disconnected!");
+    console.log("User disconnected");
     removeUser(socket.id);
-    io.emit("getUsers", users);
+    socketServer.emit("getUsers", users);
   });
-})
+});
 
+server.listen(8900, () => {
+  console.log("Socket.IO server is running on port 8900 (HTTPS)");
+});

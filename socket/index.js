@@ -4,17 +4,17 @@ const io = require("socket.io");
 
 const serverOptions = {
   key: fs.readFileSync(
-    "../api/backend/etc/letsencrypt/live/bullsmarketplace.com/privkey.pem"
+    "/etc/letsencrypt/live/bullsmarketplace.com/privkey.pem"
   ),
   cert: fs.readFileSync(
-    "../api/backend/etc/letsencrypt/live/bullsmarketplace.com/fullchain.pem"
+    "/etc/letsencrypt/live/bullsmarketplace.com/fullchain.pem"
   ),
 };
 
 const server = https.createServer(serverOptions);
 const socketServer = io(server, {
   cors: {
-    origin: "https://localhost:3000/",
+    origin: `https://bullsmarketplace.com:443/`,
     methods: ["GET", "POST"],
   },
 });

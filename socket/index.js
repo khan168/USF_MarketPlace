@@ -1,16 +1,21 @@
 const fs = require("fs");
 const https = require("https");
 const io = require("socket.io");
+require("");
 
 const serverOptions = {
-  key: fs.readFileSync("/path/to/private/key.pem"),
-  cert: fs.readFileSync("/path/to/certificate.pem"),
+  key: fs.readFileSync(
+    "../api/backend/etc/letsencrypt/live/bullsmarketplace.com/privkey.pem"
+  ),
+  cert: fs.readFileSync(
+    "../api/backend/etc/letsencrypt/live/bullsmarketplace.com/fullchain.pem"
+  ),
 };
 
 const server = https.createServer(serverOptions);
 const socketServer = io(server, {
   cors: {
-    origin: "https://localhost:3000",
+    origin: "https://localhost:3000/",
     methods: ["GET", "POST"],
   },
 });

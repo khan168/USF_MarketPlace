@@ -37,7 +37,7 @@ const Product = () => {
   const scrollRef = useRef(); //reach chat box on message change
 
   useEffect(() => {
-    socket.current = io("ws://localhost:8900");
+    socket.current = io(`${process.env.REACT_APP_SOCKET}`);
     socket.current.on("getMessage", (data) => {
       setArrivalMessage({
         sender: data.senderId,

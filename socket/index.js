@@ -1,7 +1,6 @@
 const fs = require("fs");
 const https = require("https");
 const io = require("socket.io");
-require("");
 
 const serverOptions = {
   key: fs.readFileSync(

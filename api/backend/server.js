@@ -44,7 +44,7 @@ app.use(errorHandler)
 
 
 const httpsServer = https.createServer({
-    key: fs.readFileSync(' /etc/letsencrypt/live/bullsmarketplace.com/privkey.pem'),
+    key: fs.readFileSync('/etc/letsencrypt/live/bullsmarketplace.com/privkey.pem'),
     cert: fs.readFileSync('/etc/letsencrypt/live/bullsmarketplace.com/fullchain.pem'),
   }, app);
 

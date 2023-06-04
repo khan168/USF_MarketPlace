@@ -16,7 +16,7 @@ const resetpass = asyncHandler(async (req, res) => {
   if (!user) {
     return res.send("User not registered");
   } else {
-    const secret = process.env.JWT_SECRET + user?.password; //the password part makes sure user link is 1 time
+    const secret = process.env.JWT_SECRET + user.password; //the password part makes sure user link is 1 time
     console.log(secret);
     const payload = {
       email,

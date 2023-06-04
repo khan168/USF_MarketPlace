@@ -75,7 +75,7 @@ const Product = () => {
 
     try {
       const res = await axios.post(
-        "/api/message/" + currentChat?.chatid,
+        `${process.env.REACT_APP_SERVER}api/message/` + currentChat?.chatid,
         message,
         {
           headers: {
@@ -93,7 +93,7 @@ const Product = () => {
   useEffect(() => {
     const getConversations = async () => {
       try {
-        const res = await axios.get("/api/chat/all", {
+        const res = await axios.get(`${process.env.REACT_APP_SERVER}api/chat/all`, {
           headers: {
             Authorization: `Bearer ${token}`,
           },
@@ -111,7 +111,7 @@ const Product = () => {
     // console.log(currentChat.chatid);
     const getMessages = async () => {
       try {
-        const res = await axios.get("/api/message/" + currentChat?.chatid, {
+        const res = await axios.get(`${process.env.REACT_APP_SERVER}api/message/` + currentChat?.chatid, {
           headers: {
             Authorization: `Bearer ${token}`,
           },

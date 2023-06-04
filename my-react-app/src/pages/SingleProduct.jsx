@@ -185,7 +185,7 @@ const Product = () => {
     //create or find user
     try {
       await axios.post(
-        "/api/chat/",
+        `${process.env.REACT_APP_SERVER}api/chat/`,
         { to: item?.user },
         {
           headers: {

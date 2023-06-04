@@ -37,16 +37,16 @@ const getAllItems = asyncHandler(async (req, res) => {  //this query creates a c
     };
     try {
 
-      if(q?.sort==="priceh")  {
+      if(q.sort==="priceh")  {
         const items = await Item.find(filters).sort({"price":-1})
         res.status(200).send(items);
     }
-      else if (q?.sort === "pricel") {
+      else if (q.sort === "pricel") {
         const items = await Item.find(filters).sort({"price":1})
         res.status(200).send(items);
     }
-      else if(q?.sort==="createdAt") {
-        const items = await Item.find(filters).sort({[q?.sort]:-1})
+      else if(q.sort==="createdAt") {
+        const items = await Item.find(filters).sort({[q.sort]:-1})
         res.status(200).send(items);
     }
       else {

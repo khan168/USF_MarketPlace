@@ -14,7 +14,7 @@ const serverOptions = {
 const server = https.createServer(serverOptions);
 const socketServer = io(server, {
   cors: {
-    origin: `https://bullsmarketplace.netlify.app/`,
+    origin: `https://bullsmarketplace.netlify.app`,
     methods: ["GET", "POST"],
   },
 });

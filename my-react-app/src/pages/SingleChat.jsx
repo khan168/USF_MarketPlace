@@ -142,7 +142,7 @@ const Product = () => {
             <div>
               {conversations.map((c) => (
                 <div onClick={() => setCurrentChat(c)}>
-                  <Conversation conversationDetail={c} curr_user={id} />
+                  <Conversation conversationDetail={c} curr_user={id}  activeUser={currentChat?.chatid === c.chatid} />
                 </div>
               ))}
             </div>

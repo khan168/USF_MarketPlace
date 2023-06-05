@@ -1,7 +1,6 @@
 import React from 'react'
 import styled  from 'styled-components';
 import SearchIcon from "@mui/icons-material/Search";
-import FavoriteBorderIcon from "@mui/icons-material/FavoriteBorder";
 import { useNavigate } from 'react-router-dom';
 
 
@@ -98,9 +97,6 @@ const Product = ({ item }) => {
       <Info className="info">
         <Icon onClick={HandleClick}>
           <SearchIcon />
-        </Icon>
-        <Icon>
-          <FavoriteBorderIcon />
         </Icon>
       </Info>
     </Container>

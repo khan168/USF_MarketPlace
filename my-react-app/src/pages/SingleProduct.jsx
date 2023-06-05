@@ -205,7 +205,7 @@ const Product = () => {
   useEffect(() => {
     const fetchData = async () => {
       await axios
-        .get(`${SERVER}api/items/${id}`, {
+        .get(`${process.env.REACT_APP_SERVER}api/items/${id}`, {
           headers: {
             Authorization: `Bearer ${token}`,
           },

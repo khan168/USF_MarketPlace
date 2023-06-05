@@ -91,3 +91,8 @@
     flex: 1px;
   }
 }
+
+
+.activeUser {
+  color: rgb(0, 103, 716); /* Or any other dark color you prefer */
+}

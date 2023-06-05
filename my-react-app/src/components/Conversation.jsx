@@ -7,6 +7,7 @@ const Conversationdiv=styled.div`
   padding: 10px;
   cursor: pointer;
   margin-top: 20px;
+  background-color: ${props => props.active ? 'rgb(0, 103, 71)' : ''};
   hover {
   background-color: rgb(245, 243, 243);
 }
@@ -28,14 +29,14 @@ font-weight: 500;
   
   
 
-const Conversation = ({ conversationDetail,curr_user }) => {
+const Conversation = ({ conversationDetail,curr_user, activeUser}) => {
 
   // find the other user 
   // conversationDetail.to
   const user=conversationDetail.to._id === curr_user ? conversationDetail.from : conversationDetail.to;
 
   return (
-    <Conversationdiv>
+    <Conversationdiv active={activeUser}>
       <ConversationImg
         src={user?.profileImage ? user?.profileImage : noAvatarsrc}
         alt=""

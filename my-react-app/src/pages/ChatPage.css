@@ -4,7 +4,8 @@
 }
 
 .chatMenu {
-  flex: 3.5;
+  flex: 2.5;
+  margin: 10px;
 }
 
 .chatMenuInput {
@@ -15,28 +16,34 @@
 }
 
 .chatBox {
+  /* overflow-y:auto; */
   flex: 5.5;
 }
 
 .chatBoxWrapper {
-  overflow: hidden;
+  /* overflow: hidden; */
   display: flex;
   flex-direction: column;
-  justify-content: space-between;
+  justify-content: space-around;
   position: relative;
 }
 
 .chatBoxTop {
-  height: 100%;
+  flex: 3;
+  height: 20vw;
   overflow-y: scroll;
   padding-right: 10px;
 }
 
 .chatBoxBottom {
-  margin-top: 5px;
+  /* flex-direction: column; */
+  justify-content: space-between;
+  border: none;
+  padding: 20px;
   display: flex;
   align-items: center;
-  justify-content: space-between;
+  background-color: #f9f9f9;
+  margin-top: 20px;
 }
 
 .chatMessageInput {
@@ -46,12 +53,13 @@
 }
 
 .chatSubmitButton {
-  width: 70px;
-  height: 40px;
+  margin-top: 10px;
+  width: 100px;
+  height: 60px;
   border: none;
   border-radius: 5px;
   cursor: pointer;
-  background-color: teal;
+  background-color:rgb(0, 130, 71);
   color: white;
 }
 
@@ -67,24 +75,53 @@
 }
 
 .noConversationText {
-  position: absolute;
-  top: 10%;
-  font-size: 50px;
-  color: rgb(224, 220, 220);
-  cursor: default;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100%;
+  font-size: 20px;
+  color: #777;
 }
 
-@media screen and (max-width: 768px) {
+@media screen and (max-width: 850px) {
   .chatMenu {
     flex: 1;
   }
 
-  .chatMenuInput {
-    display: none;
-  }
+  .chatSubmitButton {
+    margin-top: 10px;
+    width: 100%;
+    height: 50px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    background-color: rgb(0, 130, 71);
+    color: white;
+}
+
+
+
+  .chatBoxBottom {
+    flex-direction: column;
+    border: none;
+    padding: 20px;
+    display: flex;
+    align-items: center;
+    background-color: #f9f9f9;
+    margin-top: 20px;
+}
+
+.chatMessageInput {
+  width: 100%;
+  flex-direction: column;
+  padding: 10px;
+  border: none;
+  outline: none;
+}
 
   .chatBox{
     flex: 10;
+    
   }
 
   .chatOnline{
@@ -96,3 +133,4 @@
 .activeUser {
   color: rgb(0, 103, 716); /* Or any other dark color you prefer */
 }
+

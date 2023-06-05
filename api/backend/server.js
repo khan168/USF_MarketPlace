@@ -4,7 +4,7 @@ const colors = require('colors')
 const jwt = require("jsonwebtoken");
 const connectDB = require('./config/db.js')
 const {errorHandler} = require('./middleware/errorMiddleware.js')
-const port = process.env.PORT
+const port = process.env.PORT || 5001
 
 // connecting the backend with frontend
 const cors =require("cors")
@@ -46,12 +46,12 @@ app.listen(port, () => console.log(`Server started on port ${port}`))
 
 //For Production
 
-const httpsServer = https.createServer({
-    key: fs.readFileSync('/etc/letsencrypt/live/bullsmarketplace.com/privkey.pem'),
-    cert: fs.readFileSync('/etc/letsencrypt/live/bullsmarketplace.com/fullchain.pem'),
-  }, app);
+// const httpsServer = https.createServer({
+//     key: fs.readFileSync('/etc/letsencrypt/live/bullsmarketplace.com/privkey.pem'),
+//     cert: fs.readFileSync('/etc/letsencrypt/live/bullsmarketplace.com/fullchain.pem'),
+//   }, app);
 
 
-httpsServer.listen(443, () => {
-    console.log('HTTPS Server running on port 443');
-});
+// httpsServer.listen(443, () => {
+//     console.log('HTTPS Server running on port 443');
+// });

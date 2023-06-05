@@ -12,10 +12,16 @@ require("./ChatPage.css");
 const Container = styled.div``;
 
 const Wrapper = styled.div`
-  height: calc(100vh - 410px);
-  padding: 50px;
+  height: calc(100vh - 130px);
+  overflow-y: auto;
+  /* height: 70vh; */
+  padding: 40px;
   display: flex;
   background-color: beige;
+  /* @media screen and (max-width: 850px) {
+    width: 100vw;
+  } */
+
 `;
 
 const Product = () => {
@@ -188,7 +194,7 @@ const Product = () => {
           </div>
         </div>
       </Wrapper>
-      <Footer />
+      {/* <Footer /> */}
     </Container>
   );
 };

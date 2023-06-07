@@ -27,7 +27,27 @@ const ConversationImg = styled.img`
 
 const ConversationName=styled.span`
 font-weight: 500;
+font-size: large;
 `
+
+const Read = styled.div`
+  border-radius: 50%;
+  width: 50px;
+  height: 50px;
+`
+
+const Lastmessage = styled.div`
+  @media screen and (max-width: 850px) {
+    display: none;
+  }
+  font-weight: 600;
+  width: 100%;
+  font-size: large;
+  /* margin-left: 100px; */
+  text-align: left;
+  color: ${(props) =>
+    props?.read === "true" ? "rgb(10,10,100)" : "rgb(100, 10, 10)"};
+`;
   
   
 
@@ -36,15 +56,25 @@ const Conversation = ({ conversationDetail,curr_user, activeUser}) => {
   // find the other user 
   // conversationDetail.to
   const user=conversationDetail.to._id === curr_user ? conversationDetail.from : conversationDetail.to;
+  const array = conversationDetail?.readby;
+  const readByCurrUser =array?.map((item) => item === curr_user).includes(true);
+  //message is mesage  in model
 
   return (
-    <Conversationdiv active={activeUser}>
-      <ConversationImg
-        src={user?.profileImage ? user?.profileImage : noAvatarsrc}
-        alt=""
-      />
-      <ConversationName >{user?.name}</ConversationName>
-    </Conversationdiv>
+    <>
+      <Conversationdiv active={activeUser}>
+        <ConversationImg
+          src={user?.profileImage ? user?.profileImage : noAvatarsrc}
+          alt=""
+        />
+        <ConversationName>{user?.name}</ConversationName>
+
+        {!readByCurrUser && <Read>New</Read>}
+      </Conversationdiv>
+      <Lastmessage read={toString(readByCurrUser)}>
+        {conversationDetail?.lastMesage}
+      </Lastmessage>
+    </>
   );
 };
 

@@ -1,5 +1,4 @@
 import styled from "styled-components";
-import Footer from "../components/Footer";
 import Navbar from "../components/Navbar";
 import Conversation from "../components/Conversation";
 import Message from "../components/Message";
@@ -27,23 +26,26 @@ const Wrapper = styled.div`
 const Product = () => {
   const location = useLocation();
   const searchParams = new URLSearchParams(location.search);
+
   const param1 = searchParams.get("param1");
+
   const id = localStorage.getItem("_id");
   const token = localStorage.getItem("token");
 
   const socket = useRef(); //web socket connection to server
   const [arrivalMessage, setArrivalMessage] = useState(null);
 
-  const [conversations, setConversations] = useState([]);
   const [currentChat, setCurrentChat] = useState(
     param1 !== null ? { chatid: param1 } : null
-  );
+    );
+
+  const [conversations, setConversations] = useState([]);   //conversations on the left side
   const [messages, setMessages] = useState([]); //get all messages from
   const [newText, setNewText] = useState(""); //set message from text box
   const scrollRef = useRef(); //reach chat box on message change
 
   useEffect(() => {
-    socket.current = io(`${process.env.REACT_APP_SOCKET}`);
+    socket.current = io(`${process.env.REACT_APP_SOCKET}`);   //connects client to socket server
     socket.current.on("getMessage", (data) => {
       setArrivalMessage({
         sender: data.senderId,
@@ -51,16 +53,55 @@ const Product = () => {
         createdAt: Date.now(),
       });
     });
+
+    return () => {
+      socket.current.off("getMessage");
+      socket.current.disconnect();
+    };
   }, []);
 
-  useEffect(() => {
-    arrivalMessage && (currentChat?.from._id === arrivalMessage.sender || currentChat?.to._id === arrivalMessage.sender) &&setMessages((prev) => [...prev, arrivalMessage]);
-  }, [arrivalMessage, currentChat, id]);
+
+
+  //updates the message state and conversations state on getting message from socket server which causes arrival message to update
+
+ useEffect(() => {
+  
+   arrivalMessage &&
+     (currentChat?.from._id === arrivalMessage.sender ||
+       currentChat?.to._id === arrivalMessage.sender) &&
+     setMessages((prev) => [...prev, arrivalMessage]);
+
+   const chatToUpdate =
+     id < arrivalMessage?.sender
+       ? id + arrivalMessage?.sender
+       : arrivalMessage?.sender + id;
+
+   arrivalMessage &&
+     setConversations((prev) => {
+       //arrival check helps prevent update when conversation component is unmounted
+       return prev.map((item) => {
+         if (item?.chatid === chatToUpdate) {
+           return { ...item, readby: [], lastMesage: arrivalMessage?.desc };
+         }
+         return item;
+       });
+     });
+
+   // Clear the arrivalMessage
+   setArrivalMessage(null);
+ }, [arrivalMessage, currentChat, id]);
+
+
+
+
 
   useEffect(() => {
     socket.current.emit("addUser", id);
     socket.current.on("getUsers", (users) => console.log(users));
   }, [id]);
+
+
+
 
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -71,7 +112,7 @@ const Product = () => {
     };
 
     const receiverId =
-      currentChat?.to._id === id ? currentChat?.from._id : currentChat?.to._id; //logic to get reciever
+      currentChat?.to._id === id ? currentChat?.from._id : currentChat?.to._id; //logic to get reciever id
     
     socket.current.emit("sendMessage", {
       senderId: id,
@@ -89,8 +130,30 @@ const Product = () => {
           },
         }
       );
+
+      await axios.put(
+        `${process.env.REACT_APP_SERVER}api/chat/` + currentChat?.chatid,
+        {text:newText,id},
+        {
+          headers: {
+            Authorization: `Bearer ${token}`,
+          },
+        }
+      );
+      
+      //update the last sent message in the conversations
+      const updatedlist = conversations?.map((item) => {
+        if (item?.chatid === currentChat?.chatid) {
+          return { ...item, lastMesage: newText };
+        }
+        return item;
+      }); 
+
+      setConversations(updatedlist);  
+      
       setMessages([...messages, res.data]); //keep prev messages and add new message to UI and db
       setNewText("");
+      
     } catch (err) {
       console.log(err);
     }
@@ -114,7 +177,7 @@ const Product = () => {
   }, [token]);
 
   useEffect(() => {
-    // console.log(currentChat.chatid);
+    
     const getMessages = async () => {
       try {
         const res = await axios.get(`${process.env.REACT_APP_SERVER}api/message/` + currentChat?.chatid, {
@@ -147,7 +210,31 @@ const Product = () => {
             />
             <div>
               {conversations.map((c) => (
-                <div onClick={() => setCurrentChat(c)}>
+                <div onClick={async () => {
+                  if(c.readby.map((item) => item === id).includes(true)===false){
+                  console.log("here")
+                    //update in UI
+                    c.readby.push(id);
+                    console.log(c);
+                    setCurrentChat(c);
+
+                    //update using controller
+                    try{
+                      await axios.put(
+                        `${process.env.REACT_APP_SERVER}api/chat/` +
+                          c.chatid,
+                          {id:id},
+                        {
+                          headers: {
+                            Authorization: `Bearer ${token}`,
+                          },
+                        }
+                      );
+                    }catch(err){
+                      console.log(err);
+                    } 
+                  }else setCurrentChat(c);
+                  } }>
                   <Conversation conversationDetail={c} curr_user={id}  activeUser={currentChat?.chatid === c.chatid} />
                 </div>
               ))}

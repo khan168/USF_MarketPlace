@@ -19,11 +19,11 @@ const ChatSchema = mongoose.Schema(
     },
     lastMesage: {
       type: String,
-      default:"..."
+      default: "new chat"
     },
-    ReadByReciever:{
-        type: Boolean,
-        default:false
+    readby:{
+        type: Array,
+        default:[]
     }
   },
   {

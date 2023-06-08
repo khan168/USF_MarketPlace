@@ -282,7 +282,7 @@ const Product = () => {
         <InfoContainer>
         <TitleContainer>
           <Title>{item.title}</Title>
-          {likeCheckCompleted ? (
+          {likeCheckCompleted & token ? (
             liked ? (
               <FavoriteIcon onClick={handleLike} style={{ color: "red" ,fontSize: '40px' }} />
             ) : (

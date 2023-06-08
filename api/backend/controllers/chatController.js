@@ -33,18 +33,21 @@ const getChats = asyncHandler(async (req, res) => {
 // @access Private
 
 const findorcreateChat = asyncHandler(async (req, res,next) => {
-  const chat_id = req.user._id< req.body.to ? req.user._id + req.body.to : req.body.to + req.user._id;
+  const chat_id =
+    req.user._id < req.body.to
+      ? req.user._id + req.body.to
+      : req.body.to + req.user._id; //makes sure user1 and user2 chat is same as user2 and user1 chat
 
-  const foundChat = await Chat.find({chatid:chat_id});
-  if(foundChat.length!==0){
-      return res.status(200).send({oldchat:foundChat});
-  }else{
+  const foundChat = await Chat.find({ chatid: chat_id });
+  if (foundChat.length !== 0) {
+    return res.status(200).send({ oldchat: foundChat });
+  } else {
     const newChat = new Chat({
-      chatid: chat_id,  //makes sure user1 and user2 chat is same as user2 and user1 chat
+      chatid: chat_id,
       from: req.user._id,
       to: req.body.to,
     });
-    
+
     try {
       const nc = await newChat.save();
       res.status(201).send(nc);
@@ -65,22 +68,35 @@ const findorcreateChat = asyncHandler(async (req, res,next) => {
 // @access Private
 const updateChat = asyncHandler(async (req, res) => {
 
-  const found = await Chat.find({chatid:req.params.id}).populate("to");
+  // const found = await Chat.find({chatid:req.body.chatid});
 
-  const updatedChat = await Chat.findOneAndUpdate(
-    { chatid: req.params.id },
-    {
-      $set: {
-        ...(req.user._id.toString() === found[0].to._id.toString()
-          ? { ReadByReciever: true }
-          : { ReadByReciever: false }),
+  if(req.body.id && !req.body.text){
+    const updatedChat = await Chat.findOneAndUpdate(
+      { chatid: req.params.id },
+      {
+        $push: {
+          readby: req.body.id,
+        },
       },
-    },
-    { new: true }
-  );
-  res.status(200).send(updatedChat);
-});
-
+      { new: true }
+    );
+      res.status(200).send(updatedChat);
+  }else{
+    console.log("here");
+    const updatedChat = await Chat.findOneAndUpdate(
+      { chatid: req.params.id },
+      {
+        $set: {
+          lastMesage: req.body.text,
+          readby: [req.body.id],
+        },
+      },
+      { new: true }
+    );
+    res.status(200).send(updatedChat);
+  }
+    });
+    
 
 // @desc Delete chat
 // @route DELETE /api/chat/:id

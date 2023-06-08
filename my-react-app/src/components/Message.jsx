@@ -29,10 +29,11 @@ const MessageText = styled.p`
   background-color: #1877f2;
   color: white;
   max-width: 300px;
+  font-size: large;
 `;
 
 const MessageBottom = styled.div`
-  font-size: 12px;
+  font-size: 15px;
   margin-top: 10px;
 `;
 

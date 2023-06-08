@@ -2,24 +2,20 @@ const fs = require("fs");
 const https = require("https");
 const io = require("socket.io");
 
-const serverOptions = {
-  key: fs.readFileSync(
-    "/etc/letsencrypt/live/bullsmarketplace.com/privkey.pem"
-  ),
-  cert: fs.readFileSync(
-    "/etc/letsencrypt/live/bullsmarketplace.com/fullchain.pem"
-  ),
-};
+// const serverOptions = {
+//   key: fs.readFileSync(
+//     "/etc/letsencrypt/live/bullsmarketplace.com/privkey.pem"
+//   ),
+//   cert: fs.readFileSync(
+//     "/etc/letsencrypt/live/bullsmarketplace.com/fullchain.pem"
+//   ),
+// };
 
-const server = https.createServer(serverOptions);
-const socketServer = io(server, {
+// const server = https.createServer(serverOptions);
+
+const socketServer = require("socket.io")(8900, {
   cors: {
-    origin: [
-      "https://bullsmarketplace.netlify.app",
-      "https://main--bullsmarketplace.netlify.app",
-    ],
-    methods: ["GET", "POST"],
-    allowedHeaders: ["Content-Type", "Authorization"],
+    origin: "http://localhost:3000",
   },
 });
 
@@ -65,6 +61,6 @@ socketServer.on("connection", (socket) => {
   });
 });
 
-server.listen(8900, () => {
-  console.log("Socket.IO server is running on port 8900 (HTTPS)");
-});
+// server.listen(8900, () => {
+//   console.log("Socket.IO server is running on port 8900 (HTTPS)");
+// });

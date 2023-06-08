@@ -34,9 +34,7 @@ const Wrapper = styled.div`
   @media (min-width: 768px) { 
     flex-direction: row;
   }
-
-  }
-`;
+`
 
 const ImgContainer = styled.div`
   flex: 1;
@@ -179,7 +177,7 @@ const Product = () => {
     setloading(true)
      //create or find user
     try {
-      await axios.post("/api/chat/", {to:item?.user},{
+      await axios.post(`${process.env.REACT_APP_SERVER}api/chat/`, {to:item?.user},{
         headers: {
           Authorization: `Bearer ${token}`,
         },

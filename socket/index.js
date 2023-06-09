@@ -2,22 +2,22 @@ const fs = require("fs");
 const https = require("https");
 const io = require("socket.io");
 
-// const serverOptions = {
-//   key: fs.readFileSync(
-//     "/etc/letsencrypt/live/bullsmarketplace.com/privkey.pem"
-//   ),
-//   cert: fs.readFileSync(
-//     "/etc/letsencrypt/live/bullsmarketplace.com/fullchain.pem"
-//   ),
-// };
+const serverOptions = {
+  key: fs.readFileSync(
+    "/etc/letsencrypt/live/bullsmarketplace.com/privkey.pem"
+  ),
+  cert: fs.readFileSync(
+    "/etc/letsencrypt/live/bullsmarketplace.com/fullchain.pem"
+  ),
+};
 
-// const server = https.createServer(serverOptions);
+const server = https.createServer(serverOptions);
 
-const socketServer = require("socket.io")(8900, {
-  cors: {
-    origin: "http://localhost:3000",
-  },
-});
+// const socketServer = require("socket.io")(8900, {
+//   cors: {
+//     origin: "http://localhost:3000",
+//   },
+// });
 
 let users = [];
 
@@ -53,14 +53,16 @@ socketServer.on("connection", (socket) => {
     }
   });
 
-  // When disconnect
-  socket.on("disconnect", () => {
+
+
+// When disconnect
+socket.on("disconnect", () => {
     console.log("User disconnected");
     removeUser(socket.id);
     socketServer.emit("getUsers", users);
   });
 });
 
-// server.listen(8900, () => {
-//   console.log("Socket.IO server is running on port 8900 (HTTPS)");
-// });
+server.listen(8900, () => {
+  console.log("Socket.IO server is running on port 8900 (HTTPS)");
+});

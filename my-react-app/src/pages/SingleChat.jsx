@@ -42,13 +42,15 @@ const Product = () => {
   const [conversations, setConversations] = useState([]);   //conversations on the left side
   const [messages, setMessages] = useState([]); //get all messages from
   const [newText, setNewText] = useState(""); //set message from text box
+  const [searchTerm, setSearchTerm] = useState(""); //set search from search bar
+
   const scrollRef = useRef(); //reach chat box on message change
 
   useEffect(() => {
     socket.current = io(`${process.env.REACT_APP_SOCKET}`);   //connects client to socket server
     socket.current.on("getMessage", (data) => {
       setArrivalMessage({
-        sender: data.senderId,
+        user: data.senderId,
         desc: data.text,
         createdAt: Date.now(),
       });
@@ -67,8 +69,8 @@ const Product = () => {
  useEffect(() => {
   
    arrivalMessage &&
-     (currentChat?.from._id === arrivalMessage.sender ||
-       currentChat?.to._id === arrivalMessage.sender) &&
+     (currentChat?.from._id === arrivalMessage.user ||
+       currentChat?.to._id === arrivalMessage.user) &&
      setMessages((prev) => [...prev, arrivalMessage]);
 
    const chatToUpdate =
@@ -176,6 +178,9 @@ const Product = () => {
     getConversations();
   }, [token]);
 
+
+
+
   useEffect(() => {
     
     const getMessages = async () => {
@@ -197,6 +202,13 @@ const Product = () => {
     scrollRef.current?.scrollIntoView({ behavior: "smooth" });
   }, [messages]);
 
+
+  const filteredList = conversations?.filter(
+    (ele) =>
+      ele?.from.name.toLowerCase().includes(searchTerm?.toLowerCase()) ||
+      ele?.to.name.toLowerCase().includes(searchTerm?.toLowerCase())
+  );
+
   return (
     <Container>
       <Navbar />
@@ -206,16 +218,15 @@ const Product = () => {
             <input
               placeholder="Search for Sellers"
               className="chatMenuInput"
-              style={{ padding: "15px" }}
+              style={{ padding: "15px", fontSize:"20px" }}
+              onChange={(e)=>{setSearchTerm(e.target.value)}}
             />
             <div>
-              {conversations.map((c) => (
+              {filteredList.map((c) => (
                 <div onClick={async () => {
                   if(c.readby.map((item) => item === id).includes(true)===false){
-                  console.log("here")
                     //update in UI
                     c.readby.push(id);
-                    console.log(c);
                     setCurrentChat(c);
 
                     //update using controller
@@ -249,12 +260,10 @@ const Product = () => {
                   {messages.map((m) => (
                     <div
                       ref={scrollRef}
-                      onClick={() => {
-                        console.log(m);
-                      }}
                     >
                       <Message
                         message={m}
+                        id={id}
                         own={m.user === id ? "true" : "false"}
                         chat={currentChat}
                       />

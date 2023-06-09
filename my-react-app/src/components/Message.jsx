@@ -46,7 +46,7 @@ export default function Message({ message, own, chat }) {
       <MessageTop>
         <MessageImg
           src={
-            message?.user === chat?.to?._id
+            message?.user === chat.to?._id
               ? chat.to?.profileImage || noAvatarsrc
               : chat.from?.profileImage || noAvatarsrc
           }

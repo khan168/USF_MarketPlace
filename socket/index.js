@@ -13,11 +13,11 @@ const serverOptions = {
 
 const server = https.createServer(serverOptions);
 
-// const socketServer = require("socket.io")(8900, {
-//   cors: {
-//     origin: "http://localhost:3000",
-//   },
-// });
+const socketServer = require("socket.io")(server, {
+  cors: {
+    origin: "http://localhost:3000",
+  },
+});
 
 let users = [];
 

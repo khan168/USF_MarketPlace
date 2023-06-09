@@ -74,9 +74,9 @@ const Product = () => {
      setMessages((prev) => [...prev, arrivalMessage]);
 
    const chatToUpdate =
-     id < arrivalMessage?.sender
-       ? id + arrivalMessage?.sender
-       : arrivalMessage?.sender + id;
+     id < arrivalMessage?.user
+       ? id + arrivalMessage?.user
+       : arrivalMessage?.user + id;
 
    arrivalMessage &&
      setConversations((prev) => {

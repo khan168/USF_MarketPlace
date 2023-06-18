@@ -65,9 +65,8 @@ const Input = styled.input`
 
 const RedirectPass = () => {
   const params = useParams();
-  // const SERVER = "http://localhost:5001/";
 
-  // Access the parameters using the keys defined in your route
+  // Access the parameters defined in your route
   const { id, token } = params;
 
   const [found,setfound]=useState(false)
@@ -75,7 +74,7 @@ const RedirectPass = () => {
   const [message,setMessage] = useState("")
   const [password,setpass] = useState("")
   
-  // Use the parameters as needed
+  // additional check to see if user exits using param id
 
   useEffect(() => {
     const getUserandVerify = async () => {
@@ -85,7 +84,7 @@ const RedirectPass = () => {
         if (!res.data.user) {
           setfound(false);
         } else {
-          const secret = "abc@123" + res.data.user.password;
+          const secret = "abc@123" + res.data.user.password;    //if password was changed using link, can't access payload and will be taken care by api call
           await axios
             .post(`${process.env.REACT_APP_SERVER}api/verify`, {
               secret,
@@ -93,7 +92,7 @@ const RedirectPass = () => {
             })
             .then((res) => {
               console.log(res.data.result);
-              res.data.result === "true" ? setfound(true) : setfound(false);
+              res.data.result === "true" ? setfound(true) : setfound(false);  //endpoint verifies the token and sends back payload
               setloading(false);
             });
         }

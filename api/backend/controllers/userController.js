@@ -6,9 +6,9 @@ const nodemailer = require("nodemailer");
 require("dotenv").config({ path: "../api/.env" });
 
 
-// @desc Delete user data
-// @route DELETE /api/users/
-// @access Private
+// @desc reset user password
+// @route Update /api/users/:id
+// @access Public
 const resetpass = asyncHandler(async (req, res) => {
   const { email } = req.body;
   console.log(email);
@@ -16,16 +16,14 @@ const resetpass = asyncHandler(async (req, res) => {
   if (!user) {
     return res.send("User not registered");
   } else {
-    const secret = process.env.JWT_SECRET + user.password; //the password part makes sure user link is 1 time
-    console.log(secret);
+    const secret = process.env.JWT_SECRET + user.password; //password part in secret makes sure user link is 1 time as the secret key in token changes as pass changes so same token cant be verified with same link
     const payload = {
       email,
       id: user._id,
     };
     const token = jwt.sign(payload, secret, { expiresIn: "15m" });
-    const link = `http://localhost:3000/forgot-password/${user._id}/${token}`;
+    const link = `https://bullsmarketplace.netlify.app/forgot-password/${user._id}/${token}`;
 
-    console.log(link);
     //send link via email
     let transporter = nodemailer.createTransport({
       service: "gmail",

@@ -57,7 +57,7 @@ const Result = styled.h1`
 `;
 
 
-
+//this page verifies user email exits and makes api call to send link to their email if user exists
 const ForgotPass = () => {
   const [email, setEmail] = useState('');
   const [result, setResult] = useState('');
@@ -65,7 +65,10 @@ const ForgotPass = () => {
   const handleSubmit = async (e) => {
     e.preventDefault();
     try {
-      const res = await axios.post('http://localhost:5001/api/user/resetpass', { email });
+      const res = await axios.post(
+        `${process.env.REACT_APP_SERVER}api/user/resetpass`,    
+        { email }
+      );
       setResult(res.data);
     } catch (error) {
       if (error.response) {

@@ -25,6 +25,10 @@ const resetpass = asyncHandler(async (req, res) => {
     const token = jwt.sign(payload, secret, { expiresIn: "15m" });
     const link = `https://bullsmarketplace.netlify.app/forgot-password/${user._id}/${token}`;
 
+
+    console.log(process.env.PASS);
+    console.log(process.env.USER);
+
     let config = {
       service: "gmail",
       auth: {

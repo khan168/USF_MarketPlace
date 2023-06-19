@@ -2,18 +2,18 @@ const fs = require("fs");
 const https = require("https");
 const io = require("socket.io");
 
-// const serverOptions = {
-//   key: fs.readFileSync(
-//     "/etc/letsencrypt/live/bullsmarketplace.com/privkey.pem"
-//   ),
-//   cert: fs.readFileSync(
-//     "/etc/letsencrypt/live/bullsmarketplace.com/fullchain.pem"
-//   ),
-// };
+const serverOptions = {
+  key: fs.readFileSync(
+    "/etc/letsencrypt/live/bullsmarketplace.com/privkey.pem"
+  ),
+  cert: fs.readFileSync(
+    "/etc/letsencrypt/live/bullsmarketplace.com/fullchain.pem"
+  ),
+};
 
-const server = https.createServer();
+const server = https.createServer(serverOptions);
 
-const socketServer = require("socket.io")({
+const socketServer = require("socket.io")(server,{
   cors: {
     origin: "http://localhost:3000",
   },

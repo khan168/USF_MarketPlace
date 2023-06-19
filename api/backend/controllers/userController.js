@@ -6,6 +6,7 @@ const nodemailer = require("nodemailer");
 require("dotenv").config({ path: "../api/.env" });
 
 
+
 // @desc reset user password
 // @route Update /api/users/:id
 // @access Public
@@ -24,18 +25,17 @@ const resetpass = asyncHandler(async (req, res) => {
     const token = jwt.sign(payload, secret, { expiresIn: "15m" });
     const link = `https://bullsmarketplace.netlify.app/forgot-password/${user._id}/${token}`;
 
-    //send link via email
-    let transporter = nodemailer.createTransport({
+    let config = {
       service: "gmail",
       auth: {
-        type: "OAuth2",
-        user: "bullsmarketplace@gmail.com",
+        user: process.env.USER,
         pass: process.env.PASS,
-        clientId: process.env.CLIENTID,
-        clientSecret: process.env.CLIENTSECRET,
-        refreshToken: process.env.REFRESHTOKEN,
       },
-    });
+    };
+
+    let transporter = nodemailer.createTransport(config);
+
+    
 
     let mailOptions = {
       from: process.env.USER,

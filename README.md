@@ -16,14 +16,13 @@ Whenever a user logs out, we clear the token from the local storage of the brows
 
 ### Forgot password feature
 
-![forgpass](https://github.com/khan168/USF_MarketPlace/assets/87687164/fe8879cb-6b80-4c65-a9b7-dd734a5001ca)
 
 
- An extension to the life cycle of our authentication is the forget password feature. To deal with that, we have the user mention their email. If the email is registered to our app, we send the user a one-time link to their email which re-routes them to the forget password page on our client server.
+An extension to the life cycle of our authentication is the forget password feature. To deal with that, we have the user mention their email. If the email is registered to our app, we send the user a one-time link to their email which re-routes them to the forget password page on our client server.
 
 
 
-### One time link
+#### One time link
 
 ![link](https://github.com/khan168/USF_MarketPlace/assets/87687164/1e74aae6-6638-4691-aafc-f294b13831ed)
 

@@ -5,6 +5,7 @@ const jwt = require("jsonwebtoken");
 const connectDB = require('./config/db.js')
 const {errorHandler} = require('./middleware/errorMiddleware.js')
 const port = process.env.PORT || 5001
+const axios = require("axios")
 
 // connecting the backend with frontend
 const cors =require("cors")
@@ -38,6 +39,25 @@ app.use("/api/verify",async (req,res)=>{
             res.send({result:"false"})
         }
 })
+
+
+
+app.use("/api/course/:name", (req, res) => {
+  const axios = require("axios");
+  const name = req.params.name;
+
+  axios
+    .get(`https://server.bullscourses.com/courses/${name}`)
+    .then((response) => {
+      // Return the response data as it is
+      res.send(response.data);
+    })
+    .catch((error) => {
+      // Handle the error
+      console.error(error);
+      res.status(500).send("Internal Server Error");
+    });
+});
 
 // custom error handler
 app.use(errorHandler)

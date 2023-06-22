@@ -134,15 +134,14 @@ const loginUser = asyncHandler(async (req, res) => {
 // @desc Logout user
 // @route GET /api/users/logout
 // @access Private
-const logoutUser = asyncHandler(async (req, res) => {   //made it synch by removing JWT token from frontend
+const logoutUser = asyncHandler(async (req, res) => {
+  //made it synch by removing JWT token from frontend
   // Replace the JWT with a blank string that expires in 1 second
   // const blankToken = jwt.sign({ id: "" }, "", {
   //   expiresIn: "1s",
   // });
-
   // // Set the new token as the authorization header
   // req.headers.authorization = `Bearer ${blankToken}`;
-
   // res.json({ message: "User logged out successfully" });
 });
 
@@ -164,12 +163,10 @@ const getUser = asyncHandler(async (req, res) => {
 });
 
 const getUserById = asyncHandler(async (req, res) => {
-  const user = await User.findById(
-    req.params.id
-  );
+  const user = await User.findById(req.params.id);
 
   res.status(200).json({
-    user
+    user,
   });
 });
 

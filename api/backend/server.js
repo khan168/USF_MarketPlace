@@ -10,6 +10,9 @@ const axios = require("axios")
 // connecting the backend with frontend
 const cors =require("cors")
 
+//counter
+const Counter = require('./models/bulls4Courses'); // Assuming you have a separate file for the Counter model
+
 
 const https = require('https');
 const fs = require('fs');
@@ -41,6 +44,36 @@ app.use("/api/verify",async (req,res)=>{
 })
 
 
+//endpoint for bulls4courses
+
+//endpoint generate counter
+
+app.use("/api/coursegenerate", async (req,res) =>{
+    
+  try {
+    // Find the counter document
+    let counter = await Counter.findOne();
+
+    if (!counter) {
+      // Create a new counter if it doesn't exist
+      counter = await Counter.create({});
+    }
+    
+     // Increment the count
+     counter.count++;
+     await counter.save();
+     res.json({ count: counter.count });
+
+  }
+  catch (error) {
+    // Handle the error
+    console.error(error);
+    res.status(500).send('Internal Server Error');
+  }
+})
+
+//endpoint generate classes
+
 
 app.use("/api/course/:name", (req, res) => {
   const axios = require("axios");
@@ -58,6 +91,7 @@ app.use("/api/course/:name", (req, res) => {
       res.status(500).send("Internal Server Error");
     });
 });
+
 
 // custom error handler
 app.use(errorHandler)

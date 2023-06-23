@@ -11,18 +11,23 @@ import RestartAltIcon from "@mui/icons-material/RestartAlt";
 import ReactLoading from 'react-loading';
 import { useEffect, useState, useRef } from "react";
 import axios from "axios";
+import { colors } from "@mui/material";
 
 const Wrapper = styled.div`
   display: flex;
   /* margin-top: 50px; */
   height: calc(100vh - 50px);
   font-family: "Playfair", serif;
+  justify-content: center;
 `;
 
 const Left = styled.div`
   padding: 20px;
   width: 10%;
   background-color: rgb(207, 196, 147);
+  // display: flex;
+  // flex-direction:column;
+  // align-content: center;
   
 `;
 
@@ -44,16 +49,17 @@ const Right = styled.div`
 const Filter = styled.div`
 display: flex;
 flex-direction:column;
-justify-content: space-evenly;
-margin-bottom: 20px;
+justify-content: center;
+margin-bottom: 5px;
 `
 
 const Select = styled.select`
-  width: 80%;
-  padding: 10px;
+  width: 100%;
+  padding: 5px 5px 5px 5px;
   border: 1px solid #ccc;
   border-radius: 4px;
-  margin-bottom: 10px;
+  text-align:center;
+  -webkit-appearance: none;
 `;
 
 //for spinner
@@ -167,26 +173,53 @@ const Home = () => {
                 fontWeight: "bold",
               }}
             >
-              Amount
+              Price
             </span>
+            <div style={{
+              display:"flex",
+              justifyContent:"space-around",
+              alignContent: "center",
+              flexWrap:"wrap"
+              }}>
             <input
-              style={{ padding: "5px", marginBottom: "5px",textDecoration: "none" }}
+              style={{ 
+                padding: "5px", 
+                marginBottom: "5px",
+                width:"50px", 
+                // border:"none",
+                borderWidth:"0.5px",
+                borderRadius:"4px",
+              }}
               ref={minRef}
               type="number"
               placeholder="min"
             />
+            {/* <p style={{fontWeight: "bold",}}> to </p> */}
             <input
-              style={{ padding: "5px", marginBottom: "5px" }}
+              style={{
+                padding: "5px", 
+                marginBottom: "5px",
+                width:"50px", 
+                // border:"none",
+                borderWidth:"0.5px",
+                borderRadius:"4px",
+              }}
               ref={maxRef}
               type="number"
               placeholder="max"
             />
-            <button onClick={HandleFilter} style={{ padding: "5px" }}>
+            </div>
+            <button onClick={HandleFilter} style={{
+               padding: "5px",
+               backgroundColor: "white",
+               border: "none",
+               borderRadius: "4px",
+               }}>
               Apply
             </button>
           </Filter>
           <Select name="category" onChange={HandleSelect} required>
-            <option value="">Sort By</option>
+            <option value="">Sort</option>
             <option value="pricel">Price: Low to High</option>
             <option value="priceh">Price: High to Low</option>
             <option value="createdAt">Latest Posting</option>

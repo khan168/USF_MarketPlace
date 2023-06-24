@@ -11,7 +11,6 @@ import RestartAltIcon from "@mui/icons-material/RestartAlt";
 import ReactLoading from 'react-loading';
 import { useEffect, useState, useRef } from "react";
 import axios from "axios";
-import { colors } from "@mui/material";
 
 const Wrapper = styled.div`
   display: flex;

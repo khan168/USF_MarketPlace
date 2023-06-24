@@ -29,15 +29,26 @@ const resetpass = asyncHandler(async (req, res) => {
     console.log(process.env.PASS);
     console.log(process.env.USER);
 
-    let config = {
+    // let config = {
+    //   service: "gmail",
+    //   auth: {
+    //     user: process.env.USER,
+    //     pass: process.env.PASS,
+    //   },
+    // };
+
+    let transporter = nodemailer.createTransport({
       service: "gmail",
+      host: "smtp.gmail.com",
+      port: 465,
+      secure: true,
       auth: {
         user: process.env.USER,
         pass: process.env.PASS,
       },
-    };
+    });
 
-    let transporter = nodemailer.createTransport(config);
+    // let transporter = nodemailer.createTransport(config);
 
     
 

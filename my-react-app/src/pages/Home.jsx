@@ -24,6 +24,7 @@ const Left = styled.div`
   padding: 20px;
   width: 10%;
   background-color: rgb(207, 196, 147);
+  min-width: 90px;
   // display: flex;
   // flex-direction:column;
   // align-content: center;
@@ -178,16 +179,15 @@ const Home = () => {
               display:"flex",
               justifyContent:"space-around",
               alignContent: "center",
-              flexWrap:"wrap"
               }}>
             <input
               style={{ 
                 padding: "5px", 
                 marginBottom: "5px",
-                width:"50px", 
-                // border:"none",
+                width:"50%",
                 borderWidth:"0.5px",
                 borderRadius:"4px",
+                boxSizing:"border-box",
               }}
               ref={minRef}
               type="number"
@@ -198,10 +198,10 @@ const Home = () => {
               style={{
                 padding: "5px", 
                 marginBottom: "5px",
-                width:"50px", 
-                // border:"none",
+                width:"50%", 
                 borderWidth:"0.5px",
                 borderRadius:"4px",
+                boxSizing:"border-box"
               }}
               ref={maxRef}
               type="number"

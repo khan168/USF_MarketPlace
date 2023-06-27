@@ -4,7 +4,21 @@ works by connecting buyers to sellers and help both parties get what they want d
 
 ## What it does?
 
+<p>USF MarketPlace  is a classified ad website exclusively designed for University of South Florida (USF) students. It provides a secure and convenient platform for USF students to post and browse classified advertisements for various goods and services within their university community.</p>
+
+# Key Features</h2>
+
+<ul>
+  <li><strong>Exclusive Access:</strong> Only students with a valid USF email address can register and access the app, ensuring a safe and trusted environment for transactions.</li>
+  <li><strong>Posting Ads:</strong> USF students can easily create and post classified ads for items they want to sell, trade, or buy. This includes textbooks, electronics, furniture, housing rentals, event tickets, and more.</li>
+  <li><strong>Search and Filters:</strong> Users can search for specific items or browse through different categories. Filters allow them to refine their search based on price range, location, or other relevant criteria.</li>
+  <li><strong>User Profiles:</strong> Each user can create a profile with their name, contact information, and a brief description. Profiles help build trust and familiarity among users.</li>
+  <li><strong>Communication:</strong> The app enables direct messaging between buyers and sellers, allowing them to negotiate prices, arrange meetups, or ask questions about the listed items.</li>
+  <li><strong>Safety Measures:</strong> To ensure the safety of the USF student community, the app enforces strict user authentication and moderation policies. Users are encouraged to report any suspicious or inappropriate content.</li>
+</ul>
+
 ## How it does it?
+
 
 
 ## Authentication & Authorization

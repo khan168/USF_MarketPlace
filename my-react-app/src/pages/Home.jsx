@@ -5,21 +5,19 @@ import Products from "../components/Products";
 import Footer from "../components/Footer";
 import CheckroomIcon from "@mui/icons-material/Checkroom";
 import ChairIcon from "@mui/icons-material/Chair";
-import DriveEtaIcon from '@mui/icons-material/DriveEta';
-import HomeIcon from '@mui/icons-material/Home';
-import BookIcon from '@mui/icons-material/Book';
-import DesignServicesIcon from '@mui/icons-material/DesignServices';
+import DriveEtaIcon from "@mui/icons-material/DriveEta";
+import HomeIcon from "@mui/icons-material/Home";
+import BookIcon from "@mui/icons-material/Book";
+import DesignServicesIcon from "@mui/icons-material/DesignServices";
 import SpeakerIcon from "@mui/icons-material/Speaker";
 import MoreHorizIcon from "@mui/icons-material/MoreHoriz";
 import RestartAltIcon from "@mui/icons-material/RestartAlt";
-import ReactLoading from 'react-loading';
+import ReactLoading from "react-loading";
 import { useEffect, useState, useRef } from "react";
 import axios from "axios";
 
 const Wrapper = styled.div`
-  display: flex;
-  /* margin-top: 50px; */
-  height: calc(100vh - 50px);
+  position: static;
   font-family: "Playfair", serif;
   justify-content: center;
 `;
@@ -29,15 +27,16 @@ const Left = styled.div`
   width: 10%;
   background-color: rgb(207, 196, 147);
   min-width: 90px;
-  // display: flex;
-  // flex-direction:column;
-  // align-content: center;
-  
+  position: fixed;
+  left: 0px;
+  top: 60px;
+  z-index: 10;
 `;
 
 const IconsPanel = styled.div`
   width: 100%;
-  height: 100%;
+  /* height: 100%; */
+  height: 100vh;
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -47,22 +46,24 @@ const Right = styled.div`
   flex-grow: 2; /* Allow the scrollable content to grow and fill the remaining space */
   overflow-y: auto; /* Enable vertical scrolling */
   background-color: white;
-
+  margin-left: 150px;
+  justify-content: center;
+  align-items: center;
 `;
 
 const Filter = styled.div`
-display: flex;
-flex-direction:column;
-justify-content: center;
-margin-bottom: 5px;
-`
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  margin-bottom: 5px;
+`;
 
 const Select = styled.select`
   width: 100%;
   padding: 5px 5px 5px 5px;
   border: 1px solid #ccc;
   border-radius: 4px;
-  text-align:center;
+  text-align: center;
   -webkit-appearance: none;
 `;
 

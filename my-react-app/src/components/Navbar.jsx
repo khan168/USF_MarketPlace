@@ -15,6 +15,9 @@ const Container = styled.div`
   height: 60px;
   background-color: rgb(0, 103, 71);
   color: white;
+  position: fixed;
+  width: 100vw;
+  z-index: 10;
   @media (max-width: 768px) {
     height: auto;
   }

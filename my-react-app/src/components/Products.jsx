@@ -10,7 +10,8 @@ const Container = styled.div`
   padding: 20px;
   display: flex;
   flex-wrap: wrap;
-  justify-content: left;
+  justify-content: center;
+  margin-top: 60px;
   @media (max-width: 767px) {
     justify-content: center;
   }

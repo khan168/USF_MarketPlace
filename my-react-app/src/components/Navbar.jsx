@@ -55,6 +55,7 @@ const Center = styled.div`
 `;
 
 const Right = styled.div`
+  margin-right: 10px;
   flex: 1;
   display: flex;
   align-items: center;
@@ -171,32 +172,7 @@ const Navbar = ({term,setTerm}) => {
     } 
   }, [_id,isTokenValid]);
 
-   /*
 
-   THIS CODE SHOULD BE IN THE CLIENT SIDE
-
-   */
-
-  
-
-  // useEffect(() => {
-  //   const token = localStorage.getItem('token'); // get the token from local storage
-
-  //   try {
-  //     const payload = jwt.decode(token); // decode the token to get the payload
-  //     const currentTime = Date.now() / 1000; // get the current time in seconds
-
-  //     if (payload.exp < currentTime) {
-  //       // token is expired
-  //       setIsTokenValid(false);
-  //     } else {
-  //       // token is not expired
-  //       setIsTokenValid(true);
-  //     }
-  //   } catch (e) {
-  //     setIsTokenValid(false);
-  //   }
-  // }, []);
   
 
    const HandleLogout= async (e) => {

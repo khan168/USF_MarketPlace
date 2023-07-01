@@ -327,8 +327,12 @@ function Popup({ setOpenPopup }) {
             <option value="">Select category</option>
             <option value="Clothing">Clothing</option>
             <option value="Electronics">Electronics</option>
-            <option value="Furniture">Cars</option>
+            <option value="Furniture">Furniture</option>
             <option value="Miscellaneous">Miscellaneous</option>
+            <option value="Lease/subleases">Lease/subleases</option>
+            <option value="Selling Services">Selling Services</option>
+            <option value="Auto">Auto</option>
+            <option value="Book">Book</option>
           </Select>
           {
               loading ? (

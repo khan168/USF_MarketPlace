@@ -7,13 +7,7 @@ import ReactLoading from "react-loading";
 import { useState } from "react";
 import Leftbar from "../components/Leftbar";
 
-const Wrapper = styled.div`
-  display: flex;
-  /* margin-top: 50px; */
-  height: calc(100vh - 50px);
-  font-family: "Playfair", serif;
-  justify-content: center;
-`;
+
 
 const Right = styled.div`
   flex-grow: 2; /* Allow the scrollable content to grow and fill the remaining space */
@@ -29,12 +23,7 @@ const LoadingWrapper = styled.div`
   height: 100%;
 `;
 
-const Footerpusher = styled.div`
-  width: 10vw;
-  @media (max-width: 767px) {
-    width: 12vw;
-  }
-`;
+
 
 const Home = () => {
   // const user = localStorage.getItem("token");

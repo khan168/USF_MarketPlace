@@ -5,6 +5,10 @@ import Products from "../components/Products";
 import Footer from "../components/Footer";
 import CheckroomIcon from "@mui/icons-material/Checkroom";
 import ChairIcon from "@mui/icons-material/Chair";
+import DriveEtaIcon from '@mui/icons-material/DriveEta';
+import HomeIcon from '@mui/icons-material/Home';
+import BookIcon from '@mui/icons-material/Book';
+import DesignServicesIcon from '@mui/icons-material/DesignServices';
 import SpeakerIcon from "@mui/icons-material/Speaker";
 import MoreHorizIcon from "@mui/icons-material/MoreHoriz";
 import RestartAltIcon from "@mui/icons-material/RestartAlt";
@@ -131,8 +135,29 @@ const Home = () => {
     setCat("");
     
   };
+  const HandleClickAuto = () => {
+    minRef.current.value = null;
+    maxRef.current.value = null;
+    setCat("Auto");
+  };
 
+  const HandleClickLease = () => {
+    minRef.current.value = null;
+    maxRef.current.value = null;
+    setCat("Lease/subleases");
+  };
 
+  const HandleClickSellingServices = () => {
+    minRef.current.value = null;
+    maxRef.current.value = null;
+    setCat("Selling Services");
+  };
+
+  const HandleClickBook = () => {
+    minRef.current.value = null;
+    maxRef.current.value = null;
+    setCat("Book");
+  };
 
 
   const HandleFilter = async()=>{
@@ -230,6 +255,7 @@ const Home = () => {
               onClick={HandleClickRestart}
               style={{ marginBottom: "60px", marginTop: "50px" }}
             ></RestartAltIcon>
+            <div onClick={HandleClickClothes}>Clothing</div>
             <CheckroomIcon
               fontSize="large"
               category="Clothing"
@@ -237,6 +263,7 @@ const Home = () => {
               value="Clothing"
               style={{ marginBottom: "60px" }}
             ></CheckroomIcon>
+            <div onClick={HandleClickFur}>Furniture</div>
             <ChairIcon
               fontSize="large"
               category="Furniture"
@@ -244,17 +271,47 @@ const Home = () => {
               value="Furniture"
               style={{ marginBottom: "60px" }}
             ></ChairIcon>
+            <div onClick={HandleClickE}>Electornics</div>
             <SpeakerIcon
               fontSize="large"
               category="Electronics"
               onClick={HandleClickE}
               style={{ marginBottom: "60px" }}
             ></SpeakerIcon>
+            <div onClick={HandleClickAuto}>Auto</div>
+            <DriveEtaIcon
+             fontSize="large"
+             onClick={HandleClickAuto}
+             style={{ marginBottom: "60px" }}
+             >
+            </DriveEtaIcon>
+            <div onClick={HandleClickLease}>Leases</div>
+            <HomeIcon
+             fontSize="large"
+             onClick={HandleClickLease}
+             style={{ marginBottom: "60px" }}
+             >
+            </HomeIcon>
+            <div onClick={HandleClickBook}>Book</div>
+            <BookIcon
+            fontSize="large"
+            onClick={HandleClickBook}
+            style={{ marginBottom: "60px" }}>
+            </BookIcon>
+            <div onClick={HandleClickSellingServices}>Selling Services</div>
+            <DesignServicesIcon
+            fontSize="large"
+            onClick={HandleClickSellingServices}
+            style={{ marginBottom: "60px" }}>
+            </DesignServicesIcon>
+            <div  onClick={HandleClickMis}>Miscellaneous</div>
             <MoreHorizIcon
               fontSize="large"
               onClick={HandleClickMis}
               style={{ marginBottom: "60px" }}
             ></MoreHorizIcon>
+
+
           </IconsPanel>
         </Left>
         <Right>

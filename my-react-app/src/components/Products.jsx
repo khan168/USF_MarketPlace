@@ -7,12 +7,14 @@ import Product from "./Product";
 
 
 const Container = styled.div`
+  width: 90vw;
   padding: 20px;
   display: flex;
   flex-wrap: wrap;
-  justify-content: left;
+  justify-content: center;
   @media (max-width: 767px) {
     justify-content: center;
+    width: 67vw;
   }
 `;
 

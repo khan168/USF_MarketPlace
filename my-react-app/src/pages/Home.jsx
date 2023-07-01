@@ -22,6 +22,9 @@ const Right = styled.div`
   margin-left: 150px;
   justify-content: center;
   align-items: center;
+  @media (max-width: 767px) {
+    margin-left: 100px;
+  }
 `;
 
 

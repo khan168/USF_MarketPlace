@@ -15,13 +15,13 @@ const Left = styled.div`
   padding: 20px;
   width: 10%;
   background-color: rgb(207, 196, 147);
-  min-width: 90px;
   position: fixed;
   left: 0px;
   top: 60px;
   z-index: 10;
-  @media (max-width: 767px){
-    top:145.6px;
+  @media (max-width: 767px) {
+    top: 128.8px;
+    width: 12%;
   }
 `;
 

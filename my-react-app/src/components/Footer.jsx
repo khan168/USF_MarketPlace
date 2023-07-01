@@ -8,6 +8,7 @@ const Container = styled.div`
   /* flex-direction: column; */
   background-color: rgb(0, 103, 71);
   color: white;
+  margin-left: 12%;
 `;
 
 const Left = styled.div`
@@ -35,8 +36,7 @@ const Center = styled.div`
   text-align: center;
   margin-bottom: 20px;
   @media (max-width: 768px) {
-    height: 30vh;
-    
+    height: 4vh;
   }
 `;
 
@@ -51,7 +51,6 @@ const List = styled.ul`
   padding: 0;
   list-style: none;
   display: flex;
-  margin-left: 18vw;
 `;
 
 

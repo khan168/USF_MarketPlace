@@ -5,7 +5,7 @@ import Products from "../components/Products";
 import Footer from "../components/Footer";
 import ReactLoading from "react-loading";
 import { useState } from "react";
-import Leftbar from "../components/Leftbar.js";
+import Leftbar from "../components/Leftbar";
 
 
 

@@ -98,14 +98,14 @@ app.use(errorHandler)
 
 app.listen(port, () => console.log(`Server started on port ${port}`))
 
-//For Production
+// For Production
 
-// const httpsServer = https.createServer({
-//     key: fs.readFileSync('/etc/letsencrypt/live/bullsmarketplace.com/privkey.pem'),
-//     cert: fs.readFileSync('/etc/letsencrypt/live/bullsmarketplace.com/fullchain.pem'),
-//   }, app);
+const httpsServer = https.createServer({
+    key: fs.readFileSync('/etc/letsencrypt/live/bullsmarketplace.com/privkey.pem'),
+    cert: fs.readFileSync('/etc/letsencrypt/live/bullsmarketplace.com/fullchain.pem'),
+  }, app);
 
 
-// httpsServer.listen(443, () => {
-//     console.log('HTTPS Server running on port 443');
-// });
+httpsServer.listen(443, () => {
+    console.log('HTTPS Server running on port 443');
+});

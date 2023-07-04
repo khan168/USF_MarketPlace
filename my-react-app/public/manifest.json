@@ -1,0 +1,43 @@
+{
+    "name": "Bulls Buy",
+    "short_name": "Bulls Buy",
+    "theme_color": "#f7f7f7",
+    "background_color": "#ffffff",
+    "display": "standalone",
+    "scope": "/",
+    "start_url": "/",
+    "icons": [
+        {
+            "src": "maskable.png",
+            "sizes": "196x196",
+            "type": "image/png",
+            "purpose": "any maskable"
+            
+
+        },
+        {
+            "src" : "192.jpg",
+            "sizes": "192x192",
+            "type": "image/jpg"
+
+        },
+        {
+            "src" : "256.jpg",
+            "sizes": "256x256",
+            "type": "image/jpg"
+        },
+        {
+            "src" : "384.jpg",
+            "sizes": "384x384",
+            "type": "image/jpg"
+        },
+        {
+            "src" : "512.png",
+            "sizes": "512x512",
+            "type": "image/png"
+        }
+        
+],
+ "splash_screen": true
+
+  }

@@ -24,6 +24,7 @@ const LoadingWrapper = styled.div`
 `;
 
 
+
 const Home = () => {
   // const user = localStorage.getItem("token");
   const [list, setList] = useState([]);

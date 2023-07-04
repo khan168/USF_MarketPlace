@@ -19,9 +19,10 @@ import axios from "axios";
 const Wrapper = styled.div`
   display: flex;
   /* margin-top: 50px; */
-  height: calc(100vh - 50px);
+  height: calc(100vh - 40px);
   font-family: "Playfair", serif;
   justify-content: center;
+  overflow-y: hidden;
 `;
 
 const Left = styled.div`
@@ -47,7 +48,7 @@ const Right = styled.div`
   flex-grow: 2; /* Allow the scrollable content to grow and fill the remaining space */
   overflow-y: auto; /* Enable vertical scrolling */
   background-color: white;
-
+  min-height: 100%;
 `;
 
 const Filter = styled.div`
@@ -329,9 +330,11 @@ const Home = () => {
           ) : (
             <Products list={filteredList}></Products>
           )}
+                <Footer></Footer>
+
         </Right>
       </Wrapper>
-      <Footer></Footer>
+
     </div>
   );
 };

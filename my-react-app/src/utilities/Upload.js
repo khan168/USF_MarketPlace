@@ -6,7 +6,10 @@ const upload = async (file) => {
   data.append("upload_preset", "USFMarketPlace");
 
   try {
-    const res = await axios.post("https://api.cloudinary.com/v1_1/dsm38xikk/image/upload", data);
+    const res = await axios.post("https://api.cloudinary.com/v1_1/dsm38xikk/image/upload", data, {
+      // Set the `secure` option to true
+      secure: true
+    });
     const { url } = res.data;
     return url;
   } catch (err) {

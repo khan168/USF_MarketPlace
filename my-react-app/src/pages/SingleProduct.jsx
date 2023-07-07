@@ -143,7 +143,7 @@ const Product = () => {
   useEffect(() => {
     const fetchdata = async () => {
       await axios
-        .get(`${process.env.REACT_APP_SERVER}}api/items/${id}`, {
+        .get(`${process.env.REACT_APP_SERVER}api/items/${id}`, {
           headers: {
             Authorization: `Bearer ${token}`,
           },
@@ -280,7 +280,7 @@ const Product = () => {
         <InfoContainer>
         <TitleContainer>
           <Title>{item.title}</Title>
-          {likeCheckCompleted & token ? (
+          {likeCheckCompleted && token  ? (
             liked ? (
               <FavoriteIcon onClick={handleLike} style={{ color: "red" ,fontSize: '40px' }} />
             ) : (
